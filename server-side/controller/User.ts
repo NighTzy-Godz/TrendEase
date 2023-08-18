@@ -6,6 +6,21 @@ import {
   userRegisterValidator,
 } from "../validators/UserValidator";
 
+export async function userGetData(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const user = await User.findOne({ _id: (req as any).user._id });
+    if (!user) return res.status(404).send("User did not found");
+
+    res.send(user);
+  } catch (error) {
+    next(error);
+  }
+}
+
 export async function userRegister(
   req: Request,
   res: Response,
