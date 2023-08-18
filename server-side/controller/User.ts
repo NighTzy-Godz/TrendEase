@@ -1,7 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import User from "../models/User";
 import bcrypt from "bcrypt";
-import { userRegisterValidator } from "../validators/UserValidator";
+import {
+  userLoginValidator,
+  userRegisterValidator,
+} from "../validators/UserValidator";
 
 export async function userRegister(
   req: Request,
@@ -29,6 +32,35 @@ export async function userRegister(
     await user.save();
 
     res.send(user);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function userLogin(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { email, password } = req.body;
+
+    const { error } = userLoginValidator(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).send("User did not found");
+
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword)
+      return res.status(401).send("Credentials did not match");
+
+    const token = user.genereateAuthToken();
+
+    res
+      .header("x-auth-token", token)
+      .header("acces-control-expose-headers", "x-auth-token")
+      .send(user);
   } catch (error) {
     next(error);
   }
