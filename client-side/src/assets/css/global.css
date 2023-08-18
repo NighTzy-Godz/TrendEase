@@ -1,0 +1,61 @@
+@font-face {
+  font-family: gelion_bold;
+  src: url("../fonts/Gelion Bold.ttf");
+}
+
+@font-face {
+  font-family: gelion_reg;
+  src: url("../fonts/Gelion Regular.ttf");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-color-: #111111;
+  --sub-color: #2f2f2f;
+  --text-color: #f6f6f6;
+  --main-color: #ffcb74;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: gelion_bold;
+}
+
+p,
+a,
+input,
+button,
+small,
+li,
+label {
+  font-family: gelion_reg;
+}
+
+p {
+  line-height: 1.5;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style-type: none;
+}
+
+@media screen and (min-width: 1200px) {
+  .container {
+    max-width: 1700px;
+    width: 85%;
+    margin: 0 auto;
+  }
+}
