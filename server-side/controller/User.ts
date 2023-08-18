@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import User from "../models/User";
 import bcrypt from "bcrypt";
+import { userRegisterValidator } from "../validators/UserValidator";
 
 export async function userRegister(
   req: Request,
@@ -9,6 +10,9 @@ export async function userRegister(
 ) {
   try {
     const { first_name, last_name, email, phone, password } = req.body;
+
+    const { error } = userRegisterValidator(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
 
     const exisitingUser = await User.findOne({ email });
     if (exisitingUser)
