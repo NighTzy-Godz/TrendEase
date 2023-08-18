@@ -1,0 +1,107 @@
+import mongoose, { Schema, Document } from "mongoose";
+
+const DB_URL = "mongodb://localhost:27017/trendease";
+(async () => {
+  try {
+    await mongoose.connect(DB_URL);
+    console.log("Connected to Database - Product");
+  } catch (error) {
+    console.log("Error on Product ", error);
+  }
+})();
+
+enum ProductCategory {
+  Electronics = "electronics",
+  Fashion = "fashion",
+  Appliances = "appliances",
+  Apparel = "apparel",
+  Instruments = "instruments",
+  Sports = "sports",
+  HealthAndBeauty = "health and beauty",
+}
+
+interface IProduct extends Document {
+  availabilty: boolean;
+  title: string;
+  images: string[];
+  desc: string;
+  price: number;
+  quantity: number;
+  ratings: number;
+  category: ProductCategory;
+  reviews: mongoose.Schema.Types.ObjectId[];
+  owner: mongoose.Schema.Types.ObjectId;
+  relatedProducts: mongoose.Schema.Types.ObjectId[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const productSchema: Schema<IProduct> = new mongoose.Schema(
+  {
+    availabilty: {
+      type: Boolean,
+      default: true,
+    },
+
+    title: {
+      type: String,
+      required: true,
+    },
+
+    images: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
+
+    desc: {
+      type: String,
+      required: true,
+    },
+
+    price: {
+      type: Number,
+      required: true,
+    },
+
+    quantity: {
+      type: Number,
+      required: true,
+    },
+
+    ratings: {
+      type: Number,
+      required: true,
+    },
+
+    category: {
+      type: String,
+      enum: Object.values(ProductCategory),
+    },
+
+    reviews: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Review",
+      },
+    ],
+
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+
+    relatedProducts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+      },
+    ],
+  },
+  { timestamps: true }
+);
+
+const Product = mongoose.model<IProduct>("Product", productSchema);
+
+export default Product;
