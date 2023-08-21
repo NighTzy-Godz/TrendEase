@@ -1,6 +1,6 @@
 import { ReactNode, MouseEvent } from "react";
 import { Link } from "react-router-dom";
-import "./Button.css";
+import "../../assets/css/common/Button.css";
 import { ButtonSize } from "./Button";
 
 interface ButtonLinkProps {
