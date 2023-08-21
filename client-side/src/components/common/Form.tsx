@@ -17,9 +17,10 @@ interface FormContextData {
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const FormContext = createContext<FormContextData | undefined>(
-  undefined
-);
+export const FormContext = createContext<FormContextData>({
+  data: {},
+  handleChange: () => {},
+});
 
 interface FormProps {
   className?: string;
