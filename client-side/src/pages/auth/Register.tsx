@@ -65,6 +65,7 @@ function Register() {
             </InputContainer>
             <InputContainer>
               <FormInput
+                type="email"
                 label="Email"
                 name="email"
                 placeholder="Ex. johndoe@gmail.com"

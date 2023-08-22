@@ -13,7 +13,7 @@ export interface FormDataValues {
 }
 
 interface FormContextData {
-  data: FormDataValues;
+  data: {};
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -25,8 +25,8 @@ export const FormContext = createContext<FormContextData>({
 interface FormProps {
   className?: string;
   children: ReactNode;
-  dataValues: FormDataValues;
-  onFormSubmit: (formData: FormDataValues) => void;
+  dataValues: Record<string, any>;
+  onFormSubmit: (formData: Record<string, any>) => void;
 }
 
 function Form({
@@ -35,7 +35,7 @@ function Form({
   children,
   onFormSubmit,
 }: FormProps) {
-  const [data, setData] = useState<FormDataValues>(dataValues);
+  const [data, setData] = useState<Record<string, any>>(dataValues);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
