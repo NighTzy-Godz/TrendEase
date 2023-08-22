@@ -10,14 +10,14 @@ interface ButtonProps {
   children: ReactNode;
   className?: string;
   size: ButtonSize;
-  handleClick: (event: MouseEvent<HTMLButtonElement>) => void;
+  handleClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
 function Button({
   children,
   className = "primary",
   size,
-  handleClick,
+  handleClick = () => {},
 }: ButtonProps) {
   return (
     <>

@@ -8,12 +8,12 @@ import {
   useState,
 } from "react";
 
-interface FormData {
+export interface FormDataValues {
   [key: string]: string | number;
 }
 
 interface FormContextData {
-  data: FormData;
+  data: FormDataValues;
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -25,12 +25,17 @@ export const FormContext = createContext<FormContextData>({
 interface FormProps {
   className?: string;
   children: ReactNode;
-  dataValues: FormData;
-  onFormSubmit: (data: FormData) => void;
+  dataValues: FormDataValues;
+  onFormSubmit: (data: FormDataValues) => void;
 }
 
-function Form({ dataValues, className, children, onFormSubmit }: FormProps) {
-  const [data, setData] = useState<FormData>(dataValues);
+function Form({
+  dataValues,
+  className = "",
+  children,
+  onFormSubmit,
+}: FormProps) {
+  const [data, setData] = useState<FormDataValues>(dataValues);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;

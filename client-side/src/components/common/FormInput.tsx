@@ -6,7 +6,7 @@ interface FormInputProps {
   name: string;
   placeholder: string;
   type?: string;
-  isNumber: boolean;
+  isNumber?: boolean;
 }
 
 function FormInput({
@@ -14,7 +14,7 @@ function FormInput({
   name,
   type = "text",
   placeholder,
-  isNumber,
+  isNumber = false,
 }: FormInputProps) {
   const { data, handleChange } = useContext(FormContext);
 

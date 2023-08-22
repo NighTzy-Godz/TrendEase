@@ -1,0 +1,31 @@
+@media screen and (min-width: 1200px) {
+  .auth_form {
+    background-color: var(--bg-color);
+    padding: 80px 0px;
+  }
+
+  .form_container {
+    /* background-color: rebeccapurple; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .form_container h3 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: var(--text-color);
+  }
+
+  .form_container form {
+    display: flex;
+    width: 30%;
+    flex-direction: column;
+  }
+
+  .form_container form button {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
