@@ -20,7 +20,7 @@ export const userRegisterValidator = (data: UserRegisterData) => {
     last_name: Joi.string().min(2).required(),
     email: Joi.string().email().required(),
 
-    phone: Joi.string().min(13).max(13).required(),
+    phone: Joi.string().min(11).max(11).required(),
     password: Joi.string().min(5).required(),
     confirmPassword: Joi.string().min(5).required(),
   });
