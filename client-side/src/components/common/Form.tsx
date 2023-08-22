@@ -26,7 +26,7 @@ interface FormProps {
   className?: string;
   children: ReactNode;
   dataValues: FormDataValues;
-  onFormSubmit: (data: FormDataValues) => void;
+  onFormSubmit: (formData: FormDataValues) => void;
 }
 
 function Form({

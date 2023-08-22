@@ -4,28 +4,37 @@ import FormInput from "../../components/common/FormInput";
 import Button, { ButtonSize } from "../../components/common/Button";
 import "./Auth.css";
 import InputContainer from "../../components/containers/InputContainer";
+import { registerUser } from "../../services/UserServices";
+import { useNavigate } from "react-router-dom";
 
-interface RegisterValuesData extends FormDataValues {
+export interface RegisterValuesData extends FormDataValues {
   first_name: string;
   last_name: string;
   email: string;
   phone: string;
   password: string;
-  confirm_password: string;
+  confirmPassword: string;
 }
 
 function Register() {
+  const navigate = useNavigate();
+
   const initialData: RegisterValuesData = {
     first_name: "",
     last_name: "",
     email: "",
     phone: "",
     password: "",
-    confirm_password: "",
-  } as RegisterValuesData;
+    confirmPassword: "",
+  };
 
-  const handleFormSubmit = (data: any) => {
-    console.log(data);
+  const handleFormSubmit = async (registerData: RegisterValuesData) => {
+    try {
+      const result = await registerUser(registerData);
+      if (result && result.status === 200) {
+        navigate("/login");
+      }
+    } catch (error) {}
   };
 
   return (
@@ -34,7 +43,12 @@ function Register() {
         <div className="form_container">
           <h3>Register</h3>
 
-          <Form dataValues={initialData} onFormSubmit={handleFormSubmit}>
+          <Form
+            dataValues={initialData}
+            onFormSubmit={(formData: FormDataValues) =>
+              handleFormSubmit(formData as RegisterValuesData)
+            }
+          >
             <InputContainer>
               <FormInput
                 label="First Name"
@@ -66,6 +80,7 @@ function Register() {
             </InputContainer>
             <InputContainer>
               <FormInput
+                type="password"
                 label="Password"
                 name="password"
                 placeholder="Your Desired Password"
@@ -73,8 +88,9 @@ function Register() {
             </InputContainer>
             <InputContainer>
               <FormInput
+                type="password"
                 label="Confirm Password"
-                name="confirm_password"
+                name="confirmPassword"
                 placeholder="Matched it with your password"
               />
             </InputContainer>

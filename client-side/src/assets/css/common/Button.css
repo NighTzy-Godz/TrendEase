@@ -4,6 +4,7 @@
     text-align: center;
     border-radius: 21px;
     transition: all 0.3s;
+    cursor: pointer;
   }
 
   .large {
