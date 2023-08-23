@@ -4,8 +4,10 @@ import FormInput from "../../components/common/FormInput";
 import Button, { ButtonSize } from "../../components/common/Button";
 import "./Auth.css";
 import InputContainer from "../../components/containers/InputContainer";
-import { registerUser } from "../../services/UserServices";
+
 import { useNavigate } from "react-router-dom";
+import { registerUser } from "../../store/slices/auth";
+import { useDispatch, useSelector } from "react-redux";
 
 export interface RegisterValuesData extends FormDataValues {
   first_name: string;
@@ -18,6 +20,8 @@ export interface RegisterValuesData extends FormDataValues {
 
 function Register() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const authError = useSelector((state: any) => state?.entities?.auth?.error);
 
   const initialData: RegisterValuesData = {
     first_name: "",
@@ -28,13 +32,10 @@ function Register() {
     confirmPassword: "",
   };
 
-  const handleFormSubmit = async (registerData: RegisterValuesData) => {
-    try {
-      const result = await registerUser(registerData);
-      if (result && result.status === 200) {
-        navigate("/login");
-      }
-    } catch (error) {}
+  const handleFormSubmit = (registerData: RegisterValuesData) => {
+    dispatch(registerUser(registerData));
+
+    if (authError) navigate("/login");
   };
 
   return (
@@ -105,12 +106,3 @@ function Register() {
 }
 
 export default Register;
-
-// interface IFormData {
-//   first_name: string;
-//   last_name: string;
-//   email: string;
-//   phone: string;
-//   password: string;
-//   confirm_password: string;
-// }

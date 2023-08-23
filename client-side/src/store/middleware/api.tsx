@@ -4,7 +4,7 @@ import {
   apiCallSuccess,
   apiCallFailed,
 } from "../actions/apiActions";
-
+import { toast } from "react-toastify";
 import { Dispatch, Middleware } from "redux";
 
 const api: Middleware =
@@ -14,8 +14,16 @@ const api: Middleware =
     if (action.type !== apiCallBegan.type) return next(action);
     next(action);
 
-    const { urls, method, params, onSuccess, onError, onStart } =
-      action.payload;
+    const {
+      urls,
+      method,
+      data,
+      params,
+      successMessage,
+      onSuccess,
+      onError,
+      onStart,
+    } = action.payload;
 
     if (onStart) dispatch({ type: onStart });
 
@@ -26,6 +34,7 @@ const api: Middleware =
         url,
         params: queryParams,
         method,
+        data,
       };
 
       if (params) {
@@ -42,9 +51,11 @@ const api: Middleware =
       dispatch(apiCallSuccess(responseData));
 
       if (onSuccess) dispatch({ type: onSuccess, payload: responseData });
+      if (successMessage) toast.success(successMessage, { autoClose: 2500 });
     } catch (error) {
-      const axiosError = (error as AxiosError).message;
-      dispatch(apiCallFailed(axiosError));
+      const axiosError = (error as AxiosError).response?.data;
+      toast.error(axiosError as string, { autoClose: 2500 });
+      if (axiosError) dispatch(apiCallFailed(axiosError));
       if (onError) dispatch({ type: onError, payload: axiosError });
     }
   };

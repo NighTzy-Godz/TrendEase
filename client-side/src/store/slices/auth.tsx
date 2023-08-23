@@ -1,4 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { apiCallBegan } from "../actions/apiActions";
+import { LoginFormData } from "../../pages/auth/Login";
+import { RegisterValuesData } from "../../pages/auth/Register";
 
 interface User {
   _id: string;
@@ -9,30 +12,56 @@ interface User {
 interface AuthState {
   user: null | Partial<User>;
   loading: boolean;
+  error: unknown;
 }
 
 const initialState: AuthState = {
   user: null,
   loading: false,
+  error: null,
 };
 
 const slice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    loginRequest: (auth, action) => {
+    authRequest: (auth, action) => {
       auth.loading = true;
     },
 
-    loginRequestFailed: (auth, action) => {
+    authRequestFailed: (auth, action) => {
       auth.loading = false;
+      auth.error = action.payload;
     },
 
-    loginUser: (auth, action) => {
+    authenticateUser: (auth, action) => {
       auth.loading = false;
       auth.user = action.payload;
     },
   },
 });
+
+const { authRequest, authRequestFailed, authenticateUser } = slice.actions;
+
+export const loginUser = (data: LoginFormData) =>
+  apiCallBegan({
+    urls: ["/user/login"],
+    method: "POST",
+    data,
+    onStart: authRequest.type,
+    onSuccess: authenticateUser.type,
+    onError: authRequestFailed.type,
+    successMessage: `Successfully Logged In!`,
+  });
+
+export const registerUser = (data: RegisterValuesData) =>
+  apiCallBegan({
+    urls: ["user/register"],
+    method: "POST",
+    data,
+    onStart: authRequest.type,
+    onError: authRequestFailed.type,
+    successMessage: "Successfully Registered the User!",
+  });
 
 export default slice.reducer;

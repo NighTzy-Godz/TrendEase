@@ -1,10 +1,11 @@
-import React from "react";
 import Form, { FormDataValues } from "../../components/common/Form";
 import InputContainer from "../../components/containers/InputContainer";
 import FormInput from "../../components/common/FormInput";
 import Button, { ButtonSize } from "../../components/common/Button";
-import { loginUser } from "../../services/UserServices";
+
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../store/slices/auth";
 
 export interface LoginFormData extends FormDataValues {
   email: string;
@@ -12,8 +13,8 @@ export interface LoginFormData extends FormDataValues {
 }
 
 function Login() {
-  const navigate = useNavigate();
-
+  // const navigate = useNavigate();
+  const dispatch = useDispatch();
   const initialData: LoginFormData = {
     email: "",
     password: "",
@@ -21,10 +22,12 @@ function Login() {
 
   const handleFormSubmit = async (data: LoginFormData) => {
     try {
-      const result = await loginUser(data);
-      if (result && result.status === 200) {
-        navigate("/");
-      }
+      const result = dispatch(loginUser(data));
+
+      // const result = await loginUser(data);
+      // if (result && result.status === 200) {
+      //   navigate("/");
+      // }
     } catch (error) {}
   };
 
