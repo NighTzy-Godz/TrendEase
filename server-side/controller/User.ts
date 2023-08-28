@@ -74,8 +74,8 @@ export async function userLogin(
 
     res
       .header("x-auth-token", token)
-      .header("acces-control-expose-headers", "x-auth-token")
-      .send(user);
+      .header("access-control-expose-headers", "x-auth-token")
+      .send(token);
   } catch (error) {
     next(error);
   }
