@@ -1,8 +1,8 @@
 import mongoose, { Schema, Document } from "mongoose";
 import jwt from "jsonwebtoken";
 
-const DB_URL = "mongodb://localhost:27017/trendease";
-
+const DB_URL = process.env.DB_URL as string;
+const jwtSecretKey = process.env.jwtSecretPass as string;
 mongoose
   .connect(DB_URL)
   .then(() => console.log("Connected to the DataBase - User"))
@@ -73,7 +73,7 @@ userSchema.methods.genereateAuthToken = function (): string {
       _id: this._id,
       full_name: this.first_name + " " + this.last_name,
     },
-    "jwtPrivateKey"
+    jwtSecretKey
   );
 };
 
