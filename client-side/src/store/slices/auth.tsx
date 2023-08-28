@@ -13,12 +13,14 @@ interface AuthState {
   user: null | Partial<User>;
   loading: boolean;
   error: unknown;
+  token: unknown;
 }
 
 const initialState: AuthState = {
   user: null,
   loading: false,
   error: null,
+  token: null,
 };
 
 const slice = createSlice({
@@ -36,7 +38,8 @@ const slice = createSlice({
 
     authenticateUser: (auth, action) => {
       auth.loading = false;
-      auth.user = action.payload;
+
+      auth.token = action.payload[0].headers["x-auth-token"];
     },
   },
 });

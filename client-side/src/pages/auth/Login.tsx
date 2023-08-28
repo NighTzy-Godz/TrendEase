@@ -4,7 +4,7 @@ import FormInput from "../../components/common/FormInput";
 import Button, { ButtonSize } from "../../components/common/Button";
 
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../store/slices/auth";
 
 export interface LoginFormData extends FormDataValues {
@@ -15,6 +15,7 @@ export interface LoginFormData extends FormDataValues {
 function Login() {
   // const navigate = useNavigate();
   const dispatch = useDispatch();
+  const token = useSelector((state: any) => state.entities.auth.token);
   const initialData: LoginFormData = {
     email: "",
     password: "",
@@ -22,12 +23,8 @@ function Login() {
 
   const handleFormSubmit = async (data: LoginFormData) => {
     try {
-      const result = dispatch(loginUser(data));
-
-      // const result = await loginUser(data);
-      // if (result && result.status === 200) {
-      //   navigate("/");
-      // }
+      await dispatch(loginUser(data));
+      console.log(token);
     } catch (error) {}
   };
 

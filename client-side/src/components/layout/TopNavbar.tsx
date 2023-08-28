@@ -1,9 +1,27 @@
-import { Link, NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "./TopNavbar.css";
 import ButtonLink from "../common/ButtonLink";
-import { ButtonSize } from "../common/Button";
+import Button, { ButtonSize } from "../common/Button";
 
-function TopNavbar() {
+interface TopNavbarProps {
+  token: string;
+}
+
+function TopNavbar({ token }: TopNavbarProps) {
+  const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    if (token) setIsAuthenticated(true);
+  }, [token]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsAuthenticated(false);
+    navigate("/");
+  };
+
   return (
     <nav className="nav_top">
       <div className="container">
@@ -25,9 +43,15 @@ function TopNavbar() {
         </ul>
 
         <div className="nav_auth">
-          <ButtonLink size={ButtonSize.LARGE} path="/login">
-            Login
-          </ButtonLink>
+          {!isAuthenticated ? (
+            <ButtonLink size={ButtonSize.LARGE} path="/login">
+              Login
+            </ButtonLink>
+          ) : (
+            <Button size={ButtonSize.LARGE} handleClick={handleLogout}>
+              Logout
+            </Button>
+          )}
         </div>
       </div>
     </nav>

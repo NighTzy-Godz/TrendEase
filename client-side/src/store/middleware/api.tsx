@@ -46,7 +46,7 @@ const api: Middleware =
 
     try {
       const responses = await Promise.all(requests);
-      const responseData = responses.map((response) => response.data);
+      const responseData = responses.map((response) => response);
 
       dispatch(apiCallSuccess(responseData));
 

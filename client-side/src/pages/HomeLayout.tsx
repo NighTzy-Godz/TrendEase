@@ -1,10 +1,14 @@
 import { Outlet } from "react-router-dom";
 import TopNavbar from "../components/layout/TopNavbar";
 
-function HomeLayout() {
+interface HomeLayoutProps {
+  token: string;
+}
+
+function HomeLayout({ token }: HomeLayoutProps) {
   return (
     <div>
-      <TopNavbar />
+      <TopNavbar token={token} />
       <Outlet />
     </div>
   );
