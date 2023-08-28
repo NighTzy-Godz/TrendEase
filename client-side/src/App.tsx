@@ -7,6 +7,7 @@ import "react-toastify/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import Login from "./pages/auth/Login";
 import { useSelector } from "react-redux";
+import Products from "./pages/Product/Products";
 
 function App() {
   const token = useSelector((state: any) => state.entities.auth.token);
@@ -25,6 +26,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+
+          <Route path="/products" element={<Products />} />
         </Route>
       </Routes>
     </BrowserRouter>
