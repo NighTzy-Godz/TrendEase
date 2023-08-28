@@ -28,7 +28,8 @@
     transition: all 0.3s;
   }
 
-  .nav_top ul a:hover {
+  .nav_top ul a:hover,
+  .nav_top ul a.active {
     color: var(--main-color);
   }
 

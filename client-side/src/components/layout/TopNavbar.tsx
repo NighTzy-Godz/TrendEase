@@ -36,10 +36,20 @@ function TopNavbar({ token }: TopNavbarProps) {
           <li>
             <NavLink to="/products">Products</NavLink>
           </li>
+          {isAuthenticated && (
+            <>
+              <li>
+                <NavLink to="/cart">Add Product</NavLink>
+              </li>
+              <li>
+                <NavLink to="/cart">Cart</NavLink>
+              </li>
 
-          <li>
-            <NavLink to="/products">Cart</NavLink>
-          </li>
+              <li>
+                <NavLink to="/cart">Profile</NavLink>
+              </li>
+            </>
+          )}
         </ul>
 
         <div className="nav_auth">

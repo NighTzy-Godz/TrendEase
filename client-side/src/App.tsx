@@ -10,10 +10,11 @@ import { useSelector } from "react-redux";
 import Products from "./pages/Product/Products";
 
 function App() {
-  const token = useSelector((state: any) => state.entities.auth.token);
+  const token1 = useSelector((state: any) => state.entities.auth.token);
+  const token2 = localStorage.getItem("token");
+  const token = token1 || token2;
 
   useEffect(() => {
-    console.log("App State", token);
     if (!token) return;
 
     localStorage.setItem("token", token);
