@@ -8,6 +8,7 @@ import { ToastContainer } from "react-toastify";
 import Login from "./pages/auth/Login";
 import { useSelector } from "react-redux";
 import Products from "./pages/Product/Products";
+import ProductCreate from "./pages/Product/ProductCreate";
 
 function App() {
   const token1 = useSelector((state: any) => state.entities.auth.token);
@@ -29,6 +30,7 @@ function App() {
           <Route path="/login" element={<Login />} />
 
           <Route path="/products" element={<Products />} />
+          <Route path="/create-product" element={<ProductCreate />} />
         </Route>
       </Routes>
     </BrowserRouter>

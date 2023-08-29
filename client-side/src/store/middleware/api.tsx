@@ -54,7 +54,7 @@ const api: Middleware =
       if (successMessage) toast.success(successMessage, { autoClose: 2500 });
     } catch (error) {
       const axiosError = (error as AxiosError).response?.data;
-      toast.error(axiosError as string, { autoClose: 2500 });
+
       if (axiosError) dispatch(apiCallFailed(axiosError));
       if (onError) dispatch({ type: onError, payload: axiosError });
     }

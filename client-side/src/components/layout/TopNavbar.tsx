@@ -39,7 +39,7 @@ function TopNavbar({ token }: TopNavbarProps) {
           {isAuthenticated && (
             <>
               <li>
-                <NavLink to="/cart">Add Product</NavLink>
+                <NavLink to="/create-product">Add Product</NavLink>
               </li>
               <li>
                 <NavLink to="/cart">Cart</NavLink>
