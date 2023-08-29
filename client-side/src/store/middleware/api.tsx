@@ -35,6 +35,9 @@ const api: Middleware =
         params: queryParams,
         method,
         data,
+        headers: {
+          "x-auth-token": localStorage.getItem("token") || undefined,
+        },
       };
 
       if (params) {
@@ -49,13 +52,16 @@ const api: Middleware =
       const responseData = responses.map((response) => response);
 
       dispatch(apiCallSuccess(responseData));
-
+      console.log(successMessage);
       if (onSuccess) dispatch({ type: onSuccess, payload: responseData });
       if (successMessage) toast.success(successMessage, { autoClose: 2500 });
     } catch (error) {
       const axiosError = (error as AxiosError).response?.data;
 
-      if (axiosError) dispatch(apiCallFailed(axiosError));
+      if (axiosError) {
+        toast.error(axiosError as string, { autoClose: 2500 });
+        dispatch(apiCallFailed(axiosError));
+      }
       if (onError) dispatch({ type: onError, payload: axiosError });
     }
   };

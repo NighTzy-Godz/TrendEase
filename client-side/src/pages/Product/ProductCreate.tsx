@@ -4,6 +4,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import InputContainer from "../../components/containers/InputContainer";
 import Button, { ButtonSize } from "../../components/common/Button";
 import categoryOptions from "../../data/categoryOptions";
+import { useDispatch } from "react-redux";
+import { createProduct } from "../../store/slices/product";
+import { useNavigate } from "react-router-dom";
 
 enum Category {
   ELECTRONICS = "electronics",
@@ -15,7 +18,8 @@ enum Category {
   HEALTH_AND_BEAUTY = "health and beauty",
 }
 
-interface IProductCreate {
+export interface IProductCreate {
+  img: FileList;
   title: string;
   desc: string;
   price: number;
@@ -24,6 +28,8 @@ interface IProductCreate {
 }
 
 function ProductCreate() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -31,8 +37,20 @@ function ProductCreate() {
     formState: { errors },
   } = useForm<IProductCreate>();
 
-  const onSubmit: SubmitHandler<IProductCreate> = (data) => {
-    console.log(data);
+  const onSubmit = async (data: IProductCreate) => {
+    const { title, img, category, desc, price, quantity } = data;
+    const formData = new FormData();
+    formData.append("category", category);
+    formData.append("title", title);
+    formData.append("desc", desc);
+    formData.append("price", price.toString());
+    formData.append("quantity", quantity.toString()),
+      Array.from(img).map((item) => {
+        formData.append("img", item);
+      });
+    await dispatch(createProduct(formData as any));
+
+    // navigate("/");
   };
 
   const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -55,7 +73,17 @@ function ProductCreate() {
       <div className="container">
         <div className="form_container">
           <h3>Product Create</h3>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
+            <InputContainer>
+              <label>Images</label>
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                {...register("img", { required: "Image is required" })}
+              />
+              {errors.img && <p className="form_error">{errors.img.message}</p>}
+            </InputContainer>
             <InputContainer>
               <label>Title</label>
               <input
@@ -64,6 +92,10 @@ function ProductCreate() {
                   maxLength: {
                     value: 150,
                     message: "Title cannot exceed up to 150 characters",
+                  },
+                  minLength: {
+                    value: 10,
+                    message: "Title should be atleast 10 characters",
                   },
                 })}
                 placeholder="Product Title"
