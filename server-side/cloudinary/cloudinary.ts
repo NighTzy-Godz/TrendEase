@@ -12,7 +12,7 @@ cloudinary.config(cloudinaryConfig);
 const storage = new CloudinaryStorage({
   cloudinary,
   params: {
-    folder: "ShopNet",
+    folder: "TrendEase",
     allowed_formats: ["jpeg", "jpg", "png"],
   } as any,
 });

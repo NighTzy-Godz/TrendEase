@@ -72,7 +72,7 @@ const productSchema: Schema<IProduct> = new mongoose.Schema(
 
     ratings: {
       type: Number,
-      required: true,
+      default: 0,
     },
 
     category: {

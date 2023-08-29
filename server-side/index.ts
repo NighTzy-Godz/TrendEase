@@ -14,5 +14,6 @@ app.use(urlencoded({ extended: true }));
 app.use(cors());
 
 app.use("/api/user", userRoutes);
+app.use("/api/product", productRoutes);
 
 app.listen(PORT, () => console.log("Listening on PORT ", PORT));

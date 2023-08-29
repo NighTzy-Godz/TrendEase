@@ -11,6 +11,8 @@ export const createProduct = async (
   next: NextFunction
 ) => {
   try {
+    console.log(req.files, req.body);
+
     const { title, desc, price, quantity, category } = req.body;
     const { error } = createProductValidator(req.body);
     if (error) return res.status(400).send(error.details[0].message);
