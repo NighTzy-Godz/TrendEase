@@ -60,3 +60,5 @@ export const getAllProducts = () =>
     onSuccess: productsRecieved.type,
     onError: productRequestFailed.type,
   });
+
+export default slice.reducer;

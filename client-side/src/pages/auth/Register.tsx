@@ -1,6 +1,3 @@
-import React from "react";
-import Form, { FormDataValues } from "../../components/common/Form";
-import FormInput from "../../components/common/FormInput";
 import Button, { ButtonSize } from "../../components/common/Button";
 import "./Auth.css";
 import InputContainer from "../../components/containers/InputContainer";

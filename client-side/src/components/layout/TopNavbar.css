@@ -19,7 +19,7 @@
   .nav_top ul {
     display: flex;
     align-items: center;
-    gap: 50px;
+    gap: 40px;
   }
 
   .nav_top ul a {

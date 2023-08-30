@@ -52,7 +52,7 @@ const api: Middleware =
       const responseData = responses.map((response) => response.data);
 
       dispatch(apiCallSuccess(responseData));
-      console.log(responseData);
+
       if (onSuccess) dispatch({ type: onSuccess, payload: responseData[0] });
       if (successMessage) toast.success(successMessage, { autoClose: 2500 });
     } catch (error) {

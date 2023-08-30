@@ -174,7 +174,7 @@ function ProductCreate() {
             </InputContainer>
 
             <Button
-              className={`${loading && "loading"}`}
+              className={`${loading && "loading"} primary`}
               size={ButtonSize.MEDIUM}
             >
               Submit

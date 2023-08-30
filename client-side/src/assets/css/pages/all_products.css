@@ -1,0 +1,23 @@
+@media screen and (min-width: 1200px) {
+  .all_products {
+    padding: 80px 0px;
+    background-color: var(--bg-color);
+  }
+
+  .all_products_container {
+    display: flex;
+    gap: 20px;
+  }
+
+  .all_products_container .category {
+    background-color: burlywood;
+    width: 25%;
+  }
+
+  .all_products_container .product_list {
+    width: 75%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+  }
+}

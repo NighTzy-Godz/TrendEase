@@ -16,7 +16,7 @@
 
 :root {
   --bg-color: #2f2f2f;
-  --sub-color: #111111;
+  --sub-color: #3b3a3a;
   --text-color: #f6f6f6;
   --main-color: #ffcb74;
 }
@@ -52,10 +52,22 @@ li {
   list-style-type: none;
 }
 
+img {
+  max-width: 100%;
+}
+
+@media screen and (min-width: 1500px) {
+  .container {
+    max-width: 1400px;
+
+    margin: 0 auto;
+  }
+}
+
 @media screen and (min-width: 1200px) {
   .container {
-    max-width: 1500px;
-    width: 80%;
+    max-width: 1140px;
+
     margin: 0 auto;
   }
 }
