@@ -5,6 +5,20 @@ import mongoose from "mongoose";
 import { createProductValidator } from "../validators/ProductValidator";
 import Product from "../models/Product";
 
+export const getAllProducts = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const products = await Product.find();
+
+    res.send(products);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const createProduct = async (
   req: Request,
   res: Response,
