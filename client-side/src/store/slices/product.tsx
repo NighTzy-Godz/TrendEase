@@ -2,12 +2,19 @@ import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "../actions/apiActions";
 import { IProductCreate } from "../../pages/Product/ProductCreate";
 
+interface ProductState {
+  loading: boolean;
+  products: Array<Record<string, any>>;
+}
+
+const initialState: ProductState = {
+  loading: false,
+  products: [],
+};
+
 const slice = createSlice({
   name: "product",
-  initialState: {
-    loading: false,
-    products: [],
-  },
+  initialState,
   reducers: {
     productRequested: (product, action) => {
       product.loading = true;
@@ -20,11 +27,19 @@ const slice = createSlice({
     productCreated: (product, action) => {
       product.loading = false;
     },
+
+    productsRecieved: (product, action) => {
+      product.products = action.payload;
+    },
   },
 });
 
-const { productRequested, productRequestFailed, productCreated } =
-  slice.actions;
+const {
+  productRequested,
+  productRequestFailed,
+  productCreated,
+  productsRecieved,
+} = slice.actions;
 
 export const createProduct = (data: IProductCreate) =>
   apiCallBegan({
@@ -35,4 +50,13 @@ export const createProduct = (data: IProductCreate) =>
     onSuccess: productCreated.type,
     onError: productRequestFailed.type,
     successMessage: "Successfully Created the Product",
+  });
+
+export const getAllProducts = () =>
+  apiCallBegan({
+    urls: ["/product/all-products"],
+    method: "GET",
+    onStart: productRequested.type,
+    onSuccess: productsRecieved.type,
+    onError: productRequestFailed.type,
   });

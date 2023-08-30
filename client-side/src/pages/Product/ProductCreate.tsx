@@ -4,7 +4,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import InputContainer from "../../components/containers/InputContainer";
 import Button, { ButtonSize } from "../../components/common/Button";
 import categoryOptions from "../../data/categoryOptions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createProduct } from "../../store/slices/product";
 import { useNavigate } from "react-router-dom";
 
@@ -30,6 +30,10 @@ export interface IProductCreate {
 function ProductCreate() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const loading = useSelector(
+    (state: any) => state?.entities?.product?.loading
+  );
+
   const {
     register,
     handleSubmit,
@@ -169,7 +173,12 @@ function ProductCreate() {
               )}
             </InputContainer>
 
-            <Button size={ButtonSize.MEDIUM}>Submit</Button>
+            <Button
+              className={`${loading && "loading"}`}
+              size={ButtonSize.MEDIUM}
+            >
+              Submit
+            </Button>
           </form>
         </div>
       </div>

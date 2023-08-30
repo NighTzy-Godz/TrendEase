@@ -39,7 +39,7 @@ const slice = createSlice({
     authenticateUser: (auth, action) => {
       auth.loading = false;
 
-      auth.token = action.payload[0].headers["x-auth-token"];
+      auth.token = action.payload;
     },
   },
 });

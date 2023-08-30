@@ -3,7 +3,7 @@ import InputContainer from "../../components/containers/InputContainer";
 import FormInput from "../../components/common/FormInput";
 import Button, { ButtonSize } from "../../components/common/Button";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../store/slices/auth";
 
@@ -15,7 +15,9 @@ export interface LoginFormData extends FormDataValues {
 function Login() {
   // const navigate = useNavigate();
   const dispatch = useDispatch();
-  const token = useSelector((state: any) => state.entities.auth.token);
+  const navigate = useNavigate();
+  // const token = useSelector((state: any) => state.entities.auth.token);
+  const authError = useSelector((state: any) => state.entities.auth.error);
   const initialData: LoginFormData = {
     email: "",
     password: "",
@@ -24,7 +26,8 @@ function Login() {
   const handleFormSubmit = async (data: LoginFormData) => {
     try {
       await dispatch(loginUser(data));
-      console.log(token);
+      if (authError) return;
+      return navigate("/products");
     } catch (error) {}
   };
 
@@ -55,6 +58,12 @@ function Login() {
                 placeholder="Your Password"
               />
             </InputContainer>
+
+            <div className="form_question">
+              <small>
+                Don't have an account? <Link to="/register">Register Here</Link>
+              </small>
+            </div>
 
             <Button size={ButtonSize.MEDIUM}>Login</Button>
           </Form>

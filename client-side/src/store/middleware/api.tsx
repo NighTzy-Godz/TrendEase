@@ -49,11 +49,11 @@ const api: Middleware =
 
     try {
       const responses = await Promise.all(requests);
-      const responseData = responses.map((response) => response);
+      const responseData = responses.map((response) => response.data);
 
       dispatch(apiCallSuccess(responseData));
-      console.log(successMessage);
-      if (onSuccess) dispatch({ type: onSuccess, payload: responseData });
+      console.log(responseData);
+      if (onSuccess) dispatch({ type: onSuccess, payload: responseData[0] });
       if (successMessage) toast.success(successMessage, { autoClose: 2500 });
     } catch (error) {
       const axiosError = (error as AxiosError).response?.data;

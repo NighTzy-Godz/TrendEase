@@ -7,6 +7,10 @@
     cursor: pointer;
   }
 
+  .loading {
+    cursor: not-allowed;
+  }
+
   .large {
     width: 100px;
     padding: 6px;

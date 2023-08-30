@@ -20,8 +20,22 @@
 
   .form_container form {
     display: flex;
-    width: 30%;
+    width: 40%;
+    max-width: 500px;
     flex-direction: column;
+  }
+
+  .form_container .form_question {
+    margin-bottom: 5px;
+  }
+
+  .form_container .form_question small {
+    color: var(--text-color);
+  }
+
+  .form_container .form_question small a {
+    color: var(--main-color);
+    text-decoration: underline;
   }
 
   .form_container form button {

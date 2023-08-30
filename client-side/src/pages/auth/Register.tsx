@@ -5,11 +5,12 @@ import Button, { ButtonSize } from "../../components/common/Button";
 import "./Auth.css";
 import InputContainer from "../../components/containers/InputContainer";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../../store/slices/auth";
 import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
 
-export interface RegisterValuesData extends FormDataValues {
+export interface RegisterValuesData {
   first_name: string;
   last_name: string;
   email: string;
@@ -23,19 +24,16 @@ function Register() {
   const dispatch = useDispatch();
   const authError = useSelector((state: any) => state?.entities?.auth?.error);
 
-  const initialData: RegisterValuesData = {
-    first_name: "",
-    last_name: "",
-    email: "",
-    phone: "",
-    password: "",
-    confirmPassword: "",
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterValuesData>();
 
-  const handleFormSubmit = (registerData: RegisterValuesData) => {
-    dispatch(registerUser(registerData));
+  const handleFormSubmit = (data: RegisterValuesData) => {
+    dispatch(registerUser(data));
 
-    if (authError) navigate("/login");
+    if (!authError) navigate("/login");
   };
 
   return (
@@ -44,61 +42,117 @@ function Register() {
         <div className="form_container">
           <h3>Register</h3>
 
-          <Form
-            dataValues={initialData}
-            onFormSubmit={(formData: FormDataValues) =>
-              handleFormSubmit(formData as RegisterValuesData)
-            }
+          <form
+            onSubmit={handleSubmit(handleFormSubmit)}
+            encType="multipart/form-data"
           >
             <InputContainer>
-              <FormInput
-                label="First Name"
-                name="first_name"
+              <label>First Name</label>
+              <input
                 placeholder="Ex. John Yol"
+                {...register("first_name", {
+                  required: "First Name is a required field",
+                  minLength: {
+                    value: 3,
+                    message: "First name should be at least 3 character long",
+                  },
+                })}
               />
-            </InputContainer>
-            <InputContainer>
-              <FormInput
-                label="Last Name"
-                name="last_name"
-                placeholder="Ex. Doe"
-              />
-            </InputContainer>
-            <InputContainer>
-              <FormInput
-                type="email"
-                label="Email"
-                name="email"
-                placeholder="Ex. johndoe@gmail.com"
-              />
-            </InputContainer>
-            <InputContainer>
-              <FormInput
-                label="Phone Number"
-                name="phone"
-                placeholder="Ex. 0912 434 5675"
-                isNumber={true}
-              />
-            </InputContainer>
-            <InputContainer>
-              <FormInput
-                type="password"
-                label="Password"
-                name="password"
-                placeholder="Your Desired Password"
-              />
-            </InputContainer>
-            <InputContainer>
-              <FormInput
-                type="password"
-                label="Confirm Password"
-                name="confirmPassword"
-                placeholder="Matched it with your password"
-              />
+              {errors.first_name && (
+                <p className="form_error">{errors.first_name.message}</p>
+              )}
             </InputContainer>
 
+            <InputContainer>
+              <label>Last Name</label>
+              <input
+                placeholder="Ex. Doe"
+                {...register("last_name", {
+                  required: "Last Name is a required field",
+                  minLength: {
+                    value: 3,
+                    message: "Last name should be at least 2 character long",
+                  },
+                })}
+              />
+              {errors.last_name && (
+                <p className="form_error">{errors.last_name.message}</p>
+              )}
+            </InputContainer>
+
+            <InputContainer>
+              <label>Email</label>
+              <input
+                type="email"
+                placeholder="Ex. johndoe@gmail.com"
+                {...register("email", {
+                  required: "Email is a required field",
+                })}
+              />
+              {errors.email && (
+                <p className="form_error">{errors.email.message}</p>
+              )}
+            </InputContainer>
+
+            <InputContainer>
+              <label>Phone Number</label>
+              <input
+                placeholder="Ex. 0912 434 5675"
+                {...register("phone", {
+                  required: "Phone Number is a required field",
+
+                  pattern: {
+                    value: /^[0-9]*$/,
+                    message: "Phone Number should be a type of number",
+                  },
+                  minLength: {
+                    value: 11,
+                    message: "Phone Number should be 11 character long",
+                  },
+                })}
+              />
+              {errors.phone && (
+                <p className="form_error">{errors.phone.message}</p>
+              )}
+            </InputContainer>
+
+            <InputContainer>
+              <label>Password</label>
+              <input
+                type="password"
+                placeholder="Your Desired Password"
+                {...register("password", {
+                  required: "Password is a required field",
+                })}
+              />
+              {errors.password && (
+                <p className="form_error">{errors.password.message}</p>
+              )}
+            </InputContainer>
+
+            <InputContainer>
+              <label>Confirm Password</label>
+              <input
+                type="password"
+                placeholder="Matched it with your password"
+                {...register("confirmPassword", {
+                  required: "Confirm Password is a required field",
+                })}
+              />
+              {errors.confirmPassword && (
+                <p className="form_error">{errors.confirmPassword.message}</p>
+              )}
+            </InputContainer>
+
+            <div className="form_question">
+              <small>
+                Already have an account?
+                <Link to="/login"> Sign In</Link>
+              </small>
+            </div>
+
             <Button size={ButtonSize.MEDIUM}>Submit</Button>
-          </Form>
+          </form>
         </div>
       </div>
     </div>
