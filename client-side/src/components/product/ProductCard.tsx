@@ -1,6 +1,7 @@
 import React from "react";
 import "./ProductCard.css";
 import { Link } from "react-router-dom";
+import formatCurrency from "../../utils/formatCurrency";
 
 export interface ProductCardData {
   _id: string;
@@ -25,7 +26,7 @@ function ProductCard({ data }: ProductCardProps) {
           <p>{title}</p>
         </div>
         <div className="price">
-          <h4>P {price}</h4>
+          <h4>P {formatCurrency(price)}</h4>
         </div>
       </div>
     </Link>

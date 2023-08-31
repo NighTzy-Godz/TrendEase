@@ -29,6 +29,7 @@ const slice = createSlice({
     },
 
     productsRecieved: (product, action) => {
+      product.loading = false;
       product.products = action.payload;
     },
   },
