@@ -1,6 +1,6 @@
 @media screen and (min-width: 200px) {
   .single_product_owner_card {
-    width: 48.7%;
+    width: 100.7%;
     margin-top: 40px;
     display: flex;
     justify-content: space-between;
@@ -19,8 +19,8 @@
   }
 
   .single_product_owner_card .owner_img img {
-    width: 75px;
-    height: 75px;
+    width: 68px;
+    height: 68px;
     border-radius: 50%;
   }
 
@@ -35,7 +35,7 @@
   }
 
   .single_product_owner_card .owner_btn {
-    width: 30%;
+    width: 20%;
   }
 
   .single_product_owner_card .owner_btn a {

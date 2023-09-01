@@ -38,7 +38,11 @@ function SingleProduct() {
     <div className="single_product">
       <div className="container">
         <div className="single_product_nav">
-          <ButtonLink size={ButtonSize.SMALL} path="/products">
+          <ButtonLink
+            className="primary"
+            size={ButtonSize.SMALL}
+            path="/products"
+          >
             All Products
           </ButtonLink>
         </div>

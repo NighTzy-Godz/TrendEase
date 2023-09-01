@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "../actions/apiActions";
-import { LoginFormData } from "../../pages/auth/Login";
+import { LoginData } from "../../pages/auth/Login";
 import { RegisterValuesData } from "../../pages/auth/Register";
 
 interface User {
@@ -38,7 +38,7 @@ const slice = createSlice({
 
     authenticateUser: (auth, action) => {
       auth.loading = false;
-
+      auth.error = "";
       auth.token = action.payload;
     },
   },
@@ -46,7 +46,7 @@ const slice = createSlice({
 
 const { authRequest, authRequestFailed, authenticateUser } = slice.actions;
 
-export const loginUser = (data: LoginFormData) =>
+export const loginUser = (data: LoginData) =>
   apiCallBegan({
     urls: ["/user/login"],
     method: "POST",
