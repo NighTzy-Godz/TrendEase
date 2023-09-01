@@ -19,14 +19,31 @@ export const getAllProducts = async (
   }
 };
 
+export const getSingleProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { productId } = req.params;
+
+    const foundProduct = await Product.findOne({ _id: productId }).populate(
+      "owner"
+    );
+    if (!foundProduct) return res.status(404).send("Product did not found");
+
+    res.send(foundProduct);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const createProduct = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    console.log(req.files, req.body);
-
     const { title, desc, price, quantity, category } = req.body;
     const { error } = createProductValidator(req.body);
     if (error) return res.status(400).send(error.details[0].message);
