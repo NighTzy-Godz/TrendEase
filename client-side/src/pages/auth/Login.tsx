@@ -68,6 +68,13 @@ function Login() {
               )}
             </InputContainer>
 
+            <div className="form_question">
+              <small>
+                Don't have an account?
+                <Link to="/register"> Register</Link>
+              </small>
+            </div>
+
             <Button size={ButtonSize.MEDIUM} className="primary">
               Login
             </Button>

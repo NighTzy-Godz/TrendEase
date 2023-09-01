@@ -6,12 +6,14 @@ interface SingleProductOwnerCardProps {
   pfp: string;
   full_name: string;
   email: string;
+  isOwner: boolean;
 }
 
 function SingleProductOwnerCard({
   pfp,
   full_name,
   email,
+  isOwner,
 }: SingleProductOwnerCardProps) {
   return (
     <div className="single_product_owner_card">
@@ -25,9 +27,12 @@ function SingleProductOwnerCard({
         </div>
       </div>
       <div className="owner_btn">
-        <ButtonLink className="primary" path="/" size={ButtonSize.MEDIUM}>
-          Chat Now
-        </ButtonLink>
+        {!isOwner && (
+          <ButtonLink className="primary" path="/" size={ButtonSize.MEDIUM}>
+            Chat Now
+          </ButtonLink>
+        )}
+
         <ButtonLink path="/" size={ButtonSize.MEDIUM}>
           View Profile
         </ButtonLink>

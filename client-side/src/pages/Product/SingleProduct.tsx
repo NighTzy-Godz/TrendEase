@@ -16,6 +16,9 @@ function SingleProduct() {
   const product = useSelector(
     (state: any) => state.entities.product.singleProduct
   );
+  const decodedUser = useSelector(
+    (state: any) => state?.entities?.auth?.decodedUser
+  );
 
   const {
     category,
@@ -29,6 +32,30 @@ function SingleProduct() {
   } = product || {};
 
   const { pfp, first_name, last_name, email } = owner || {};
+  const isOwner = decodedUser?._id === owner?._id;
+  const renderBtnOption = () => {
+    if (isOwner) {
+      return (
+        <>
+          <Button size={ButtonSize.LARGE}>Edit</Button>
+
+          <Button className="primary" size={ButtonSize.LARGE}>
+            Delete
+          </Button>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Button size={ButtonSize.LARGE}>Add to Cart</Button>
+
+          <Button className="primary" size={ButtonSize.LARGE}>
+            Buy Now
+          </Button>
+        </>
+      );
+    }
+  };
 
   useEffect(() => {
     dispatch(getSingleProduct(productId as string));
@@ -71,13 +98,8 @@ function SingleProduct() {
                 data={!quantity ? "No Stock Available" : "On Stock"}
               />
               <SingleProductSubInfo title="Category" data={category} />
-
               <div className="single_product_optionBtn">
-                <Button size={ButtonSize.LARGE}>Add to Cart</Button>
-
-                <Button className="primary" size={ButtonSize.LARGE}>
-                  Buy Now
-                </Button>
+                {renderBtnOption()}
               </div>
             </div>
           </div>
@@ -87,6 +109,7 @@ function SingleProduct() {
           pfp={pfp}
           full_name={first_name + " " + last_name}
           email={email}
+          isOwner={isOwner}
         />
 
         <div className="single_product_description">

@@ -26,7 +26,7 @@ function App() {
 
     try {
       const decodedUser = jwtDecode(token);
-      console.log(decodeUser);
+
       dispatch(decodeUser(decodedUser));
     } catch (error) {}
 
