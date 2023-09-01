@@ -14,6 +14,7 @@ interface AuthState {
   loading: boolean;
   error: unknown;
   token: unknown;
+  decodedUser: unknown;
 }
 
 const initialState: AuthState = {
@@ -21,6 +22,7 @@ const initialState: AuthState = {
   loading: false,
   error: null,
   token: null,
+  decodedUser: null,
 };
 
 const slice = createSlice({
@@ -41,8 +43,14 @@ const slice = createSlice({
       auth.error = "";
       auth.token = action.payload;
     },
+
+    decodeUser: (auth, action) => {
+      auth.decodedUser = action.payload;
+    },
   },
 });
+
+export const { decodeUser } = slice.actions;
 
 const { authRequest, authRequestFailed, authenticateUser } = slice.actions;
 

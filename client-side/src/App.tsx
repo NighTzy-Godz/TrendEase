@@ -6,18 +6,29 @@ import Register from "./pages/auth/Register";
 import "react-toastify/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import Login from "./pages/auth/Login";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Products from "./pages/Product/Products";
 import ProductCreate from "./pages/Product/ProductCreate";
 import SingleProduct from "./pages/Product/SingleProduct";
+
+import { decodeUser } from "./store/slices/auth";
+import jwtDecode from "jwt-decode";
 
 function App() {
   const token1 = useSelector((state: any) => state.entities.auth.token);
   const token2 = localStorage.getItem("token");
   const token = token1 || token2;
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (!token) return;
+
+    try {
+      const decodedUser = jwtDecode(token);
+      console.log(decodeUser);
+      dispatch(decodeUser(decodedUser));
+    } catch (error) {}
 
     localStorage.setItem("token", token);
   }, [token]);
