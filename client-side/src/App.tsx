@@ -11,8 +11,7 @@ import Products from "./pages/Product/Products";
 import ProductCreate from "./pages/Product/ProductCreate";
 import SingleProduct from "./pages/Product/SingleProduct";
 
-import { decodeUser } from "./store/slices/auth";
-import jwtDecode from "jwt-decode";
+import { getUserData } from "./store/slices/auth";
 
 function App() {
   const token1 = useSelector((state: any) => state.entities.auth.token);
@@ -24,11 +23,7 @@ function App() {
   useEffect(() => {
     if (!token) return;
 
-    try {
-      const decodedUser = jwtDecode(token);
-
-      dispatch(decodeUser(decodedUser));
-    } catch (error) {}
+    dispatch(getUserData());
 
     localStorage.setItem("token", token);
   }, [token]);

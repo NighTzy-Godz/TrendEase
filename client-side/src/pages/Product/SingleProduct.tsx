@@ -16,9 +16,7 @@ function SingleProduct() {
   const product = useSelector(
     (state: any) => state.entities.product.singleProduct
   );
-  const decodedUser = useSelector(
-    (state: any) => state?.entities?.auth?.decodedUser
-  );
+  const currUser = useSelector((state: any) => state?.entities?.auth?.user);
 
   const {
     category,
@@ -32,7 +30,7 @@ function SingleProduct() {
   } = product || {};
 
   const { pfp, first_name, last_name, email } = owner || {};
-  const isOwner = decodedUser?._id === owner?._id;
+  const isOwner = currUser?._id === owner?._id;
   const renderBtnOption = () => {
     if (isOwner) {
       return (

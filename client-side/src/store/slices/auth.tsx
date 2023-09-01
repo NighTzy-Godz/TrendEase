@@ -44,15 +44,14 @@ const slice = createSlice({
       auth.token = action.payload;
     },
 
-    decodeUser: (auth, action) => {
-      auth.decodedUser = action.payload;
+    setUserInfo: (auth, action) => {
+      auth.user = action.payload;
     },
   },
 });
 
-export const { decodeUser } = slice.actions;
-
-const { authRequest, authRequestFailed, authenticateUser } = slice.actions;
+const { authRequest, authRequestFailed, authenticateUser, setUserInfo } =
+  slice.actions;
 
 export const loginUser = (data: LoginData) =>
   apiCallBegan({
@@ -73,6 +72,15 @@ export const registerUser = (data: RegisterValuesData) =>
     onStart: authRequest.type,
     onError: authRequestFailed.type,
     successMessage: "Successfully Registered the User!",
+  });
+
+export const getUserData = () =>
+  apiCallBegan({
+    urls: ["user/me"],
+    method: "GET",
+    onStart: authRequest.type,
+    onSuccess: setUserInfo.type,
+    onError: authRequestFailed.type,
   });
 
 export default slice.reducer;
