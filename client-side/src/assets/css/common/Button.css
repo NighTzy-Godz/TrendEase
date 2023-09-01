@@ -5,6 +5,8 @@
     border-radius: 21px;
     transition: all 0.3s;
     cursor: pointer;
+    background-color: var(--text-color);
+    color: var(--sub-color);
   }
 
   .loading {

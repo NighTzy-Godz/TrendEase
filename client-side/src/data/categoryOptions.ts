@@ -9,11 +9,7 @@ export default [
     name: "Fashion",
     value: "fashion",
   },
-  {
-    id: 2,
-    name: "Electronics",
-    value: "electronics",
-  },
+
   {
     id: 3,
     name: "Appliances",

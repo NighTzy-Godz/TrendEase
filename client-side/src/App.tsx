@@ -9,6 +9,7 @@ import Login from "./pages/auth/Login";
 import { useSelector } from "react-redux";
 import Products from "./pages/Product/Products";
 import ProductCreate from "./pages/Product/ProductCreate";
+import SingleProduct from "./pages/Product/SingleProduct";
 
 function App() {
   const token1 = useSelector((state: any) => state.entities.auth.token);
@@ -30,6 +31,7 @@ function App() {
           <Route path="/login" element={<Login />} />
 
           <Route path="/products" element={<Products />} />
+          <Route path="/products/:productId" element={<SingleProduct />} />
           <Route path="/create-product" element={<ProductCreate />} />
         </Route>
       </Routes>

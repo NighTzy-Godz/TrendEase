@@ -1,6 +1,6 @@
-import Form, { FormDataValues } from "../../components/common/Form";
+// import Form, { FormDataValues } from "../../components/common/Form";
 import InputContainer from "../../components/containers/InputContainer";
-import FormInput from "../../components/common/FormInput";
+// import FormInput from "../../components/common/FormInput";
 import Button, { ButtonSize } from "../../components/common/Button";
 
 import { Link, useNavigate } from "react-router-dom";
@@ -36,7 +36,7 @@ function Login() {
       <div className="container">
         <div className="form_container">
           <h3>Login</h3>
-          <Form
+          {/* <Form
             dataValues={initialData}
             onFormSubmit={(formData: FormDataValues) =>
               handleFormSubmit(formData as LoginFormData)
@@ -66,7 +66,7 @@ function Login() {
             </div>
 
             <Button size={ButtonSize.MEDIUM}>Login</Button>
-          </Form>
+          </Form> */}
         </div>
       </div>
     </div>

@@ -5,11 +5,13 @@ import { IProductCreate } from "../../pages/Product/ProductCreate";
 interface ProductState {
   loading: boolean;
   products: Array<Record<string, any>>;
+  singleProduct: Record<string, any>;
 }
 
 const initialState: ProductState = {
   loading: false,
   products: [],
+  singleProduct: {},
 };
 
 const slice = createSlice({
@@ -32,6 +34,11 @@ const slice = createSlice({
       product.loading = false;
       product.products = action.payload;
     },
+
+    singleProductRecieved: (product, action) => {
+      product.loading = false;
+      product.singleProduct = action.payload;
+    },
   },
 });
 
@@ -40,6 +47,7 @@ const {
   productRequestFailed,
   productCreated,
   productsRecieved,
+  singleProductRecieved,
 } = slice.actions;
 
 export const createProduct = (data: IProductCreate) =>
@@ -59,6 +67,15 @@ export const getAllProducts = () =>
     method: "GET",
     onStart: productRequested.type,
     onSuccess: productsRecieved.type,
+    onError: productRequestFailed.type,
+  });
+
+export const getSingleProduct = (productId: string) =>
+  apiCallBegan({
+    urls: [`/product/${productId}`],
+    method: "GET",
+    onStart: productRequested.type,
+    onSuccess: singleProductRecieved.type,
     onError: productRequestFailed.type,
   });
 

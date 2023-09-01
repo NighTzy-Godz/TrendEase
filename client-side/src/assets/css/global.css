@@ -58,13 +58,13 @@ img {
 
 @media screen and (min-width: 1500px) {
   .container {
-    max-width: 1400px;
+    max-width: 1350px;
 
     margin: 0 auto;
   }
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (1200px <= width <= 1500px) {
   .container {
     max-width: 1140px;
 

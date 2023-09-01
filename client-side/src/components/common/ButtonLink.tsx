@@ -13,7 +13,7 @@ interface ButtonLinkProps {
 
 function ButtonLink({
   children,
-  className = "primary",
+  className = "",
   size,
   path,
   handleClick = () => {},

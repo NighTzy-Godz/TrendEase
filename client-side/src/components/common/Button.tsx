@@ -15,7 +15,7 @@ interface ButtonProps {
 
 function Button({
   children,
-  className = "primary",
+  className = "",
   size,
   handleClick = () => {},
 }: ButtonProps) {

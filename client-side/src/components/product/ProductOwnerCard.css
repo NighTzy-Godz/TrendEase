@@ -1,0 +1,45 @@
+@media screen and (min-width: 200px) {
+  .single_product_owner_card {
+    width: 48.7%;
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 8px;
+    align-items: center;
+    border: 1px solid white;
+    padding: 10px;
+  }
+
+  .single_product_owner_card .owner_info {
+    display: flex;
+  }
+
+  .single_product_owner_card .owner_img {
+    margin-right: 10px;
+  }
+
+  .single_product_owner_card .owner_img img {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+  }
+
+  .single_product_owner_card .owner_subDetails h3 {
+    color: var(--main-color);
+    font-size: 16px;
+  }
+
+  .single_product_owner_card .owner_subDetails p {
+    font-size: 14px;
+    color: var(--text-color);
+  }
+
+  .single_product_owner_card .owner_btn {
+    width: 30%;
+  }
+
+  .single_product_owner_card .owner_btn a {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
