@@ -14,6 +14,7 @@ export default function isAuth(
 
     const decoded = jwt.verify(token, jwtSecretPass);
     (req as any).user = decoded;
+
     next();
   } catch (error) {
     next(error);
