@@ -46,7 +46,7 @@ function TopNavbar({ token }: TopNavbarProps) {
               </li>
 
               <li>
-                <NavLink to="/cart">Profile</NavLink>
+                <NavLink to="/profile">Profile</NavLink>
               </li>
             </>
           )}

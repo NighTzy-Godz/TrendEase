@@ -12,6 +12,7 @@ import ProductCreate from "./pages/Product/ProductCreate";
 import SingleProduct from "./pages/Product/SingleProduct";
 
 import { getUserData } from "./store/slices/auth";
+import Cart from "./pages/Cart";
 
 function App() {
   const token1 = useSelector((state: any) => state.entities.auth.token);
@@ -39,6 +40,8 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/products/:productId" element={<SingleProduct />} />
           <Route path="/create-product" element={<ProductCreate />} />
+
+          <Route path="/cart" element={<Cart />} />
         </Route>
       </Routes>
     </BrowserRouter>
