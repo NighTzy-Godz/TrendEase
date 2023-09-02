@@ -4,6 +4,8 @@ dotenv.config();
 import express, { json, urlencoded } from "express";
 import userRoutes from "./routes/User";
 import productRoutes from "./routes/Product";
+import cartRoutes from "./routes/Cart";
+
 import cors from "cors";
 
 const PORT = 8080;
@@ -15,5 +17,6 @@ app.use(cors());
 
 app.use("/api/user", userRoutes);
 app.use("/api/product", productRoutes);
+app.use("/api/cart", cartRoutes);
 
 app.listen(PORT, () => console.log("Listening on PORT ", PORT));
