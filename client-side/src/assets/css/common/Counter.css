@@ -1,0 +1,22 @@
+@media screen and (min-width: 1200px) {
+  .counter {
+    display: flex;
+    height: 40px;
+  }
+
+  .counter input {
+    font-family: gelion_bold;
+    width: 100px;
+    text-align: center;
+    color: var(--sub-color);
+    font-size: 18px;
+    pointer-events: none;
+  }
+
+  .counter button {
+    font-size: 18px;
+    width: 30px;
+    cursor: pointer;
+    outline: none;
+  }
+}

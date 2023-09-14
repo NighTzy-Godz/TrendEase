@@ -1,17 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "../actions/apiActions";
 import { IProductCreate } from "../../pages/Product/ProductCreate";
+import { ProductData } from "../../interfaces/product";
 
 interface ProductState {
   loading: boolean;
-  products: Array<Record<string, any>>;
-  singleProduct: Record<string, any>;
+  products: Array<ProductData>;
+  singleProduct: ProductData | null;
 }
 
 const initialState: ProductState = {
   loading: false,
   products: [],
-  singleProduct: {},
+  singleProduct: null,
 };
 
 const slice = createSlice({
@@ -32,12 +33,12 @@ const slice = createSlice({
 
     productsRecieved: (product, action) => {
       product.loading = false;
-      product.products = action.payload;
+      product.products = action.payload[0];
     },
 
     singleProductRecieved: (product, action) => {
       product.loading = false;
-      product.singleProduct = action.payload;
+      product.singleProduct = action.payload[0];
     },
   },
 });

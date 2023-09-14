@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../store/slices/auth";
 import { useForm } from "react-hook-form";
+import PaddedPage from "../../components/containers/PaddedPage";
 
 export interface LoginData {
   email: string;
@@ -27,7 +28,7 @@ function Login() {
 
   useEffect(() => {
     if (!token) return;
-    navigate("/");
+    navigate("/profile");
   }, [authError]);
 
   const handleFormSubmit = (data: LoginData) => {
@@ -35,7 +36,7 @@ function Login() {
   };
 
   return (
-    <div className="auth_form">
+    <PaddedPage className="auth_form">
       <div className="container">
         <div className="form_container">
           <h3>Login</h3>
@@ -81,7 +82,7 @@ function Login() {
           </form>
         </div>
       </div>
-    </div>
+    </PaddedPage>
   );
 }
 

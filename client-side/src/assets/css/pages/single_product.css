@@ -1,6 +1,5 @@
 @media screen and (min-width: 1200px) {
   .single_product {
-    padding: 40px 0px;
     background-color: var(--bg-color);
   }
 
@@ -65,6 +64,7 @@
     color: var(--text-color);
     font-size: 21px;
     margin-top: 2px;
+    text-transform: capitalize;
   }
 
   .single_product_optionBtn {

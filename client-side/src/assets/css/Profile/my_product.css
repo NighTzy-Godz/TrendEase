@@ -1,0 +1,26 @@
+@media screen and (min-width: 1200px) {
+  .my_products {
+    height: 92dvh;
+    background-color: var(--bg-color);
+  }
+
+  .my_products h1 {
+    margin-bottom: 20px;
+    color: var(--main-color);
+  }
+
+  .my_products .no_products h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
+  }
+
+  .my_products .no_products a {
+    width: 20%;
+  }
+
+  .my_products .product_list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+  }
+}

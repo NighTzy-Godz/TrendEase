@@ -1,22 +1,30 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "../../assets/css/pages/single_product.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getSingleProduct } from "../../store/slices/product";
 import formatCurrency from "../../utils/formatCurrency";
-// import img from "../../assets/img/first_ppt.jpg";
+
 import Button, { ButtonSize } from "../../components/common/Button";
 import SingleProductSubInfo from "../../components/product/SingleProductSubInfo";
 import SingleProductOwnerCard from "../../components/product/SingleProductOwnerCard";
 import ButtonLink from "../../components/common/ButtonLink";
+import { addToCart } from "../../store/slices/cart";
+import { toast } from "react-toastify";
+import PaddedPage from "../../components/containers/PaddedPage";
+import { setCheckoutBuyNow } from "../../store/slices/checkout";
+import { State } from "../../store/store";
 
 function SingleProduct() {
   const { productId } = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const product = useSelector(
-    (state: any) => state.entities.product.singleProduct
+    (state: State) => state.entities.product.singleProduct
   );
-  const currUser = useSelector((state: any) => state?.entities?.auth?.user);
+  const currUser = useSelector(
+    (state: State) => state?.entities?.auth?.decodedUser
+  );
 
   const {
     category,
@@ -27,10 +35,37 @@ function SingleProduct() {
     quantity,
     ratings,
     title,
+    sold,
   } = product || {};
 
-  const { pfp, first_name, last_name, email } = owner || {};
+  const { _id: productOwner, pfp, email } = owner || {};
   const isOwner = currUser?._id === owner?._id;
+
+  const handleAddCart = (productId: string) => {
+    if (!currUser) {
+      toast.error("You need to sign in first", { autoClose: 2500 });
+      return navigate("/login");
+    }
+    dispatch(addToCart(productId));
+  };
+
+  const handleBuyNow = () => {
+    if (!currUser) {
+      toast.error("You need to sign in first", { autoClose: 2500 });
+      return navigate("/login");
+    }
+
+    const checkoutItem = {
+      product,
+      quantity: 1,
+      productOwner,
+      price,
+    };
+
+    dispatch(setCheckoutBuyNow([checkoutItem]));
+    navigate("/checkout");
+  };
+
   const renderBtnOption = () => {
     if (isOwner) {
       return (
@@ -45,9 +80,18 @@ function SingleProduct() {
     } else {
       return (
         <>
-          <Button size={ButtonSize.LARGE}>Add to Cart</Button>
+          <Button
+            size={ButtonSize.LARGE}
+            handleClick={() => handleAddCart(productId as string)}
+          >
+            Add to Cart
+          </Button>
 
-          <Button className="primary" size={ButtonSize.LARGE}>
+          <Button
+            className="primary"
+            size={ButtonSize.LARGE}
+            handleClick={handleBuyNow}
+          >
             Buy Now
           </Button>
         </>
@@ -60,7 +104,7 @@ function SingleProduct() {
   }, [productId]);
 
   return (
-    <div className="single_product">
+    <PaddedPage className="single_product">
       <div className="container">
         <div className="single_product_nav">
           <ButtonLink
@@ -85,7 +129,7 @@ function SingleProduct() {
               <h1>{title}</h1>
               <div className="product_info_flex">
                 <p>P {formatCurrency(price)}</p>
-                <p>{ratings} Stars</p> <p>{0} sold</p>
+                <p>{ratings} Stars</p> <p>{sold} sold</p>
               </div>
             </div>
 
@@ -105,7 +149,7 @@ function SingleProduct() {
 
         <SingleProductOwnerCard
           pfp={pfp}
-          full_name={first_name + " " + last_name}
+          full_name={currUser?.full_name}
           email={email}
           isOwner={isOwner}
         />
@@ -120,7 +164,7 @@ function SingleProduct() {
           <p>No Ratings at the moment</p>
         </div>
       </div>
-    </div>
+    </PaddedPage>
   );
 }
 

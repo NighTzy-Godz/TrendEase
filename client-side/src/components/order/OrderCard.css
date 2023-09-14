@@ -1,0 +1,46 @@
+@media screen and (min-width: 1200px) {
+  .order_card {
+    display: block;
+    background-color: var(--sub-color);
+  }
+
+  .order_card_info {
+    padding: 5px 10px;
+  }
+
+  .order_card_info .title {
+    margin-bottom: 10px;
+  }
+
+  .order_card_info .title p {
+    color: var(--text-color);
+    line-height: 1.1;
+    font-size: 16px;
+  }
+
+  .order_info {
+    margin-bottom: 10px;
+  }
+
+  .order_card_container p {
+    font-size: 14px;
+    color: var(--text-color);
+  }
+
+  .order_card_info {
+    padding: 15px 10px;
+  }
+
+  .order_card_container p span {
+    color: var(--main-color);
+  }
+
+  .order_card_info .price h4 {
+    color: var(--main-color);
+  }
+
+  .order_card_info .action button {
+    width: 100%;
+    margin-top: 20px;
+  }
+}

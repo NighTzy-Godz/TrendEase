@@ -5,7 +5,6 @@
     border-radius: 21px;
     transition: all 0.3s;
     cursor: pointer;
-    background-color: var(--text-color);
     color: var(--sub-color);
   }
 
@@ -32,13 +31,42 @@
     font-size: 16px;
   }
 
+  .x_small {
+    width: 70px;
+    padding: 4px;
+    font-size: 14px;
+  }
+
+  .plain {
+    background-color: var(--plain);
+    /* color: var(--sub-color); */
+    border: 1px solid var(--plain);
+  }
+
+  .plain:hover {
+    background-color: var(--plain-hover);
+
+    border: 1px solid var(--plain-hover);
+  }
+
   .primary {
-    background-color: var(--main-color);
+    background-color: var(--primary);
     color: var(--sub-color);
+    border: 1px solid var(--primary);
   }
 
   .primary:hover {
-    color: var(--bg-color);
-    background-color: var(--text-color);
+    background-color: var(--primary-hover);
+  }
+
+  .danger {
+    border: 1px solid var(--danger);
+    background-color: var(--danger);
+    color: var(--text-color);
+  }
+
+  .danger:hover {
+    background-color: var(--danger-hover);
+    color: var(--text-color);
   }
 }

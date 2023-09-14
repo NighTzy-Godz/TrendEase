@@ -19,6 +19,15 @@
   --sub-color: #3b3a3a;
   --text-color: #f6f6f6;
   --main-color: #ffcb74;
+
+  --plain: #f6f6f6;
+  --plain-hover: #b9b9b9;
+
+  --primary: #ffcb74;
+  --primary-hover: #e4b970;
+
+  --danger: rgb(241, 101, 101);
+  --danger-hover: rgb(201, 57, 57);
 }
 
 h1,
@@ -54,6 +63,11 @@ li {
 
 img {
   max-width: 100%;
+}
+
+.padded_page {
+  min-height: 92dvh;
+  padding: 80px 0px;
 }
 
 @media screen and (min-width: 1500px) {

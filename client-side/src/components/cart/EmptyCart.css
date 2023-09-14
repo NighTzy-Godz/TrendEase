@@ -1,0 +1,25 @@
+@media screen and (min-width: 991px) {
+  .empty_cart {
+    height: 92dvh;
+    display: grid;
+    align-items: center;
+    background-color: var(--bg-color);
+  }
+
+  .empty_cart h1 {
+    color: var(--main-color);
+    font-size: 58px;
+    text-transform: capitalize;
+  }
+
+  .empty_cart p {
+    font-size: 21px;
+    color: var(--text-color);
+    text-align: center;
+  }
+
+  .empty_cart p a {
+    color: var(--main-color);
+    text-decoration: underline;
+  }
+}

@@ -1,6 +1,6 @@
 interface SingleProductSubInfoProps {
   title: string;
-  data: string | number;
+  data: string | number | undefined;
 }
 
 function SingleProductSubInfo({ title, data }: SingleProductSubInfoProps) {

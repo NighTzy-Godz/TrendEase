@@ -1,0 +1,45 @@
+@media screen and (min-width: 1200px) {
+  .profile {
+    background-color: var(--bg-color);
+  }
+
+  .profile_option {
+    margin: 20px 0px;
+  }
+
+  .profile_option .header {
+    margin-bottom: 20px;
+  }
+
+  .profile_option .header h3 {
+    font-size: 32px;
+    line-height: 1;
+    color: var(--main-color);
+  }
+
+  .profile_option .header p {
+    color: var(--text-color);
+    font-size: 18px;
+  }
+
+  .profile_option_list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .profile_option_list a {
+    color: var(--text-color);
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid var(--text-color);
+    margin-bottom: 20px;
+    font-size: 18px;
+    transition: all 0.2s ease-in;
+  }
+
+  .profile_option_list a:hover {
+    background-color: var(--plain);
+    border: 1px solid var(--plain);
+    color: var(--sub-color);
+  }
+}

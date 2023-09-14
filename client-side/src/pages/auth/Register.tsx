@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../../store/slices/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import PaddedPage from "../../components/containers/PaddedPage";
 
 export interface RegisterValuesData {
   first_name: string;
@@ -15,11 +16,11 @@ export interface RegisterValuesData {
   password: string;
   confirmPassword: string;
 }
-
+import { State } from "../../store/store";
 function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const authError = useSelector((state: any) => state?.entities?.auth?.error);
+  const authError = useSelector((state: State) => state?.entities?.auth?.error);
 
   const {
     register,
@@ -34,7 +35,7 @@ function Register() {
   };
 
   return (
-    <div className="auth_form">
+    <PaddedPage className="auth_form">
       <div className="container">
         <div className="form_container">
           <h3>Register</h3>
@@ -148,11 +149,13 @@ function Register() {
               </small>
             </div>
 
-            <Button size={ButtonSize.MEDIUM}>Submit</Button>
+            <Button size={ButtonSize.MEDIUM} className="primary">
+              Submit
+            </Button>
           </form>
         </div>
       </div>
-    </div>
+    </PaddedPage>
   );
 }
 

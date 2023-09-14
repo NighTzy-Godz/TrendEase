@@ -1,7 +1,6 @@
 @media screen and (min-width: 1200px) {
   .auth_form {
     background-color: var(--bg-color);
-    padding: 80px 0px;
   }
 
   .form_container {

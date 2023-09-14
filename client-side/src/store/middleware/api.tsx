@@ -5,7 +5,7 @@ import {
   apiCallFailed,
 } from "../actions/apiActions";
 import { toast } from "react-toastify";
-import { Dispatch, Middleware } from "redux";
+import { Middleware } from "redux";
 
 const api: Middleware =
   ({ dispatch }) =>
@@ -43,7 +43,6 @@ const api: Middleware =
       if (params) {
         config.params = { ...queryParams, ...params };
       }
-
       return axios.request(config);
     });
 
@@ -53,13 +52,18 @@ const api: Middleware =
 
       dispatch(apiCallSuccess(responseData));
 
-      if (onSuccess) dispatch({ type: onSuccess, payload: responseData[0] });
-      if (successMessage) toast.success(successMessage, { autoClose: 2500 });
+      if (onSuccess) dispatch({ type: onSuccess, payload: responseData });
+      if (successMessage)
+        toast.success(successMessage, {
+          autoClose: 2500,
+        });
     } catch (error) {
       const axiosError = (error as AxiosError).response?.data;
 
       if (axiosError) {
-        toast.error(axiosError as string, { autoClose: 2500 });
+        toast.error(axiosError as string, {
+          autoClose: 2500,
+        });
         dispatch(apiCallFailed(axiosError));
       }
       if (onError) dispatch({ type: onError, payload: axiosError });

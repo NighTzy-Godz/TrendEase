@@ -4,6 +4,7 @@ export enum ButtonSize {
   LARGE = "large",
   MEDIUM = "medium",
   SMALL = "small",
+  X_SMALL = "x_small",
 }
 
 interface ButtonProps {
@@ -15,7 +16,7 @@ interface ButtonProps {
 
 function Button({
   children,
-  className = "",
+  className = "plain",
   size,
   handleClick = () => {},
 }: ButtonProps) {

@@ -11,11 +11,20 @@ import Products from "./pages/Product/Products";
 import ProductCreate from "./pages/Product/ProductCreate";
 import SingleProduct from "./pages/Product/SingleProduct";
 
-import { getUserData } from "./store/slices/auth";
+import { setDecodedUser } from "./store/slices/auth";
 import Cart from "./pages/Cart";
-
+import Profile from "./pages/Profile/Profile";
+import jwtDecode from "jwt-decode";
+import Checkout from "./pages/Checkout";
+import { getUserCart } from "./store/slices/cart";
+import MyProducts from "./pages/Profile/MyProducts";
+import Logout from "./pages/auth/Logout";
+import ChangePassword from "./pages/auth/ChangePassword";
+import MyOrders from "./pages/Profile/MyOrders";
+import { State } from "./store/store";
+import CustomerOrders from "./pages/Profile/CustomerOrders";
 function App() {
-  const token1 = useSelector((state: any) => state.entities.auth.token);
+  const token1 = useSelector((state: State) => state.entities.auth.token);
   const token2 = localStorage.getItem("token");
   const token = token1 || token2;
 
@@ -23,11 +32,15 @@ function App() {
 
   useEffect(() => {
     if (!token) return;
+    try {
+      const decodedUser = jwtDecode(token);
 
-    dispatch(getUserData());
+      dispatch(setDecodedUser(decodedUser));
 
-    localStorage.setItem("token", token);
+      localStorage.setItem("token", token);
+    } catch (error) {}
   }, [token]);
+
   return (
     <BrowserRouter>
       <ToastContainer />
@@ -36,12 +49,23 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/change-pass" element={<ChangePassword />} />
 
           <Route path="/products" element={<Products />} />
           <Route path="/products/:productId" element={<SingleProduct />} />
           <Route path="/create-product" element={<ProductCreate />} />
 
           <Route path="/cart" element={<Cart />} />
+
+          <Route path="/checkout" element={<Checkout />} />
+
+          <Route path="/profile" element={<Profile />} />
+
+          <Route path="/my-products" element={<MyProducts />} />
+          <Route path="/my-orders" element={<MyOrders />} />
+          <Route path="/my-customer-orders" element={<CustomerOrders />} />
+
+          <Route path="/logout" element={<Logout />} />
         </Route>
       </Routes>
     </BrowserRouter>

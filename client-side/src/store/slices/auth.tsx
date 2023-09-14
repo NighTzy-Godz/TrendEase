@@ -2,26 +2,20 @@ import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "../actions/apiActions";
 import { LoginData } from "../../pages/auth/Login";
 import { RegisterValuesData } from "../../pages/auth/Register";
-
-interface User {
-  _id: string;
-  first_name: string;
-  last_name: string;
-}
+import { ChangePasswordData } from "../../pages/auth/ChangePassword";
+import { DecodedUserData } from "../../interfaces/user";
 
 interface AuthState {
-  user: null | Partial<User>;
   loading: boolean;
   error: unknown;
-  token: unknown;
-  decodedUser: unknown;
+  token: string;
+  decodedUser: DecodedUserData | null;
 }
 
 const initialState: AuthState = {
-  user: null,
   loading: false,
   error: null,
-  token: null,
+  token: "",
   decodedUser: null,
 };
 
@@ -41,17 +35,33 @@ const slice = createSlice({
     authenticateUser: (auth, action) => {
       auth.loading = false;
       auth.error = "";
-      auth.token = action.payload;
+      auth.token = action.payload[0];
     },
 
-    setUserInfo: (auth, action) => {
-      auth.user = action.payload;
+    authChangePass: (auth, action) => {
+      auth.loading = false;
+      auth.error = "";
+    },
+
+    setDecodedUser: (auth, action) => {
+      auth.decodedUser = action.payload;
     },
   },
 });
 
-const { authRequest, authRequestFailed, authenticateUser, setUserInfo } =
-  slice.actions;
+export const { setDecodedUser } = slice.actions;
+
+const { authRequest, authRequestFailed, authenticateUser } = slice.actions;
+
+export const userChangePass = (data: ChangePasswordData) =>
+  apiCallBegan({
+    urls: ["/user/change-pass"],
+    method: "PUT",
+    data,
+    onStart: authRequest.type,
+    onError: authRequestFailed.type,
+    successMessage: `Successfully Changed the Password!`,
+  });
 
 export const loginUser = (data: LoginData) =>
   apiCallBegan({
@@ -72,15 +82,6 @@ export const registerUser = (data: RegisterValuesData) =>
     onStart: authRequest.type,
     onError: authRequestFailed.type,
     successMessage: "Successfully Registered the User!",
-  });
-
-export const getUserData = () =>
-  apiCallBegan({
-    urls: ["user/me"],
-    method: "GET",
-    onStart: authRequest.type,
-    onSuccess: setUserInfo.type,
-    onError: authRequestFailed.type,
   });
 
 export default slice.reducer;

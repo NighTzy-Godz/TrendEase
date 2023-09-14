@@ -7,6 +7,7 @@ import categoryOptions from "../../data/categoryOptions";
 import { useDispatch, useSelector } from "react-redux";
 import { createProduct } from "../../store/slices/product";
 import { useNavigate } from "react-router-dom";
+import PaddedPage from "../../components/containers/PaddedPage";
 
 enum Category {
   ELECTRONICS = "electronics",
@@ -26,12 +27,12 @@ export interface IProductCreate {
   quantity: number;
   category: Category;
 }
-
+import { State } from "../../store/store";
 function ProductCreate() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loading = useSelector(
-    (state: any) => state?.entities?.product?.loading
+    (state: State) => state?.entities?.product?.loading
   );
 
   const {
@@ -73,7 +74,7 @@ function ProductCreate() {
   };
 
   return (
-    <div className="product_create">
+    <PaddedPage className="product_create">
       <div className="container">
         <div className="form_container">
           <h3>Product Create</h3>
@@ -182,7 +183,7 @@ function ProductCreate() {
           </form>
         </div>
       </div>
-    </div>
+    </PaddedPage>
   );
 }
 

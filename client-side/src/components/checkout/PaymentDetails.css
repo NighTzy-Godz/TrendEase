@@ -1,0 +1,22 @@
+@media screen and (min-width: 991px) {
+  .payment_details_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .payment_details_container small {
+    font-size: 18px;
+    color: var(--text-color);
+  }
+
+  .payment_details_container h3 {
+    font-size: 21px;
+    color: var(--main-color);
+  }
+
+  .payment_details_container p {
+    font-size: 18px;
+    color: var(--main-color);
+  }
+}

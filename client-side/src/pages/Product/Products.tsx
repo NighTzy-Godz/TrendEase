@@ -1,18 +1,20 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../store/slices/product";
-import ProductCard, {
-  ProductCardData,
-} from "../../components/product/ProductCard";
+import ProductCard from "../../components/product/ProductCard";
+import { ProductData } from "../../interfaces/product";
 import "../../assets/css/pages/all_products.css";
+import PaddedPage from "../../components/containers/PaddedPage";
+import { State } from "../../store/store";
 
 function Products() {
   const dispatch = useDispatch();
+
   const products = useSelector(
-    (state: any) => state?.entities?.product?.products
+    (state: State) => state?.entities?.product?.products
   );
 
-  const renderAllProducts = products?.map((product: ProductCardData) => {
+  const renderAllProducts = products?.map((product: ProductData) => {
     return (
       <React.Fragment key={product._id}>
         <ProductCard data={product} />
@@ -24,7 +26,7 @@ function Products() {
     dispatch(getAllProducts());
   }, []);
   return (
-    <div className="all_products">
+    <PaddedPage className="all_products">
       <div className="container">
         <h1>All Products</h1>
 
@@ -38,7 +40,7 @@ function Products() {
           <div className="product_list">{renderAllProducts}</div>
         </div>
       </div>
-    </div>
+    </PaddedPage>
   );
 }
 

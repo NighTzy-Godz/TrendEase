@@ -1,26 +1,27 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import "./TopNavbar.css";
 import ButtonLink from "../common/ButtonLink";
 import Button, { ButtonSize } from "../common/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserCart } from "../../store/slices/cart";
+import { State } from "../../store/store";
 
 interface TopNavbarProps {
-  token: string;
+  token: string | null;
 }
 
 function TopNavbar({ token }: TopNavbarProps) {
-  const navigate = useNavigate();
+  const userCart = useSelector((state: State) => state.entities.cart.cart);
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  console.log;
 
   useEffect(() => {
-    if (token) setIsAuthenticated(true);
+    if (token) {
+      setIsAuthenticated(true);
+    }
   }, [token]);
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsAuthenticated(false);
-    navigate("/");
-  };
 
   return (
     <nav className="nav_top">
@@ -42,11 +43,7 @@ function TopNavbar({ token }: TopNavbarProps) {
                 <NavLink to="/create-product">Add Product</NavLink>
               </li>
               <li>
-                <NavLink to="/cart">Cart</NavLink>
-              </li>
-
-              <li>
-                <NavLink to="/profile">Profile</NavLink>
+                <NavLink to="/cart">Cart {userCart.length}</NavLink>
               </li>
             </>
           )}
@@ -58,9 +55,9 @@ function TopNavbar({ token }: TopNavbarProps) {
               Login
             </ButtonLink>
           ) : (
-            <Button size={ButtonSize.LARGE} handleClick={handleLogout}>
-              Logout
-            </Button>
+            <ButtonLink path="/profile" size={ButtonSize.LARGE}>
+              Profile
+            </ButtonLink>
           )}
         </div>
       </div>

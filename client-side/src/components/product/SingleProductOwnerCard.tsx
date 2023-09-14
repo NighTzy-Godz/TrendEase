@@ -3,10 +3,10 @@ import { ButtonSize } from "../common/Button";
 import ButtonLink from "../common/ButtonLink";
 import "./ProductOwnerCard.css";
 interface SingleProductOwnerCardProps {
-  pfp: string;
-  full_name: string;
-  email: string;
-  isOwner: boolean;
+  pfp: string | undefined;
+  full_name: string | undefined;
+  email: string | undefined;
+  isOwner: boolean | undefined;
 }
 
 function SingleProductOwnerCard({
@@ -15,6 +15,18 @@ function SingleProductOwnerCard({
   email,
   isOwner,
 }: SingleProductOwnerCardProps) {
+  function renderBtnAuth(): React.ReactNode {
+    return !isOwner ? (
+      <ButtonLink className="primary" path="/" size={ButtonSize.MEDIUM}>
+        Chat Now
+      </ButtonLink>
+    ) : (
+      <ButtonLink path="/" size={ButtonSize.MEDIUM}>
+        View Profile
+      </ButtonLink>
+    );
+  }
+
   return (
     <div className="single_product_owner_card">
       <div className="owner_info">
@@ -26,17 +38,7 @@ function SingleProductOwnerCard({
           <p>{email}</p>
         </div>
       </div>
-      <div className="owner_btn">
-        {!isOwner && (
-          <ButtonLink className="primary" path="/" size={ButtonSize.MEDIUM}>
-            Chat Now
-          </ButtonLink>
-        )}
-
-        <ButtonLink path="/" size={ButtonSize.MEDIUM}>
-          View Profile
-        </ButtonLink>
-      </div>
+      <div className="owner_btn">{renderBtnAuth()}</div>
     </div>
   );
 }

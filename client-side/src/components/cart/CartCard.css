@@ -1,0 +1,54 @@
+@media screen and (min-width: 1200px) {
+  .cart_card {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .cart_card_img {
+    width: 10%;
+  }
+
+  .cart_card_info {
+    width: 40%;
+  }
+
+  .cart_card_info h3 {
+    color: var(--main-color);
+    font-size: 21px;
+    line-height: 1.1;
+  }
+
+  .cart_card_info p {
+    color: var(--text-color);
+    font-size: 18px;
+    margin-top: 5px;
+    text-transform: capitalize;
+  }
+
+  .cart_card_currPrice {
+    text-align: center;
+    width: 15%;
+  }
+
+  .cart_card_currPrice p {
+    color: var(--text-color);
+    font-size: 18px;
+  }
+
+  .cart_card_counter {
+    width: 20%;
+    text-align: center;
+  }
+
+  .cart_card_delete {
+    width: 15%;
+
+    text-align: center;
+  }
+
+  .cart_card_delete button {
+    width: 80%;
+  }
+}

@@ -3,15 +3,10 @@ import "./ProductCard.css";
 import { Link } from "react-router-dom";
 import formatCurrency from "../../utils/formatCurrency";
 
-export interface ProductCardData {
-  _id: string;
-  title: string;
-  price: number;
-  images: [string];
-}
+import { ProductData } from "../../interfaces/product";
 
 interface ProductCardProps {
-  data: ProductCardData;
+  data: ProductData;
 }
 
 function ProductCard({ data }: ProductCardProps) {
