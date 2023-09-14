@@ -19,6 +19,23 @@ export const getAllProducts = async (
   }
 };
 
+export const getAllMyProducts = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const currUser = (req as any).user._id;
+    if (!currUser) return res.status(404).send("Current User did not found");
+
+    const myProducts = await Product.find({ owner: currUser });
+
+    res.send(myProducts);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getSingleProduct = async (
   req: Request,
   res: Response,

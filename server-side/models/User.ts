@@ -11,6 +11,7 @@ mongoose
 interface IUser extends Document {
   pfp: string;
   cover_photo: string;
+  bio: string;
   first_name: string;
   last_name: string;
   email: string;
@@ -30,6 +31,11 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
   },
 
   cover_photo: {
+    type: String,
+    default: "",
+  },
+
+  bio: {
     type: String,
     default: "",
   },
@@ -72,6 +78,7 @@ userSchema.methods.genereateAuthToken = function (): string {
     {
       _id: this._id,
       full_name: this.first_name + " " + this.last_name,
+      address: this.address,
     },
     jwtSecretKey
   );

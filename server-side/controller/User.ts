@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import User from "../models/User";
 import bcrypt from "bcrypt";
 import {
+  userChangePasswordValidator,
   userLoginValidator,
   userRegisterValidator,
 } from "../validators/UserValidator";
@@ -14,6 +15,41 @@ export async function userGetData(
   try {
     const user = await User.findOne({ _id: (req as any).user._id });
     if (!user) return res.status(404).send("User did not found");
+
+    res.send(user);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function userChangePassword(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { currPassword, newPassword, confirmPassword } = req.body;
+    const { error } = userChangePasswordValidator(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    const user = await User.findOne({ _id: (req as any).user._id }).select(
+      "password"
+    );
+
+    if (!user) return res.status(404).send("User did not found");
+
+    const validPassword = await bcrypt.compare(currPassword, user.password);
+    if (!validPassword)
+      return res.status(400).send("Credentials did not match");
+
+    if (newPassword !== confirmPassword)
+      return res
+        .status(400)
+        .send("New Password and Confirm Password did not match");
+
+    user.password = await bcrypt.hash(confirmPassword, 10);
+
+    await user.save();
 
     res.send(user);
   } catch (error) {

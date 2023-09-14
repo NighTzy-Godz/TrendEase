@@ -30,6 +30,7 @@ interface IProduct extends Document {
   ratings: number;
   category: ProductCategory;
   reviews: mongoose.Schema.Types.ObjectId[];
+  sold: number;
   owner: mongoose.Schema.Types.ObjectId;
   relatedProducts: mongoose.Schema.Types.ObjectId[];
   createdAt: Date;
@@ -78,6 +79,11 @@ const productSchema: Schema<IProduct> = new mongoose.Schema(
     category: {
       type: String,
       enum: Object.values(ProductCategory),
+    },
+
+    sold: {
+      type: Number,
+      default: 0,
     },
 
     reviews: [
