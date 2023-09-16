@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Button, { ButtonSize } from "../../components/common/Button";
 import "./Auth.css";
 import InputContainer from "../../components/containers/InputContainer";
@@ -19,12 +19,20 @@ export interface RegisterValuesData {
 }
 import { State } from "../../store/store";
 function Register() {
+  const [submitted, setSubmitted] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const authError = useSelector((state: State) => state?.entities?.auth?.error);
 
   useEffect(() => {
-    if (!authError) navigate("/login");
+    console.log(authError);
+
+    if (submitted && !authError) {
+      console.log("navigating");
+      setSubmitted(false);
+      navigate("/login");
+    }
   }, [authError]);
 
   const {
@@ -34,6 +42,7 @@ function Register() {
   } = useForm<RegisterValuesData>();
 
   const handleFormSubmit = (data: RegisterValuesData) => {
+    setSubmitted(true);
     dispatch(registerUser(data));
   };
 

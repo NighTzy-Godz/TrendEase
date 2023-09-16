@@ -10,15 +10,14 @@ import { toast } from "react-toastify";
 import Divider from "../components/common/Divider";
 import PaymentDetails from "../components/checkout/PaymentDetails";
 import Button, { ButtonSize } from "../components/common/Button";
-import calculateAmount from "../utils/calculateAmount";
 import formatCurrency from "../utils/formatCurrency";
-import calculateTax from "../utils/calculateTax";
-import calculateTotalOrder from "../utils/calculateTotalOrder";
 import { addOrder } from "../store/slices/checkout";
 
 const SHIPPING_FEE = 40;
 const TAX = 0.012;
 import { State } from "../store/store";
+import paymentDetails from "../utils/paymentDetails";
+import getUserAddress from "../utils/getUserAddress";
 
 function Checkout() {
   const navigate = useNavigate();
@@ -29,21 +28,27 @@ function Checkout() {
     (state: State) => state?.entities?.auth?.decodedUser?.address
   );
   const checkoutItems = useSelector(
-    (state: any) => state?.entities?.checkout?.checkoutItems
+    (state: State) => state?.entities?.checkout?.checkoutItems
   );
   const paymentMethod = useSelector(
     (state: State) => state?.entities?.checkout?.paymentMethod
   );
   const { error } = useSelector((state: State) => state?.entities?.checkout);
 
-  const { merchandiseTotal, totalTax, totalOrderAmount } = paymentDetails();
+  const { merchandiseTotal, totalTax, totalOrderAmount } = paymentDetails({
+    checkoutItems,
+    TAX,
+    SHIPPING_FEE,
+  });
 
   useEffect(() => {
+    console.log(error);
     if (submitted && !error) {
-      navigate("/products");
+      console.log("I will navigate first");
       setSubmitted(false);
+      navigate("/products");
     }
-  }, [error, submitted]);
+  }, [error]);
 
   // NOTE: This is to prevent the user to accidentally accessing the checkout page
   useEffect(() => {
@@ -93,8 +98,8 @@ function Checkout() {
       fromCart: true,
     };
 
-    dispatch(addOrder(checkoutData));
     setSubmitted(true);
+    dispatch(addOrder(checkoutData));
   };
 
   return (
@@ -170,39 +175,6 @@ function Checkout() {
       </div>
     </PaddedPage>
   );
-
-  function paymentDetails() {
-    const merchandiseTotal = calculateAmount(checkoutItems, "price");
-    const totalTax = calculateTax(merchandiseTotal, TAX);
-    const totalOrderAmount = calculateTotalOrder(
-      merchandiseTotal,
-      totalTax,
-      SHIPPING_FEE
-    );
-    return { merchandiseTotal, totalTax, totalOrderAmount };
-  }
 }
 
 export default Checkout;
-
-function getUserAddress(userAddress: string | undefined) {
-  return () => {
-    if (userAddress) {
-      return (
-        <>
-          <h3>Your Local Address</h3>
-          <p>{userAddress}</p>
-        </>
-      );
-    }
-
-    return (
-      <>
-        <h3>Oops! Looks like you don't set your address yet</h3>
-        <p>
-          <Link to="/">Click here </Link> to set your address
-        </p>
-      </>
-    );
-  };
-}

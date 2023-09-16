@@ -18,7 +18,7 @@ interface CheckoutState {
   checkoutItems: Array<CheckoutItemsData>;
   paymentMethod: string;
   loading: boolean;
-  error: string;
+  error: unknown;
   submitted: boolean;
 }
 
@@ -26,7 +26,7 @@ const initialState: CheckoutState = {
   checkoutItems: [],
   paymentMethod: "",
   loading: false,
-  error: "",
+  error: null,
   submitted: false,
 };
 
@@ -48,7 +48,7 @@ const slice = createSlice({
     checkoutSuccess: (state, action) => {
       state.loading = false;
       state.submitted = false;
-      state.error = "";
+      state.error = null;
       state.checkoutItems = [];
       state.paymentMethod = "";
     },
