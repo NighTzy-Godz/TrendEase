@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Button, { ButtonSize } from "../../components/common/Button";
 import "./Auth.css";
 import InputContainer from "../../components/containers/InputContainer";
@@ -22,6 +23,10 @@ function Register() {
   const dispatch = useDispatch();
   const authError = useSelector((state: State) => state?.entities?.auth?.error);
 
+  useEffect(() => {
+    if (!authError) navigate("/login");
+  }, [authError]);
+
   const {
     register,
     handleSubmit,
@@ -30,8 +35,6 @@ function Register() {
 
   const handleFormSubmit = (data: RegisterValuesData) => {
     dispatch(registerUser(data));
-
-    if (!authError) navigate("/login");
   };
 
   return (
