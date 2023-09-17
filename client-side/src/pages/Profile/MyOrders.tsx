@@ -12,6 +12,7 @@ import ButtonLink from "../../components/common/ButtonLink";
 import { ButtonSize } from "../../components/common/Button";
 import Divider from "../../components/common/Divider";
 import OrderFilter from "../../components/order/OrderFilter";
+import CustomerOrderCard from "../../components/order/CustomerOrderCard";
 
 function MyOrders() {
   const dispatch = useDispatch();
@@ -50,7 +51,7 @@ function MyOrders() {
         {filteredOrder?.map((order: OrderData) => {
           return (
             <React.Fragment key={order._id}>
-              <OrderCard data={order} />
+              <CustomerOrderCard data={order} />
             </React.Fragment>
           );
         })}

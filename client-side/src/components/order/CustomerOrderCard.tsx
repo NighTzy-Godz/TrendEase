@@ -1,10 +1,15 @@
 import React from "react";
 import { OrderData, OrderStatus } from "../../interfaces/order";
-import { Link } from "react-router-dom";
+import "./OrderCard.css";
 import formatCurrency from "../../utils/formatCurrency";
 import Button, { ButtonSize } from "../common/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { getMySoldOrders, updateOrderStatus } from "../../store/slices/order";
+import {
+  getMyOrders,
+  getMySoldOrders,
+  orderProcessed,
+  orderRecieved,
+} from "../../store/slices/order";
 import { UpdateOrderStatusData } from "../../interfaces/order";
 import OrderCardInfo from "./OrderCardInfo";
 import { State } from "../../store/store";
@@ -20,31 +25,55 @@ function CustomerOrderCard({ data }: CustomerOrderCardProps) {
   );
   const { _id: orderId, status, totalAmount, item, buyer } = data || {};
   const { first_name, last_name } = buyer;
-  const full_name = `${first_name} ${last_name}`;
+
   const {
-    product: { title, images = [] },
+    product: { title, images = [], owner },
     quantity: qty,
   } = item || {};
 
-  const handleOrderFilter = () => {
+  const full_name = `${first_name} ${last_name}`;
+  const orderOwner = buyer._id === currUser;
+  const productOwner = currUser === owner;
+
+  const handleOrderStatus = (status: OrderStatus) => {
     const updateOrderStatusData: UpdateOrderStatusData = {
       orderId,
-      status: OrderStatus.Delivered,
+      status,
     };
-
-    dispatch(updateOrderStatus(updateOrderStatusData));
+    if (status === "Processing") {
+      dispatch(orderProcessed(updateOrderStatusData));
+      setTimeout(() => {
+        dispatch(getMySoldOrders());
+      }, 10);
+    } else {
+      dispatch(orderRecieved(updateOrderStatusData));
+      setTimeout(() => {
+        dispatch(getMyOrders());
+      }, 10);
+    }
   };
 
   const renderButton = () => {
-    if (status === "Delivered" && buyer._id === currUser) {
-      return <Button size={ButtonSize.X_SMALL}>Recieved</Button>;
+    if (status === "Processing" && productOwner) {
+      return (
+        <Button
+          size={ButtonSize.X_SMALL}
+          handleClick={() => handleOrderStatus(OrderStatus.Delivered)}
+        >
+          Order Processed
+        </Button>
+      );
     }
-
-    return (
-      <Button size={ButtonSize.X_SMALL} handleClick={handleOrderFilter}>
-        Order Processed
-      </Button>
-    );
+    if (status === "Delivered" && orderOwner) {
+      return (
+        <Button
+          size={ButtonSize.X_SMALL}
+          handleClick={() => handleOrderStatus(OrderStatus.Recieved)}
+        >
+          Recieved
+        </Button>
+      );
+    }
   };
 
   return (

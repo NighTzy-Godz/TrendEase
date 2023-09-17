@@ -41,13 +41,22 @@ const slice = createSlice({
       state.mySoldOrders = action.payload[0];
     },
 
-    orderStatusUpdated: (state, action) => {
+    mySoldOrdersUpdate: (state, action) => {
       state.loading = false;
       const filteredOrder = state.mySoldOrders.filter(
         (item) => item._id !== action.payload[0]._id
       );
 
       state.mySoldOrders = filteredOrder;
+    },
+
+    myOrdersUpdate: (state, action) => {
+      state.loading = false;
+      const filteredOrder = state.myOrders.filter(
+        (item) => item._id !== action.payload[0]._id
+      );
+
+      state.myOrders = filteredOrder;
     },
   },
 });
@@ -57,7 +66,8 @@ const {
   orderRequestFailed,
   myOrderRequestSuccess,
   mySoldOrderRequestSuccess,
-  orderStatusUpdated,
+  mySoldOrdersUpdate,
+  myOrdersUpdate,
 } = slice.actions;
 
 export const getMyOrders = () =>
@@ -78,13 +88,24 @@ export const getMySoldOrders = () =>
     onError: orderRequestFailed.type,
   });
 
-export const updateOrderStatus = (data: UpdateOrderStatusData) =>
+export const orderProcessed = (data: UpdateOrderStatusData) =>
   apiCallBegan({
-    urls: ["/order/updt-order-status"],
+    urls: ["/order/order-processed"],
     method: "PUT",
     data,
     onStart: orderRequested.type,
-    onSuccess: orderStatusUpdated.type,
+    onSuccess: mySoldOrdersUpdate.type,
+    onError: orderRequestFailed.type,
+    successMessage: `Successfully Flagged the Order as ${data.status}`,
+  });
+
+export const orderRecieved = (data: UpdateOrderStatusData) =>
+  apiCallBegan({
+    urls: ["/order/order-recieved"],
+    method: "PUT",
+    data,
+    onStart: orderRequested.type,
+    onSuccess: myOrdersUpdate.type,
     onError: orderRequestFailed.type,
     successMessage: `Successfully Flagged the Order as ${data.status}`,
   });

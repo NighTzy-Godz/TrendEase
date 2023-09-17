@@ -27,7 +27,7 @@ function CustomerOrders() {
   }, []);
 
   let filteredOrder = mySoldOrders;
-  console.log(filteredOrder);
+
   if (orderFilter) {
     filteredOrder = mySoldOrders.filter((order: OrderData) => {
       return order.status === orderFilter.value;

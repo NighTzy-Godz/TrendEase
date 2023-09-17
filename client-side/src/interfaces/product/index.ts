@@ -22,7 +22,7 @@ export interface ProductData {
   category: ProductCategory;
   reviews: [];
   sold: number;
-  owner: UserData;
+  owner: UserData | string;
   relatedProducts: [];
   createdAt: Date;
   updatedAt: Date;
