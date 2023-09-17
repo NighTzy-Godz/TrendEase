@@ -17,9 +17,9 @@ export const getMyOrders = async (
   try {
     const currUser = (req as any).user._id;
 
-    const myOrders = await Order.find({ buyer: currUser }).populate(
-      "item.product"
-    );
+    const myOrders = await Order.find({ buyer: currUser })
+      .populate("item.product")
+      .populate("buyer");
 
     res.send(myOrders);
   } catch (error) {
@@ -47,14 +47,14 @@ export const getMySoldOrders = async (
   }
 };
 
-export const updateOrderStatus = async (
+export const orderProcessed = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
     const { orderId, status } = req.body;
-    console.log(req.body);
+
     const { error } = updateOrderStatusValidator(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
@@ -74,6 +74,42 @@ export const updateOrderStatus = async (
 
     await order.save();
 
+    res.send(order);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const recievedOrder = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { orderId, status } = req.body;
+
+    const { error } = updateOrderStatusValidator(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    const currUser = (req as any).user._id;
+
+    const order = await Order.findOne({ _id: orderId }).select(
+      "buyer status item"
+    );
+    if (!order) return res.status(404).send("Order did not found");
+
+    console.log(order);
+
+    if (order.buyer.toString() !== currUser)
+      return res
+        .status(403)
+        .send(
+          "You are not the one who ordered this product. You cant do this action"
+        );
+
+    order.status = status;
+
+    await order.save();
     res.send(order);
   } catch (error) {
     next(error);

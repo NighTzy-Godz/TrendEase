@@ -4,7 +4,8 @@ import {
   addOrder,
   getMyOrders,
   getMySoldOrders,
-  updateOrderStatus,
+  orderProcessed,
+  recievedOrder,
 } from "../controller/Order";
 
 const router = Router();
@@ -12,7 +13,8 @@ const router = Router();
 router.get("/my-orders", isAuth, getMyOrders);
 router.get("/my-sold-orders", isAuth, getMySoldOrders);
 
-router.put("/updt-order-status", isAuth, updateOrderStatus);
+router.put("/order-processed", isAuth, orderProcessed);
+router.put("/order-recieved", isAuth, recievedOrder);
 router.post("/add-order", isAuth, addOrder);
 
 export default router;
