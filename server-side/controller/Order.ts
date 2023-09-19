@@ -195,8 +195,7 @@ export const addOrder = async (
     });
 
     if (fromCart) {
-      const cart = await Cart.deleteMany({ user: currUser._id });
-      console.log(cart);
+      await Cart.deleteMany({ user: currUser._id });
     }
 
     await session.commitTransaction();

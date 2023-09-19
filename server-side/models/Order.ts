@@ -39,6 +39,7 @@ interface IOrder extends Document {
   shippingFee: number;
   tax: number;
   totalAmount: number;
+  rated: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -102,6 +103,10 @@ const orderSchema: Schema<IOrder> = new mongoose.Schema(
     totalAmount: {
       type: Number,
       required: true,
+    },
+    rated: {
+      type: Boolean,
+      default: false,
     },
   },
   { timestamps: true }
