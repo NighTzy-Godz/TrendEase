@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { OrderData, OrderStatus } from "../../interfaces/order";
 import "./OrderCard.css";
 import formatCurrency from "../../utils/formatCurrency";
@@ -13,12 +13,14 @@ import {
 import { UpdateOrderStatusData } from "../../interfaces/order";
 import OrderCardInfo from "./OrderCardInfo";
 import { State } from "../../store/store";
+import Modal from "../common/Modal";
 
 interface CustomerOrderCardProps {
   data: OrderData;
 }
 
 function CustomerOrderCard({ data }: CustomerOrderCardProps) {
+  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const currUser = useSelector(
     (state: State) => state.entities.auth.decodedUser?._id
@@ -77,28 +79,31 @@ function CustomerOrderCard({ data }: CustomerOrderCardProps) {
   };
 
   return (
-    <div className="order_card">
-      <div className="order_card_img">
-        <img src={images[0]} alt="" />
+    <React.Fragment>
+      <div className="order_card">
+        <div className="order_card_img">
+          <img src={images[0]} alt="" />
+        </div>
+        <div className="order_card_info">
+          <div className="title">
+            <p>{title}</p>
+          </div>
+
+          <div className="order_info">
+            <OrderCardInfo title="Status" data={status} />
+            <OrderCardInfo title="Quantity" data={qty} />
+            <OrderCardInfo title="Buyer" data={full_name} />
+          </div>
+
+          <div className="price">
+            <h4>P {formatCurrency(totalAmount)}</h4>
+          </div>
+
+          <div className="action">{renderButton()}</div>
+        </div>
       </div>
-      <div className="order_card_info">
-        <div className="title">
-          <p>{title}</p>
-        </div>
-
-        <div className="order_info">
-          <OrderCardInfo title="Status" data={status} />
-          <OrderCardInfo title="Quantity" data={qty} />
-          <OrderCardInfo title="Buyer" data={full_name} />
-        </div>
-
-        <div className="price">
-          <h4>P {formatCurrency(totalAmount)}</h4>
-        </div>
-
-        <div className="action">{renderButton()}</div>
-      </div>
-    </div>
+      {renderModal()}
+    </React.Fragment>
   );
 }
 
