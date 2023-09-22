@@ -11,7 +11,7 @@ import Divider from "../components/common/Divider";
 import PaymentDetails from "../components/checkout/PaymentDetails";
 import Button, { ButtonSize } from "../components/common/Button";
 import formatCurrency from "../utils/formatCurrency";
-import { addOrder } from "../store/slices/checkout";
+import { addOrder, setSubmitted } from "../store/slices/checkout";
 
 const SHIPPING_FEE = 40;
 const TAX = 0.012;
@@ -33,6 +33,7 @@ function Checkout() {
   const paymentMethod = useSelector(
     (state: State) => state?.entities?.checkout?.paymentMethod
   );
+
   const { error } = useSelector((state: State) => state?.entities?.checkout);
 
   const { merchandiseTotal, totalTax, totalOrderAmount } = paymentDetails({
@@ -42,13 +43,14 @@ function Checkout() {
   });
 
   useEffect(() => {
-    console.log(error);
+    console.log(submitted);
+    // console.log(error);
+    // console.log(submitted && !error);
     if (submitted && !error) {
-      console.log("I will navigate first");
       setSubmitted(false);
       navigate("/products");
     }
-  }, [error]);
+  }, [submitted, error]);
 
   // NOTE: This is to prevent the user to accidentally accessing the checkout page
   useEffect(() => {
@@ -98,8 +100,10 @@ function Checkout() {
       fromCart: true,
     };
 
-    setSubmitted(true);
     dispatch(addOrder(checkoutData));
+    setTimeout(() => {
+      setSubmitted(true);
+    }, 10);
   };
 
   return (

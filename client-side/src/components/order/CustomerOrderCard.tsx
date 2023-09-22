@@ -14,6 +14,7 @@ import { UpdateOrderStatusData } from "../../interfaces/order";
 import OrderCardInfo from "./OrderCardInfo";
 import { State } from "../../store/store";
 import Modal from "../common/Modal";
+import ButtonLink from "../common/ButtonLink";
 
 interface CustomerOrderCardProps {
   data: OrderData;
@@ -29,20 +30,24 @@ function CustomerOrderCard({ data }: CustomerOrderCardProps) {
   const { first_name, last_name } = buyer;
 
   const {
-    product: { title, images = [], owner },
+    product: { _id: productId, title, images = [], owner },
     quantity: qty,
   } = item || {};
 
   const full_name = `${first_name} ${last_name}`;
+  const orderBuyer = currUser === buyer._id ? "You" : full_name;
   const orderOwner = buyer._id === currUser;
   const productOwner = currUser === owner;
+
+  console.log(data);
 
   const handleOrderStatus = (status: OrderStatus) => {
     const updateOrderStatusData: UpdateOrderStatusData = {
       orderId,
       status,
     };
-    if (status === "Processing") {
+
+    if (status === "Delivered") {
       dispatch(orderProcessed(updateOrderStatusData));
       setTimeout(() => {
         dispatch(getMySoldOrders());
@@ -76,6 +81,14 @@ function CustomerOrderCard({ data }: CustomerOrderCardProps) {
         </Button>
       );
     }
+
+    if (status === "Recieved" && orderOwner) {
+      return (
+        <ButtonLink path={`/products/${productId}`} size={ButtonSize.SMALL}>
+          Buy Again
+        </ButtonLink>
+      );
+    }
   };
 
   return (
@@ -92,7 +105,7 @@ function CustomerOrderCard({ data }: CustomerOrderCardProps) {
           <div className="order_info">
             <OrderCardInfo title="Status" data={status} />
             <OrderCardInfo title="Quantity" data={qty} />
-            <OrderCardInfo title="Buyer" data={full_name} />
+            <OrderCardInfo title="Buyer" data={orderBuyer} />
           </div>
 
           <div className="price">
@@ -102,7 +115,6 @@ function CustomerOrderCard({ data }: CustomerOrderCardProps) {
           <div className="action">{renderButton()}</div>
         </div>
       </div>
-      {renderModal()}
     </React.Fragment>
   );
 }

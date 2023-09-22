@@ -64,11 +64,19 @@ const slice = createSlice({
     setPaymentMethod: (state, action) => {
       state.paymentMethod = action.payload;
     },
+
+    setSubmitted: (state, action) => {
+      state.submitted = action.payload;
+    },
   },
 });
 
-export const { setCheckoutItems, setPaymentMethod, setCheckoutBuyNow } =
-  slice.actions;
+export const {
+  setCheckoutItems,
+  setPaymentMethod,
+  setCheckoutBuyNow,
+  setSubmitted,
+} = slice.actions;
 
 const { checkoutRequested, checkoutRequestFailed, checkoutSuccess } =
   slice.actions;

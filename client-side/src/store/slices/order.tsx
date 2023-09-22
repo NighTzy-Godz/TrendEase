@@ -5,6 +5,7 @@ import { OrderData, UpdateOrderStatusData } from "../../interfaces/order";
 interface OrderState {
   myOrders: Array<OrderData>;
   mySoldOrders: Array<OrderData>;
+  myRecievedOrders: OrderData[];
 
   loading: boolean;
   error: string;
@@ -13,7 +14,7 @@ interface OrderState {
 const initialState: OrderState = {
   myOrders: [],
   mySoldOrders: [],
-
+  myRecievedOrders: [],
   loading: false,
   error: "",
 };
@@ -34,6 +35,10 @@ const slice = createSlice({
     myOrderRequestSuccess: (state, action) => {
       state.loading = false;
       state.myOrders = action.payload[0];
+    },
+
+    myRecievedOrderSuccess: (state, action) => {
+      (state.loading = false), (state.myRecievedOrders = action.payload[0]);
     },
 
     mySoldOrderRequestSuccess: (state, action) => {
@@ -64,6 +69,7 @@ const slice = createSlice({
 const {
   orderRequested,
   orderRequestFailed,
+  myRecievedOrderSuccess,
   myOrderRequestSuccess,
   mySoldOrderRequestSuccess,
   mySoldOrdersUpdate,
@@ -85,6 +91,15 @@ export const getMySoldOrders = () =>
     method: "GET",
     onStart: orderRequested.type,
     onSuccess: mySoldOrderRequestSuccess.type,
+    onError: orderRequestFailed.type,
+  });
+
+export const getMyRecievedOrders = () =>
+  apiCallBegan({
+    urls: ["/order/my-recieved-orders"],
+    method: "GET",
+    onStart: orderRequested.type,
+    onSuccess: myRecievedOrderSuccess.type,
     onError: orderRequestFailed.type,
   });
 

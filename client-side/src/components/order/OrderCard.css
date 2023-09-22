@@ -39,7 +39,7 @@
     color: var(--main-color);
   }
 
-  .order_card_info .action button {
+  .order_card_info .action > * {
     width: 100%;
     margin-top: 20px;
   }

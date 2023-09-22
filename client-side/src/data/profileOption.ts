@@ -13,8 +13,8 @@ const profileOption = [
 
   {
     id: 1,
-    name: "My Ratings",
-    path: "",
+    name: "My Reviews",
+    path: "/my-reviews",
   },
   {
     id: 2,

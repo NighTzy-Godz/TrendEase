@@ -1,5 +1,3 @@
-import React, { MouseEvent } from "react";
-
 import { OrderStatusValue } from "../../interfaces/order";
 
 interface OrderFilterProps {

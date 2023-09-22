@@ -100,6 +100,7 @@ function SingleProduct() {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(getSingleProduct(productId as string));
   }, [productId]);
 

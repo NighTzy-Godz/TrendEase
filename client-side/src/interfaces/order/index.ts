@@ -36,6 +36,7 @@ export interface OrderData {
   shippingFee: number;
   tax: number;
   totalAmount: number;
+  rated: boolean;
   createdAt: Date;
   updatedAt: Date;
 }

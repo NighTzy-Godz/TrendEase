@@ -1,0 +1,36 @@
+@media screen and (min-width: 1200px) {
+  .myReviews {
+    background-color: var(--bg-color);
+  }
+
+  .myReviews .header {
+    margin-bottom: 20px;
+    color: var(--main-color);
+  }
+
+  .myReviews .header p {
+    color: var(--text-color);
+  }
+
+  .myReviews_filter {
+    display: flex;
+    gap: 40px;
+  }
+
+  .myReviews_filter p {
+    font-size: 18px;
+    color: var(--text-color);
+    cursor: pointer;
+  }
+
+  .myReviews_filter p.active {
+    color: var(--main-color);
+  }
+
+  .myReviewGrid {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}

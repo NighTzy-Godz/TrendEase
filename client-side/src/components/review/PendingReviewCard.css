@@ -1,0 +1,51 @@
+@media screen and (min-width: 1200px) {
+  .pendingReviewCard {
+    margin-bottom: 15px;
+    border-radius: 5px;
+    background-color: var(--primary);
+  }
+
+  .pendingReviewCard_container {
+    gap: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  .pendingReviewCard_container .img {
+    width: 20%;
+  }
+
+  .pendingReviewCard_container img {
+    object-fit: cover;
+    width: 100px;
+    height: 80px;
+    border-top-left-radius: 5px;
+  }
+
+  .pendingReviewCard_container .name {
+    width: 80%;
+  }
+
+  .pendingReviewCard_container .name h3 {
+    color: var(--sub-color);
+    line-height: 1.1;
+  }
+
+  .pendingReviewCard .bought_date,
+  .action {
+    padding: 5px 10px;
+  }
+
+  .pendingReviewCard .bought_date p {
+    color: var(--bg-color);
+  }
+
+  .pendingReviewCard .bought_date span {
+    font-weight: 600;
+  }
+
+  .pendingReviewCard .action a {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+}

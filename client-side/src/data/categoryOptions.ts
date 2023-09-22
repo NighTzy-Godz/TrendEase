@@ -33,6 +33,6 @@ export default [
   {
     id: 7,
     name: "Health and Beauty",
-    value: "health_and_beauty",
+    value: "health and beauty",
   },
 ];
