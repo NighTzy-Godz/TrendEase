@@ -47,6 +47,26 @@ export const getMySoldOrders = async (
   }
 };
 
+export const getMyRecievedOrders = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const currUser = (req as any).user._id;
+
+    const nonRatedOrders = await Order.find({
+      buyer: currUser,
+      rated: false,
+      status: "Recieved",
+    }).populate("item.product");
+
+    res.send(nonRatedOrders);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const orderProcessed = async (
   req: Request,
   res: Response,
@@ -54,7 +74,7 @@ export const orderProcessed = async (
 ) => {
   try {
     const { orderId, status } = req.body;
-
+    console.log("Hello");
     const { error } = updateOrderStatusValidator(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
@@ -97,8 +117,6 @@ export const recievedOrder = async (
       "buyer status item"
     );
     if (!order) return res.status(404).send("Order did not found");
-
-    console.log(order);
 
     if (order.buyer.toString() !== currUser)
       return res
@@ -194,7 +212,7 @@ export const addOrder = async (
       }
     });
 
-    if (fromCart) {
+    if (checkoutItems.length > 1) {
       await Cart.deleteMany({ user: currUser._id });
     }
 

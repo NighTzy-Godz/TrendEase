@@ -29,7 +29,6 @@ interface IProduct extends Document {
   quantity: number;
   ratings: number;
   category: ProductCategory;
-  reviews: mongoose.Schema.Types.ObjectId[];
   sold: number;
   owner: mongoose.Schema.Types.ObjectId;
   relatedProducts: mongoose.Schema.Types.ObjectId[];
@@ -85,13 +84,6 @@ const productSchema: Schema<IProduct> = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-
-    reviews: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Review",
-      },
-    ],
 
     owner: {
       type: mongoose.Schema.Types.ObjectId,
