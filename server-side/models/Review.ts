@@ -11,7 +11,7 @@ const DB_URL = process.env.DB_URL as string;
 })();
 
 interface IReview extends Document {
-  productPost: mongoose.Schema.Types.ObjectId;
+  orderPost: mongoose.Schema.Types.ObjectId;
   reviewOwner: mongoose.Schema.Types.ObjectId;
   rating: number;
   content: string;
@@ -21,9 +21,9 @@ interface IReview extends Document {
 
 const reviewSchema: Schema<IReview> = new mongoose.Schema(
   {
-    productPost: {
+    orderPost: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Product",
+      ref: "Order",
       required: true,
     },
 

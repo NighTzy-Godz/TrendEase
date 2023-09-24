@@ -14,16 +14,13 @@ export async function addReview(
   session.startTransaction();
 
   try {
-    const { productId, content, rating } = req.body;
+    const { orderId, content, rating } = req.body;
     const currUser = (req as any).user._id;
     const { error } = addReviewValidator(req.body);
 
     if (error) return res.status(400).send(error.details[0].message);
 
-    const product = await Product.findOne({ _id: productId });
-    if (!product) return res.status(404).send("This product did not found");
-
-    const order = await Order.findOne({ "item.product": productId });
+    const order = await Order.findOne({ _id: orderId });
     if (!order) return res.status(404).send("This order did not found");
 
     const canMakeReview = !order.rated && order.status === "Recieved";
@@ -33,7 +30,7 @@ export async function addReview(
         .send("Sorry but you cannot do a review at this moment");
 
     const review = new Review({
-      productPost: productId,
+      orderPost: orderId,
       reviewOwner: currUser,
       content,
       rating,
