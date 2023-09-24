@@ -12,6 +12,15 @@
     color: var(--text-color);
   }
 
+  .myReviews .no_orders {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .myReviews .no_orders h1 {
+    color: var(--main-color);
+  }
+
   .myReviews_filter {
     display: flex;
     gap: 40px;
@@ -32,5 +41,33 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+  }
+
+  .review_form form {
+    width: 100% !important;
+    margin: 0 auto;
+  }
+
+  .review_form_item {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .review_form_item .img {
+    width: 25%;
+  }
+
+  .review_form_item .img img {
+    border-radius: 4px;
+  }
+
+  .review_form_item .name {
+    width: 75%;
+  }
+
+  .review_form_item .name p {
+    color: var(--text-color);
+    line-height: 1.5;
   }
 }

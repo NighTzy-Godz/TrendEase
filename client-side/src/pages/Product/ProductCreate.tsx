@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 import "../../assets/css/pages/product_create.css";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import InputContainer from "../../components/containers/InputContainer";
 import Button, { ButtonSize } from "../../components/common/Button";
 import categoryOptions from "../../data/categoryOptions";

@@ -5,14 +5,18 @@ import { State } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { getMyRecievedOrders } from "../../store/slices/order";
 import PendingReviewCard from "../../components/review/PendingReviewCard";
-import reviewFilter, { ReviewFilterData } from "../../data/reviewFilter";
+import reviewFilter from "../../data/reviewFilter";
+import { ReviewFilterData } from "../../interfaces/review";
 import ReviewFilter from "../../components/review/ReviewFilter";
 import Divider from "../../components/common/Divider";
+
 function MyReviews() {
   const dispatch = useDispatch();
+
   const [reviewPageFilter, setReviewPageFilter] = useState<ReviewFilterData>(
     reviewFilter[0]
   );
+
   const recievedOrders = useSelector(
     (state: State) => state.entities.order.myRecievedOrders
   );
@@ -29,13 +33,25 @@ function MyReviews() {
     setReviewPageFilter(currFilter);
   };
 
-  const renderRecievedOrders = filteredReview?.map((item) => {
+  const renderRecievedOrders = () => {
+    if (filteredReview.length === 0)
+      return (
+        <div className="no_orders">
+          <h1>No "To Rated" Orders Found At The Moment</h1>
+        </div>
+      );
     return (
-      <React.Fragment key={item._id}>
-        <PendingReviewCard data={item} />
-      </React.Fragment>
+      <div className="myReviewGrid">
+        {filteredReview?.map((item) => {
+          return (
+            <React.Fragment key={item._id}>
+              <PendingReviewCard data={item} />
+            </React.Fragment>
+          );
+        })}
+      </div>
     );
-  });
+  };
 
   const renderReviewFilter = reviewFilter.map((item) => {
     return (
@@ -50,21 +66,23 @@ function MyReviews() {
   });
 
   return (
-    <PaddedPage className="myReviews">
-      <div className="container">
-        <div className="header">
-          <h1>My Reviews</h1>
-          <p>
-            Track and share your thoughts and experiences with the products
-            you've ordered.
-          </p>
-        </div>
+    <React.Fragment>
+      <PaddedPage className="myReviews">
+        <div className="container">
+          <div className="header">
+            <h1>My Reviews</h1>
+            <p>
+              Track and share your thoughts and experiences with the products
+              you've ordered.
+            </p>
+          </div>
 
-        <div className="myReviews_filter">{renderReviewFilter}</div>
-        <Divider />
-        <div className="myReviewGrid">{renderRecievedOrders}</div>
-      </div>
-    </PaddedPage>
+          <div className="myReviews_filter">{renderReviewFilter}</div>
+          <Divider />
+          {renderRecievedOrders()}
+        </div>
+      </PaddedPage>
+    </React.Fragment>
   );
 }
 

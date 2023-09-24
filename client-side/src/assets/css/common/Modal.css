@@ -26,12 +26,8 @@
     border-radius: 4px;
     position: relative;
     max-width: 90%;
-    background: #fff;
+    background: var(--bg-color);
     padding: 1.5em 2em;
-  }
-
-  .modal_close {
-    position: relative;
   }
 
   .modal_close p {
@@ -39,9 +35,9 @@
     margin: 0;
     cursor: pointer;
     position: absolute;
-    top: -50px;
+    top: -10px;
     right: 10px;
     font-size: 40px;
-    color: #585858;
+    color: var(--primary);
   }
 }

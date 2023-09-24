@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "../actions/apiActions";
 import { OrderData, UpdateOrderStatusData } from "../../interfaces/order";
+import { ReviewSubmitData } from "../../interfaces/review";
 
 interface OrderState {
   myOrders: Array<OrderData>;
@@ -34,25 +35,8 @@ const slice = createSlice({
 
     myOrderRequestSuccess: (state, action) => {
       state.loading = false;
+      state.error = "";
       state.myOrders = action.payload[0];
-    },
-
-    myRecievedOrderSuccess: (state, action) => {
-      (state.loading = false), (state.myRecievedOrders = action.payload[0]);
-    },
-
-    mySoldOrderRequestSuccess: (state, action) => {
-      state.loading = false;
-      state.mySoldOrders = action.payload[0];
-    },
-
-    mySoldOrdersUpdate: (state, action) => {
-      state.loading = false;
-      const filteredOrder = state.mySoldOrders.filter(
-        (item) => item._id !== action.payload[0]._id
-      );
-
-      state.mySoldOrders = filteredOrder;
     },
 
     myOrdersUpdate: (state, action) => {
@@ -63,6 +47,37 @@ const slice = createSlice({
 
       state.myOrders = filteredOrder;
     },
+
+    mySoldOrderRequestSuccess: (state, action) => {
+      state.loading = false;
+      state.error = "";
+      state.mySoldOrders = action.payload[0];
+    },
+
+    mySoldOrdersUpdate: (state, action) => {
+      state.loading = false;
+      state.error = "";
+      const filteredOrder = state.mySoldOrders.filter(
+        (item) => item._id !== action.payload[0]._id
+      );
+
+      state.mySoldOrders = filteredOrder;
+    },
+
+    myRecievedOrderSuccess: (state, action) => {
+      (state.loading = false), (state.myRecievedOrders = action.payload[0]);
+      state.error = "";
+    },
+
+    myRecievedOrderUpdate: (state, action) => {
+      state.loading = false;
+      state.error = "";
+      const filteredOrder = state.myRecievedOrders.filter((item) => {
+        return item._id !== action.payload[0].orderPost;
+      });
+
+      state.myRecievedOrders = filteredOrder;
+    },
   },
 });
 
@@ -70,10 +85,11 @@ const {
   orderRequested,
   orderRequestFailed,
   myRecievedOrderSuccess,
+  myRecievedOrderUpdate,
   myOrderRequestSuccess,
+  myOrdersUpdate,
   mySoldOrderRequestSuccess,
   mySoldOrdersUpdate,
-  myOrdersUpdate,
 } = slice.actions;
 
 export const getMyOrders = () =>
@@ -123,6 +139,17 @@ export const orderRecieved = (data: UpdateOrderStatusData) =>
     onSuccess: myOrdersUpdate.type,
     onError: orderRequestFailed.type,
     successMessage: `Successfully Flagged the Order as ${data.status}`,
+  });
+
+export const orderReviewed = (data: ReviewSubmitData) =>
+  apiCallBegan({
+    urls: ["/review/add-review"],
+    data,
+    method: "POST",
+    onStart: orderRequested.type,
+    onSuccess: myRecievedOrderUpdate.type,
+    onError: orderRequestFailed.type,
+    successMessage: `Successfully added the review`,
   });
 
 export default slice.reducer;

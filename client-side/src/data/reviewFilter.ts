@@ -1,8 +1,4 @@
-export interface ReviewFilterData {
-  id: number;
-  name: string;
-  value: boolean;
-}
+import { ReviewFilterData } from "../interfaces/review";
 
 const reviewFilter: ReviewFilterData[] = [
   {
