@@ -1,0 +1,54 @@
+@media screen and (min-width: 1200px) {
+  .review_card {
+    background-color: var(--plain-hover);
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 8px;
+  }
+
+  .review_owner {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .review_owner img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+  }
+
+  .review_date p {
+    color: var(--bg-color);
+    font-size: 16px;
+  }
+
+  .review_star button {
+    cursor: auto;
+  }
+
+  .review_star span {
+    font-size: 30px;
+  }
+
+  .review_content {
+    margin-bottom: 20px;
+  }
+
+  .review_item {
+    display: flex;
+    gap: 15px;
+  }
+
+  .review_item img {
+    width: 65px;
+    height: 65px;
+  }
+
+  .review_item .item_info h3 {
+    font-size: 17px;
+    line-height: 1.1;
+    color: var(--sub-color);
+  }
+}

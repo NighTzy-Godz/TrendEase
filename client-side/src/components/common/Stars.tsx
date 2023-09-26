@@ -1,7 +1,7 @@
 import "../../assets/css/common/Stars.css";
 
 interface StarsProps {
-  onStarClick(star: number): void;
+  onStarClick?(star: number): void;
   rating: number;
 }
 
@@ -18,7 +18,9 @@ function Stars({ rating, onStarClick }: StarsProps) {
                 type="button"
                 key={index}
                 className={`${index <= rating ? "on" : ""}`}
-                onClick={() => onStarClick(index)}
+                onClick={() => {
+                  if (onStarClick) onStarClick(index);
+                }}
                 // onMouseEnter={() => handleStarsClick(index)}
                 // onMouseLeave={() => handleStarsClick(rating)}
               >

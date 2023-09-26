@@ -6,9 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMyRecievedOrders } from "../../store/slices/order";
 import PendingReviewCard from "../../components/review/PendingReviewCard";
 import reviewFilter from "../../data/reviewFilter";
-import { ReviewFilterData } from "../../interfaces/review";
+import { ReviewData, ReviewFilterData } from "../../interfaces/review";
 import ReviewFilter from "../../components/review/ReviewFilter";
 import Divider from "../../components/common/Divider";
+import { OrderData } from "../../interfaces/order";
+import { getMyReviews } from "../../store/slices/review";
+import ReviewCard from "../../components/review/ReviewCard";
 
 function MyReviews() {
   const dispatch = useDispatch();
@@ -21,8 +24,13 @@ function MyReviews() {
     (state: State) => state.entities.order.myRecievedOrders
   );
 
+  const reviewedOrders = useSelector(
+    (state: State) => state.entities.review.myReviews
+  );
+
   useEffect(() => {
     dispatch(getMyRecievedOrders());
+    dispatch(getMyReviews());
   }, []);
 
   let filteredReview = recievedOrders.filter((item) => {
@@ -46,6 +54,26 @@ function MyReviews() {
           return (
             <React.Fragment key={item._id}>
               <PendingReviewCard data={item} />
+            </React.Fragment>
+          );
+        })}
+      </div>
+    );
+  };
+
+  const renderRatedOrders = () => {
+    if (reviewedOrders.length === 0)
+      return (
+        <div className="no_orders">
+          <h1>No "To Rated" Orders Found At The Moment</h1>
+        </div>
+      );
+    return (
+      <div className="myReviewGrid">
+        {reviewedOrders.map((review) => {
+          return (
+            <React.Fragment key={review._id}>
+              <ReviewCard data={review} />
             </React.Fragment>
           );
         })}
@@ -79,7 +107,9 @@ function MyReviews() {
 
           <div className="myReviews_filter">{renderReviewFilter}</div>
           <Divider />
-          {renderRecievedOrders()}
+          {!reviewPageFilter.value
+            ? renderRecievedOrders()
+            : renderRatedOrders()}
         </div>
       </PaddedPage>
     </React.Fragment>
