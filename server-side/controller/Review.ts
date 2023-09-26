@@ -5,6 +5,26 @@ import Order from "../models/Order";
 import Review from "../models/Review";
 import mongoose from "mongoose";
 
+export async function getMyReviews(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const currUser = req.user?._id;
+
+    if (!currUser) return res.status(404).send("This user did not found");
+
+    const myReviews = await Review.find({ reviewOwner: currUser })
+      .populate("orderPost reviewOwner")
+      .populate({ path: "orderPost", populate: { path: "item.product" } });
+
+    res.send(myReviews);
+  } catch (error) {
+    next(error);
+  }
+}
+
 export async function addReview(
   req: Request,
   res: Response,
@@ -15,7 +35,7 @@ export async function addReview(
 
   try {
     const { orderId, content, rating } = req.body;
-    const currUser = (req as any).user._id;
+    const currUser = req.user?._id;
     const { error } = addReviewValidator(req.body);
 
     if (error) return res.status(400).send(error.details[0].message);
