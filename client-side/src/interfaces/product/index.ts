@@ -27,3 +27,9 @@ export interface ProductData {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface ProductFilterData {
+  id: number;
+  name: string;
+  value: string;
+}

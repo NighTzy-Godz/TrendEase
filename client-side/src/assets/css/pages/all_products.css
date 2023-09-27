@@ -8,9 +8,20 @@
     gap: 20px;
   }
 
-  .all_products_container .category {
-    background-color: burlywood;
+  .all_products_container .product_filter {
+    padding: 10px 15px;
+    background-color: var(--primary);
     width: 25%;
+  }
+
+  .product_filter_title {
+    color: var(--bg-color);
+    font-size: 23px;
+    margin-bottom: 15px;
+  }
+
+  .product_filter .dropDown_label {
+    color: var(--bg-color);
   }
 
   .all_products_container .product_list {
