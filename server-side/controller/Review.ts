@@ -34,11 +34,14 @@ export async function addReview(
   session.startTransaction();
 
   try {
-    const { orderId, content, rating } = req.body;
+    const { orderId, productId, content, rating } = req.body;
     const currUser = req.user?._id;
     const { error } = addReviewValidator(req.body);
 
     if (error) return res.status(400).send(error.details[0].message);
+
+    const product = await Product.findOne({ _id: productId }).select("rating");
+    if (!product) return res.status(404).send("This product did not found");
 
     const order = await Order.findOne({ _id: orderId });
     if (!order) return res.status(404).send("This order did not found");
@@ -49,8 +52,21 @@ export async function addReview(
         .status(400)
         .send("Sorry but you cannot do a review at this moment");
 
+    const productReviews = await Review.find({ productPost: productId }).select(
+      "rating"
+    );
+
+    let totalStars = 0;
+    productReviews.forEach((item) => {
+      item.rating += totalStars;
+    });
+
+    const totalRating = totalStars / productReviews.length;
+    product.ratings = totalRating;
+
     const review = new Review({
       orderPost: orderId,
+      productPost: productId,
       reviewOwner: currUser,
       content,
       rating,
@@ -58,7 +74,7 @@ export async function addReview(
 
     order.rated = true;
 
-    await Promise.all([review.save(), order.save()]);
+    await Promise.all([review.save(), order.save(), product.save()]);
 
     await session.commitTransaction();
     session.endSession();

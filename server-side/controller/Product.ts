@@ -3,7 +3,17 @@ import { cloudinary } from "../cloudinary/cloudinary";
 
 import mongoose from "mongoose";
 import { createProductValidator } from "../validators/ProductValidator";
-import Product from "../models/Product";
+import Product, { ProductCategory } from "../models/Product";
+
+interface FilterCriteria {
+  category?: ProductCategory;
+}
+
+type SortOrder = 1 | -1;
+
+interface SortCriteria {
+  [key: string]: SortOrder;
+}
 
 export const getAllProducts = async (
   req: Request,
@@ -11,7 +21,34 @@ export const getAllProducts = async (
   next: NextFunction
 ) => {
   try {
-    const products = await Product.find();
+    const { sort_by, category } = req.query;
+
+    const filterCriteria: FilterCriteria = {};
+    if (category) filterCriteria.category = category as ProductCategory;
+
+    const sortCriteria: SortCriteria = {};
+
+    switch (sort_by) {
+      case "popular":
+        sortCriteria.ratings = -1;
+        break;
+      case "latest":
+        sortCriteria.createdAt = -1;
+        break;
+
+      case "priceLowToHigh":
+        sortCriteria.price = 1;
+        break;
+
+      case "priceHighToLow":
+        sortCriteria.price = -1;
+        break;
+      default:
+        sortCriteria.price = -1;
+        break;
+    }
+
+    const products = await Product.find(filterCriteria).sort(sortCriteria);
 
     res.send(products);
   } catch (error) {

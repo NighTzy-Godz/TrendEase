@@ -10,7 +10,7 @@ const DB_URL = process.env.DB_URL as string;
   }
 })();
 
-enum ProductCategory {
+export enum ProductCategory {
   Electronics = "electronics",
   Fashion = "fashion",
   Appliances = "appliances",
