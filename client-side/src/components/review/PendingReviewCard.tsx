@@ -20,7 +20,7 @@ interface PendingReviewCardProps {
 function PendingReviewCard({ data }: PendingReviewCardProps) {
   const { _id: orderId, item, createdAt, rated } = data;
   const {
-    product: { images, title },
+    product: { _id: productId, images, title },
   } = item;
   const reviewError = useSelector((state: State) => state.entities.order.error);
 
@@ -51,6 +51,7 @@ function PendingReviewCard({ data }: PendingReviewCardProps) {
   };
 
   const handleReviewSubmit = (data: ReviewSubmitData) => {
+    data.productId = productId;
     data.orderId = orderId;
     data.rating = rating;
     dispatch(orderReviewed(data));

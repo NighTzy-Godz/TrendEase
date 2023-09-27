@@ -65,7 +65,7 @@ function MyReviews() {
     if (reviewedOrders.length === 0)
       return (
         <div className="no_orders">
-          <h1>No "To Rated" Orders Found At The Moment</h1>
+          <h1>No "Rated Items" Found At The Moment</h1>
         </div>
       );
     return (

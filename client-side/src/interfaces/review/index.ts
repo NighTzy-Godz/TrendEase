@@ -2,6 +2,7 @@ import { OrderData } from "../order";
 import { UserData } from "../user";
 
 export interface ReviewSubmitData {
+  productId: string,
   orderId: string;
   content: string;
   rating: number;
