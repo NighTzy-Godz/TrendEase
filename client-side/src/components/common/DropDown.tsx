@@ -1,19 +1,19 @@
-import React, { ChangeEvent } from "react";
-import { ProductFilterData } from "../../interfaces/product";
+import React from "react";
 
-interface SortDropDownProps {
-  data: ProductFilterData[];
+interface DropDownData {
+  id: number;
+  name: string;
+  value: string;
+}
+
+interface DropDownProps {
+  data: DropDownData[];
   label: string;
   name?: string;
   onDropDownChange(value: string): void;
 }
 
-function SortDropDown({
-  data,
-  name,
-  label,
-  onDropDownChange,
-}: SortDropDownProps) {
+function DropDown({ data, name, label, onDropDownChange }: DropDownProps) {
   const renderDropDownOptions = data.map((item) => {
     return (
       <option key={item.id} value={item.value}>
@@ -36,4 +36,4 @@ function SortDropDown({
   );
 }
 
-export default SortDropDown;
+export default DropDown;

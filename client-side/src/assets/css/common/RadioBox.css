@@ -1,0 +1,54 @@
+/* MAIN */
+/* =============================================== */
+.label {
+  display: flex;
+  align-items: center;
+  border-radius: 100px;
+
+  margin: 5px 0;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.radio-input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  z-index: -1;
+}
+
+.radio-design {
+  width: 18px;
+  height: 18px;
+  border-radius: 100px;
+  background: var(--plain-hover);
+  position: relative;
+}
+
+.radio-design::before {
+  content: "";
+  display: inline-block;
+  width: inherit;
+  height: inherit;
+  border-radius: inherit;
+  background: hsl(0, 0%, 90%);
+
+  transition: 0.3s;
+}
+
+.radio-input:checked + .radio-design::before {
+  transform: scale(0);
+}
+
+.label-text {
+  color: var(--sub-color);
+  margin-left: 14px;
+  letter-spacing: 1px;
+
+  font-size: 18px;
+  font-weight: 900;
+  transition: 0.3s;
+}

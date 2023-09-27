@@ -62,12 +62,13 @@ export const createProduct = (data: IProductCreate) =>
     successMessage: "Successfully Created the Product",
   });
 
-export const getAllProducts = (sort_by: string) =>
+export const getAllProducts = (sort_by: string, category: string) =>
   apiCallBegan({
     urls: ["/product/all-products"],
     method: "GET",
     params: {
       sort_by,
+      category,
     },
     onStart: productRequested.type,
     onSuccess: productsRecieved.type,

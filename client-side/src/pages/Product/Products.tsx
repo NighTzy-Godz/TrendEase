@@ -6,15 +6,17 @@ import { ProductData } from "../../interfaces/product";
 import "../../assets/css/pages/all_products.css";
 import PaddedPage from "../../components/containers/PaddedPage";
 import { State } from "../../store/store";
-import SortDropDown from "../../components/common/SortDropDown";
+import SortDropDown from "../../components/common/DropDown";
 import productSortOptions from "../../data/productSortOptions";
 import InputContainer from "../../components/containers/InputContainer";
 import Button, { ButtonSize } from "../../components/common/Button";
+import RadioBox from "../../components/common/RadioBox";
+import categoryOptions from "../../data/categoryOptions";
 
 function Products() {
   const dispatch = useDispatch();
   const [sortBy, setSortBy] = useState("latest");
-  const [filter, setFilter] = useState("");
+  const [productCategory, setProductCategory] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   const products = useSelector(
@@ -30,12 +32,16 @@ function Products() {
   });
 
   useEffect(() => {
-    dispatch(getAllProducts(sortBy));
+    dispatch(getAllProducts(sortBy, productCategory));
     setSubmitted(false);
   }, [submitted]);
 
   const handleDropDownChange = (value: string) => {
     setSortBy(value);
+  };
+
+  const handleRadioBoxClick = (value: string) => {
+    setProductCategory(value);
   };
 
   const handleFilterProductClick = () => {
@@ -51,6 +57,14 @@ function Products() {
           {/* Category Section Here */}
           <div className="product_filter">
             <h3 className="product_filter_title">Product Filter Fields</h3>
+
+            <InputContainer>
+              <RadioBox
+                data={categoryOptions}
+                onRadioBoxClick={handleRadioBoxClick}
+              />
+            </InputContainer>
+
             <InputContainer>
               <SortDropDown
                 name="product_dropDown"
