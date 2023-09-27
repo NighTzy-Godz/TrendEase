@@ -9,11 +9,13 @@ import { State } from "../../store/store";
 import SortDropDown from "../../components/common/SortDropDown";
 import productSortOptions from "../../data/productSortOptions";
 import InputContainer from "../../components/containers/InputContainer";
+import Button, { ButtonSize } from "../../components/common/Button";
 
 function Products() {
   const dispatch = useDispatch();
-  const [sortBy, setSortBy] = useState("");
+  const [sortBy, setSortBy] = useState("latest");
   const [filter, setFilter] = useState("");
+  const [submitted, setSubmitted] = useState(false);
 
   const products = useSelector(
     (state: State) => state?.entities?.product?.products
@@ -28,12 +30,18 @@ function Products() {
   });
 
   useEffect(() => {
-    dispatch(getAllProducts());
-  }, []);
+    dispatch(getAllProducts(sortBy));
+    setSubmitted(false);
+  }, [submitted]);
 
   const handleDropDownChange = (value: string) => {
     setSortBy(value);
   };
+
+  const handleFilterProductClick = () => {
+    setSubmitted(true);
+  };
+
   return (
     <PaddedPage className="all_products">
       <div className="container">
@@ -51,6 +59,13 @@ function Products() {
                 onDropDownChange={handleDropDownChange}
               />
             </InputContainer>
+
+            <Button
+              size={ButtonSize.SMALL}
+              handleClick={handleFilterProductClick}
+            >
+              Search Filter
+            </Button>
           </div>
 
           {/* Product List Here */}

@@ -24,6 +24,10 @@
     color: var(--bg-color);
   }
 
+  .product_filter button {
+    width: 100%;
+  }
+
   .all_products_container .product_list {
     width: 75%;
     display: grid;
