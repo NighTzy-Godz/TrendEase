@@ -15,8 +15,11 @@ import categoryOptions from "../../data/categoryOptions";
 
 function Products() {
   const dispatch = useDispatch();
-  const [sortBy, setSortBy] = useState("latest");
-  const [productCategory, setProductCategory] = useState("");
+
+  const [productFilter, setProductFilter] = useState({
+    sort_by: "latest",
+    category: "",
+  });
   const [submitted, setSubmitted] = useState(false);
 
   const products = useSelector(
@@ -45,19 +48,24 @@ function Products() {
   };
 
   useEffect(() => {
-    dispatch(getAllProducts(sortBy, productCategory));
+    dispatch(getAllProducts(productFilter));
     setSubmitted(false);
   }, [submitted]);
 
   const handleDropDownChange = (value: string) => {
-    setSortBy(value);
+    setProductFilter({ ...productFilter, sort_by: value });
   };
 
   const handleRadioBoxClick = (value: string) => {
-    setProductCategory(value);
+    setProductFilter({ ...productFilter, category: value });
   };
 
   const handleFilterProductClick = () => {
+    setSubmitted(true);
+  };
+
+  const handleResetFilter = () => {
+    setProductFilter({ ...productFilter, category: "", sort_by: "latest" });
     setSubmitted(true);
   };
 
@@ -79,6 +87,7 @@ function Products() {
 
             <InputContainer>
               <RadioBox
+                currValue={productFilter.category}
                 data={categoryOptions}
                 onRadioBoxClick={handleRadioBoxClick}
               />
@@ -93,12 +102,22 @@ function Products() {
               />
             </InputContainer>
 
-            <Button
-              size={ButtonSize.SMALL}
-              handleClick={handleFilterProductClick}
-            >
-              Search Filter
-            </Button>
+            <div className="product_filter_btn">
+              <Button
+                size={ButtonSize.SMALL}
+                className="danger"
+                handleClick={handleResetFilter}
+              >
+                Reset Filter
+              </Button>
+
+              <Button
+                size={ButtonSize.SMALL}
+                handleClick={handleFilterProductClick}
+              >
+                Search Filter
+              </Button>
+            </div>
           </div>
 
           {/* Product List Here */}

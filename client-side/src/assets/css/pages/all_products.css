@@ -52,7 +52,12 @@
     color: var(--bg-color);
   }
 
-  .product_filter button {
+  .product_filter_btn {
+    display: flex;
+    gap: 10px;
+  }
+
+  .product_filter_btn button {
     width: 100%;
     margin-bottom: 10px;
   }

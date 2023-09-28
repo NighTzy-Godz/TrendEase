@@ -9,11 +9,14 @@ interface RadioBoxData {
 
 interface RadioBoxProps {
   data: RadioBoxData[];
+  currValue: string;
   onRadioBoxClick(value: string): void;
 }
 
-function RadioBox({ data, onRadioBoxClick }: RadioBoxProps) {
+function RadioBox({ data, currValue, onRadioBoxClick }: RadioBoxProps) {
   const renderRadioBoxes = data?.map((item) => {
+    const radioBoxStyle =
+      currValue === item.value ? " var(--plain-hover) " : "";
     return (
       <label className="label" key={item.id}>
         <input
@@ -23,7 +26,10 @@ function RadioBox({ data, onRadioBoxClick }: RadioBoxProps) {
           onClick={(e) => onRadioBoxClick(e.currentTarget.value)}
           type="radio"
         />
-        <div className="radio-design"></div>
+        <div
+          className="radio-design"
+          style={{ background: radioBoxStyle }}
+        ></div>
         <div className="label-text">
           <p>{item.name}</p>
         </div>

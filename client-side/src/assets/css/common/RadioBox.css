@@ -24,7 +24,7 @@
   width: 18px;
   height: 18px;
   border-radius: 100px;
-  background: var(--plain-hover);
+  background: hsl(0, 0%, 90%);
   position: relative;
 }
 
@@ -34,7 +34,6 @@
   width: inherit;
   height: inherit;
   border-radius: inherit;
-  background: hsl(0, 0%, 90%);
 
   transition: 0.3s;
 }
