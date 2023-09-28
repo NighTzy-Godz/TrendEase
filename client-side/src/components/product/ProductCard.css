@@ -2,6 +2,7 @@
   .product_card {
     display: block;
     background-color: var(--sub-color);
+    max-height: 300px;
   }
 
   .product_card_info {

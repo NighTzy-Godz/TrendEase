@@ -11,6 +11,10 @@ interface ProductCardProps {
 
 function ProductCard({ data }: ProductCardProps) {
   const { images, _id, title, price } = data;
+
+  const trimmedTitle =
+    title.length > 60 ? `${title.substring(0, 60)} ...` : title;
+
   return (
     <Link to={`/products/${_id}`} className="product_card">
       <div className="product_card_img">
@@ -18,7 +22,7 @@ function ProductCard({ data }: ProductCardProps) {
       </div>
       <div className="product_card_info">
         <div className="title">
-          <p>{title}</p>
+          <p>{trimmedTitle}</p>
         </div>
         <div className="price">
           <h4>P {formatCurrency(price)}</h4>
