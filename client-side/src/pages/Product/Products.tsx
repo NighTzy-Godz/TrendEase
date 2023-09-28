@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ChangeEvent } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../store/slices/product";
 import ProductCard from "../../components/product/ProductCard";
@@ -23,13 +23,26 @@ function Products() {
     (state: State) => state?.entities?.product?.products
   );
 
-  const renderAllProducts = products?.map((product: ProductData) => {
+  const renderAllProducts = () => {
+    if (products.length === 0) {
+      return (
+        <div className="no_products">
+          <h1>No Products Found With The Current Filters</h1>
+        </div>
+      );
+    }
     return (
-      <React.Fragment key={product._id}>
-        <ProductCard data={product} />
-      </React.Fragment>
+      <div className="product_list">
+        {products?.map((product: ProductData) => {
+          return (
+            <React.Fragment key={product._id}>
+              <ProductCard data={product} />
+            </React.Fragment>
+          );
+        })}
+      </div>
     );
-  });
+  };
 
   useEffect(() => {
     dispatch(getAllProducts(sortBy, productCategory));
@@ -51,7 +64,13 @@ function Products() {
   return (
     <PaddedPage className="all_products">
       <div className="container">
-        <h1>All Products</h1>
+        <div className="all_products_header">
+          <h1>All Products</h1>
+          <p>
+            Choose the products you want to buy, you can use filtering depending
+            on your needs
+          </p>
+        </div>
 
         <div className="all_products_container">
           {/* Category Section Here */}
@@ -83,7 +102,7 @@ function Products() {
           </div>
 
           {/* Product List Here */}
-          <div className="product_list">{renderAllProducts}</div>
+          {renderAllProducts()}
         </div>
       </div>
     </PaddedPage>
