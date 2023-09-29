@@ -6,12 +6,6 @@ export interface ProfileOptionData {
 
 const profileOption = [
   {
-    id: 0,
-    name: "My Likes",
-    path: "",
-  },
-
-  {
     id: 1,
     name: "My Reviews",
     path: "/my-reviews",

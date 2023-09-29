@@ -10,6 +10,7 @@ import { getUserData } from "../../store/slices/user";
 import { getMyOrders, getMySoldOrders } from "../../store/slices/order";
 import { State } from "../../store/store";
 import { ProfileOptionData } from "../../data/profileOption";
+import { getMyProducts } from "../../store/slices/product";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -18,6 +19,9 @@ function Profile() {
     (state: State) => state.entities.order.mySoldOrders
   );
   const myOrders = useSelector((state: State) => state.entities.order.myOrders);
+  const myProducts = useSelector(
+    (state: State) => state.entities.product.myProducts
+  );
 
   const { first_name, last_name, email, bio } = userInfo || {};
   const full_name = first_name + " " + last_name;
@@ -25,6 +29,7 @@ function Profile() {
     dispatch(getUserData());
     dispatch(getMyOrders());
     dispatch(getMySoldOrders());
+    dispatch(getMyProducts());
   }, []);
 
   const renderProfileOption = profileOption?.map((item: ProfileOptionData) => {
@@ -44,7 +49,7 @@ function Profile() {
           bio={bio}
           soldOrders={mySoldOrders?.length}
           myOrders={myOrders?.length}
-          myProducts={10}
+          myProducts={myProducts?.length as number}
         />
 
         <Divider />

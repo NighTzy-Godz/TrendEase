@@ -7,12 +7,14 @@ interface ProductState {
   loading: boolean;
   products: Array<ProductData>;
   singleProduct: ProductData | null;
+  myProducts: ProductData[] | null;
 }
 
 const initialState: ProductState = {
   loading: false,
   products: [],
   singleProduct: null,
+  myProducts: null,
 };
 
 const slice = createSlice({
@@ -36,6 +38,11 @@ const slice = createSlice({
       product.products = action.payload[0];
     },
 
+    myProductsRecieved: (product, action) => {
+      product.loading = false;
+      product.myProducts = action.payload[0];
+    },
+
     singleProductRecieved: (product, action) => {
       product.loading = false;
       product.singleProduct = action.payload[0];
@@ -48,6 +55,7 @@ const {
   productRequestFailed,
   productCreated,
   productsRecieved,
+  myProductsRecieved,
   singleProductRecieved,
 } = slice.actions;
 
@@ -74,6 +82,15 @@ export const getAllProducts = (params: ProductParams) =>
     params,
     onStart: productRequested.type,
     onSuccess: productsRecieved.type,
+    onError: productRequestFailed.type,
+  });
+
+export const getMyProducts = () =>
+  apiCallBegan({
+    urls: ["/product/my-products"],
+    method: "GET",
+    onStart: productRequested.type,
+    onSuccess: myProductsRecieved.type,
     onError: productRequestFailed.type,
   });
 

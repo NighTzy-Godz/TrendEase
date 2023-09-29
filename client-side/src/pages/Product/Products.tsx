@@ -12,22 +12,29 @@ import InputContainer from "../../components/containers/InputContainer";
 import Button, { ButtonSize } from "../../components/common/Button";
 import RadioBox from "../../components/common/RadioBox";
 import categoryOptions from "../../data/categoryOptions";
+import paginate from "../../utils/paginate";
+import Paginate from "../../components/common/Paginate";
 
 function Products() {
   const dispatch = useDispatch();
 
   const [productFilter, setProductFilter] = useState({
-    sort_by: "latest",
+    sort_by: "",
     category: "",
   });
+
+  const [currPage, setCurrPage] = useState(1);
+
   const [submitted, setSubmitted] = useState(false);
 
   const products = useSelector(
     (state: State) => state?.entities?.product?.products
   );
 
+  const paginatedProducts = paginate(products, currPage, 8);
+  console.log(paginatedProducts);
   const renderAllProducts = () => {
-    if (products.length === 0) {
+    if (paginatedProducts.length === 0) {
       return (
         <div className="no_products">
           <h1>No Products Found With The Current Filters</h1>
@@ -35,15 +42,23 @@ function Products() {
       );
     }
     return (
-      <div className="product_list">
-        {products?.map((product: ProductData) => {
-          return (
-            <React.Fragment key={product._id}>
-              <ProductCard data={product} />
-            </React.Fragment>
-          );
-        })}
-      </div>
+      <React.Fragment>
+        <div className="product_list">
+          {paginatedProducts?.map((product: ProductData) => {
+            return (
+              <React.Fragment key={product._id}>
+                <ProductCard data={product} />
+              </React.Fragment>
+            );
+          })}
+        </div>
+        <Paginate
+          currPage={currPage}
+          itemCount={products.length}
+          pageLoad={8}
+          onPaginateClick={handlePaginateClick}
+        />
+      </React.Fragment>
     );
   };
 
@@ -62,11 +77,16 @@ function Products() {
 
   const handleFilterProductClick = () => {
     setSubmitted(true);
+    setCurrPage(1);
   };
 
   const handleResetFilter = () => {
-    setProductFilter({ ...productFilter, category: "", sort_by: "latest" });
+    setProductFilter({ ...productFilter, category: "", sort_by: "popular" });
     setSubmitted(true);
+  };
+
+  const handlePaginateClick = (page: number) => {
+    setCurrPage(page);
   };
 
   return (
@@ -120,8 +140,9 @@ function Products() {
             </div>
           </div>
 
+          <div className="product_right">{renderAllProducts()}</div>
+
           {/* Product List Here */}
-          {renderAllProducts()}
         </div>
       </div>
     </PaddedPage>

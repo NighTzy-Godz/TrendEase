@@ -44,7 +44,7 @@ export const getAllProducts = async (
         sortCriteria.price = -1;
         break;
       default:
-        sortCriteria.price = -1;
+        sortCriteria.ratings = -1;
         break;
     }
 

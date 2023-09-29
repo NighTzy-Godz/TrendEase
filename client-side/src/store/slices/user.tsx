@@ -32,21 +32,10 @@ const slice = createSlice({
       user.loading = false;
       user.error = "";
     },
-
-    userGetMyProducts: (user, action) => {
-      user.info.myProducts = action.payload[0];
-      user.loading = false;
-      user.error = "";
-    },
   },
 });
 
-const {
-  userRequested,
-  userRequestFailed,
-  userRequestSuccess,
-  userGetMyProducts,
-} = slice.actions;
+const { userRequested, userRequestFailed, userRequestSuccess } = slice.actions;
 
 export const getUserData = () =>
   apiCallBegan({
@@ -54,15 +43,6 @@ export const getUserData = () =>
     method: "GET",
     onStart: userRequested.type,
     onSuccess: userRequestSuccess.type,
-    onError: userRequestFailed.type,
-  });
-
-export const getMyProducts = () =>
-  apiCallBegan({
-    urls: ["/product/my-products"],
-    method: "GET",
-    onStart: userRequested.type,
-    onSuccess: userGetMyProducts.type,
     onError: userRequestFailed.type,
   });
 

@@ -103,7 +103,7 @@ function Checkout() {
     dispatch(addOrder(checkoutData));
     setTimeout(() => {
       setSubmitted(true);
-    }, 10);
+    }, 50);
   };
 
   return (

@@ -62,8 +62,13 @@
     margin-bottom: 10px;
   }
 
-  .all_products_container .product_list {
+  .all_products .product_right {
     width: 75%;
+  }
+
+  .all_products_container .product_list {
+    min-height: 530px;
+
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 15px;

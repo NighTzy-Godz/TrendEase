@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import PaddedPage from "../../components/containers/PaddedPage";
 import "../../assets/css/Profile/my_product.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getMyProducts } from "../../store/slices/user";
+import { getMyProducts } from "../../store/slices/product";
 import ProductCard from "../../components/product/ProductCard";
 import { ProductData } from "../../interfaces/product";
 import { State } from "../../store/store";
@@ -12,8 +12,8 @@ import { ButtonSize } from "../../components/common/Button";
 function MyProducts() {
   const dispatch = useDispatch();
 
-  const myProducts: [] = useSelector(
-    (state: State) => state.entities.user.info.myProducts
+  const myProducts = useSelector(
+    (state: State) => state.entities.product.myProducts
   );
 
   useEffect(() => {
