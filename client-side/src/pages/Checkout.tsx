@@ -18,6 +18,7 @@ const TAX = 0.012;
 import { State } from "../store/store";
 import paymentDetails from "../utils/paymentDetails";
 import getUserAddress from "../utils/getUserAddress";
+import { resetCart } from "../store/slices/cart";
 
 function Checkout() {
   const navigate = useNavigate();
@@ -48,6 +49,7 @@ function Checkout() {
     // console.log(submitted && !error);
     if (submitted && !error) {
       setSubmitted(false);
+      dispatch(resetCart(""));
       navigate("/products");
     }
   }, [submitted, error]);

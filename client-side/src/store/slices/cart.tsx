@@ -45,14 +45,18 @@ const slice = createSlice({
     removeCart: (cart, action) => {
       cart.loading = false;
       const newCart = cart.cart.filter(
-        (cart) => cart._id !== action.payload._id
+        (cart) => cart._id !== action.payload[0]._id
       );
       cart.cart = newCart;
+    },
+
+    resetCart: (cart, action) => {
+      cart.cart = [];
     },
   },
 });
 
-export const { cartQtyChange } = slice.actions;
+export const { cartQtyChange, resetCart } = slice.actions;
 
 const {
   cartRequested,

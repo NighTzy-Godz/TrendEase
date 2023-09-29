@@ -15,7 +15,6 @@ function TopNavbar({ token }: TopNavbarProps) {
   const userCart = useSelector((state: State) => state.entities.cart.cart);
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  console.log;
 
   useEffect(() => {
     if (token) {

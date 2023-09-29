@@ -18,10 +18,8 @@ function Cart() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setTimeout(() => {
-      dispatch(getUserCart());
-    }, 1000);
-  }, [userCart]);
+    dispatch(getUserCart());
+  }, []);
 
   const handleCartCheckout = () => {
     const cartItems = userCart.map((cart: CartData) => {
