@@ -15,7 +15,7 @@ function getUserAddress(userAddress: string | undefined) {
       <>
         <h3>Oops! Looks like you don't set your address yet</h3>
         <p>
-          <Link to="/">Click here </Link> to set your address
+          <Link to="/add-address">Click here </Link> to set your address
         </p>
       </>
     );

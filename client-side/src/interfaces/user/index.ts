@@ -18,3 +18,7 @@ export interface DecodedUserData {
   full_name: string;
   address: string;
 }
+
+export interface AddUserAddress {
+  address: string;
+}

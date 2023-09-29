@@ -24,6 +24,7 @@ import MyOrders from "./pages/Profile/MyOrders";
 import { State } from "./store/store";
 import CustomerOrders from "./pages/Profile/CustomerOrders";
 import MyReviews from "./pages/Profile/MyReviews";
+import AddAddress from "./pages/AddAddress";
 function App() {
   const token1 = useSelector((state: State) => state.entities.auth.token);
   const token2 = localStorage.getItem("token");
@@ -61,6 +62,8 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
 
           <Route path="/profile" element={<Profile />} />
+
+          <Route path="/add-address" element={<AddAddress />} />
 
           <Route path="/my-products" element={<MyProducts />} />
           <Route path="/my-orders" element={<MyOrders />} />

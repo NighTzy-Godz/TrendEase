@@ -25,8 +25,8 @@ function Checkout() {
   const dispatch = useDispatch();
   const [submitted, setSubmitted] = useState(false);
 
-  const userAddress = useSelector(
-    (state: State) => state?.entities?.auth?.decodedUser?.address
+  const userAddress: string = useSelector(
+    (state: State) => state?.entities?.auth?.decodedUser?.address as string
   );
   const checkoutItems = useSelector(
     (state: State) => state?.entities?.checkout?.checkoutItems
@@ -44,13 +44,10 @@ function Checkout() {
   });
 
   useEffect(() => {
-    console.log(submitted);
-    // console.log(error);
-    // console.log(submitted && !error);
     if (submitted && !error) {
       setSubmitted(false);
       dispatch(resetCart(""));
-      navigate("/profile/my-orders");
+      navigate("/my-orders");
     }
   }, [submitted, error]);
 

@@ -3,7 +3,7 @@ import { apiCallBegan } from "../actions/apiActions";
 import { LoginData } from "../../pages/auth/Login";
 import { RegisterValuesData } from "../../pages/auth/Register";
 import { ChangePasswordData } from "../../pages/auth/ChangePassword";
-import { DecodedUserData } from "../../interfaces/user";
+import { AddUserAddress, DecodedUserData } from "../../interfaces/user";
 
 interface AuthState {
   loading: boolean;
@@ -46,12 +46,20 @@ const slice = createSlice({
     setDecodedUser: (auth, action) => {
       auth.decodedUser = action.payload;
     },
+
+    updateDecodedUser: (auth, action) => {
+      if (auth.decodedUser) {
+        auth.decodedUser.address = action.payload[0].address;
+        auth.error = "";
+      }
+    },
   },
 });
 
 export const { setDecodedUser } = slice.actions;
 
-const { authRequest, authRequestFailed, authenticateUser } = slice.actions;
+const { authRequest, authRequestFailed, authenticateUser, updateDecodedUser } =
+  slice.actions;
 
 export const userChangePass = (data: ChangePasswordData) =>
   apiCallBegan({
@@ -81,6 +89,17 @@ export const registerUser = (data: RegisterValuesData) =>
     data,
     onStart: authRequest.type,
     onError: authRequestFailed.type,
+    successMessage: "Successfully Registered the User!",
+  });
+
+export const addUserAddress = (data: AddUserAddress) =>
+  apiCallBegan({
+    urls: ["user/add-address"],
+    method: "POST",
+    data,
+    onStart: authRequest.type,
+    onError: authRequestFailed.type,
+    onSuccess: updateDecodedUser.type,
     successMessage: "Successfully Registered the User!",
   });
 
