@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  addAddress,
   userChangePassword,
   userGetData,
   userLogin,
@@ -13,6 +14,7 @@ router.get("/me", isAuth, userGetData);
 
 router.put("/change-pass", isAuth, userChangePassword);
 
+router.post("/add-address", isAuth, addAddress);
 router.post("/register", isPasswordMatch, userRegister);
 router.post("/login", userLogin);
 

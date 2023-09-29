@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { cloudinary } from "../cloudinary/cloudinary";
 
-import mongoose from "mongoose";
 import { createProductValidator } from "../validators/ProductValidator";
 import Product, { ProductCategory } from "../models/Product";
 

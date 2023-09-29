@@ -20,6 +20,10 @@ interface UserLoginData {
   password: string;
 }
 
+interface UserAddAddressData {
+  address: string;
+}
+
 export const userRegisterValidator = (data: UserRegisterData) => {
   const schema: Schema<UserRegisterData> = Joi.object({
     first_name: Joi.string().min(3).required(),
@@ -48,6 +52,14 @@ export const userLoginValidator = (data: UserLoginData) => {
   const schema: Schema<UserLoginData> = Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string().required(),
+  });
+
+  return schema.validate(data);
+};
+
+export const userAddAddress = (data: UserAddAddressData) => {
+  const schema: Schema<UserAddAddressData> = Joi.object({
+    address: Joi.string().min(10).max(100).required(),
   });
 
   return schema.validate(data);

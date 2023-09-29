@@ -146,15 +146,15 @@ export const addOrder = async (
   session.startTransaction();
 
   try {
-    const { checkoutItems, paymentMethod, fromCart } = req.body;
+    const { checkoutItems, paymentMethod } = req.body;
 
     const { error } = addOrderValidator(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
     const currUser = await User.findOne({ _id: (req as any).user._id });
     if (!currUser) return res.status(404).send("User did found");
-    // if (!currUser.address)
-    //   return res.status(400).send("Set your address first before checking out");
+    if (!currUser.address)
+      return res.status(400).send("Set your address first before checking out");
 
     const productIds = checkoutItems.map((item: any) => item.product);
 
@@ -192,7 +192,7 @@ export const addOrder = async (
           productOwner,
         },
         paymentMethod,
-        shippingAddress: "Diyan lang po sa knatoi",
+        shippingAddress: currUser.address,
         subTotal,
         shippingFee: SHIPPING_FEE,
         totalAmount,

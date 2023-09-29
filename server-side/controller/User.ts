@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import User from "../models/User";
 import bcrypt from "bcrypt";
 import {
+  userAddAddress,
   userChangePasswordValidator,
   userLoginValidator,
   userRegisterValidator,
@@ -112,6 +113,32 @@ export async function userLogin(
       .header("x-auth-token", token)
       .header("access-control-expose-headers", "x-auth-token")
       .send(token);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function addAddress(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { address } = req.body;
+
+    const { error } = userAddAddress(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    const currUser = req.user?._id;
+
+    const foundUser = await User.findOne({ _id: currUser }).select("address");
+    if (!foundUser) return res.status(404).send("User did not found");
+
+    foundUser.address = address;
+
+    await foundUser.save();
+
+    res.send(foundUser);
   } catch (error) {
     next(error);
   }
