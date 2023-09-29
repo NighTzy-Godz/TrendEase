@@ -16,6 +16,27 @@
     color: var(--main-color);
   }
 
+  .nav_top li a {
+    position: relative;
+  }
+
+  #top_nav_cart::after {
+    content: attr(data-count);
+    font-size: 13px;
+    position: absolute;
+    color: var(--text-color);
+    font-family: gelion_bold;
+    background-color: var(--danger);
+    border-radius: 50%;
+    width: 1.5em;
+    height: 1.5em;
+    top: -0.75em;
+    right: -1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .nav_top ul {
     display: flex;
     align-items: center;

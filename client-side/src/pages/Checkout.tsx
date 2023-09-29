@@ -50,7 +50,7 @@ function Checkout() {
     if (submitted && !error) {
       setSubmitted(false);
       dispatch(resetCart(""));
-      navigate("/products");
+      navigate("/profile/my-orders");
     }
   }, [submitted, error]);
 

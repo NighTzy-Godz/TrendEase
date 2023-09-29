@@ -1,10 +1,10 @@
-import { useState, useEffect, useMemo } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, NavLink } from "react-router-dom";
 import "./TopNavbar.css";
 import ButtonLink from "../common/ButtonLink";
-import Button, { ButtonSize } from "../common/Button";
-import { useDispatch, useSelector } from "react-redux";
-import { getUserCart } from "../../store/slices/cart";
+import { ButtonSize } from "../common/Button";
+import { useSelector } from "react-redux";
+
 import { State } from "../../store/store";
 
 interface TopNavbarProps {
@@ -42,7 +42,13 @@ function TopNavbar({ token }: TopNavbarProps) {
                 <NavLink to="/create-product">Add Product</NavLink>
               </li>
               <li>
-                <NavLink to="/cart">Cart {userCart.length}</NavLink>
+                <NavLink
+                  to="/cart"
+                  id="top_nav_cart"
+                  data-count={userCart.length}
+                >
+                  Cart
+                </NavLink>
               </li>
             </>
           )}
