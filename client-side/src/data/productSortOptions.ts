@@ -12,7 +12,7 @@ const productSortOptions = [
   {
     id: 2,
     name: "Price: Highest to Lowest",
-    value: "priceHightToLow",
+    value: "priceHighToLow",
   },
   {
     id: 3,
