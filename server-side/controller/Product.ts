@@ -31,6 +31,7 @@ export const getAllProducts = async (
       case "popular":
         sortCriteria.ratings = -1;
         break;
+
       case "latest":
         sortCriteria.createdAt = -1;
         break;
@@ -42,6 +43,7 @@ export const getAllProducts = async (
       case "priceHighToLow":
         sortCriteria.price = -1;
         break;
+
       default:
         sortCriteria.ratings = -1;
         break;
