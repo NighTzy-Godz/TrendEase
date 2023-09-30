@@ -4,6 +4,7 @@ import { IProductCreate } from "../../pages/Product/ProductCreate";
 import { ProductData } from "../../interfaces/product";
 
 interface ProductState {
+  error: string;
   loading: boolean;
   products: Array<ProductData>;
   singleProduct: ProductData | null;
@@ -11,6 +12,7 @@ interface ProductState {
 }
 
 const initialState: ProductState = {
+  error: "",
   loading: false,
   products: [],
   singleProduct: null,
@@ -27,25 +29,30 @@ const slice = createSlice({
 
     productRequestFailed: (product, action) => {
       product.loading = false;
+      product.error = action.payload;
     },
 
     productCreated: (product, action) => {
       product.loading = false;
+      product.error = "";
     },
 
     productsRecieved: (product, action) => {
       product.loading = false;
       product.products = action.payload[0];
+      product.error = "";
     },
 
     myProductsRecieved: (product, action) => {
       product.loading = false;
       product.myProducts = action.payload[0];
+      product.error = "";
     },
 
     singleProductRecieved: (product, action) => {
       product.loading = false;
       product.singleProduct = action.payload[0];
+      product.error = "";
     },
   },
 });

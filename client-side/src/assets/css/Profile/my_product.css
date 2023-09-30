@@ -1,6 +1,5 @@
 @media screen and (min-width: 1200px) {
   .my_products {
-    height: 92dvh;
     background-color: var(--bg-color);
   }
 

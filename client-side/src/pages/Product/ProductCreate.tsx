@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import "../../assets/css/pages/product_create.css";
 import { useForm } from "react-hook-form";
 import InputContainer from "../../components/containers/InputContainer";
@@ -29,11 +29,21 @@ export interface IProductCreate {
 }
 import { State } from "../../store/store";
 function ProductCreate() {
+  const [submitted, setSubmitted] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const error = useSelector((state: State) => state?.entities?.product?.error);
   const loading = useSelector(
     (state: State) => state?.entities?.product?.loading
   );
+
+  useEffect(() => {
+    if (submitted && !error) {
+      setSubmitted(false);
+      navigate("/my-products");
+    }
+  }, [submitted, error]);
 
   const {
     register,
@@ -53,9 +63,11 @@ function ProductCreate() {
       Array.from(img).map((item) => {
         formData.append("img", item);
       });
-    await dispatch(createProduct(formData as any));
+    dispatch(createProduct(formData as any));
 
-    // navigate("/");
+    setTimeout(() => {
+      setSubmitted(true);
+    }, 50);
   };
 
   const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
