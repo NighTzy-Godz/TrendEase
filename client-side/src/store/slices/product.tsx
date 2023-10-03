@@ -39,19 +39,19 @@ const slice = createSlice({
 
     productsRecieved: (product, action) => {
       product.loading = false;
-      product.products = action.payload[0];
+      product.products = action.payload;
       product.error = "";
     },
 
     myProductsRecieved: (product, action) => {
       product.loading = false;
-      product.myProducts = action.payload[0];
+      product.myProducts = action.payload;
       product.error = "";
     },
 
     singleProductRecieved: (product, action) => {
       product.loading = false;
-      product.singleProduct = action.payload[0];
+      product.singleProduct = action.payload;
       product.error = "";
     },
   },
@@ -68,7 +68,7 @@ const {
 
 export const createProduct = (data: IProductCreate) =>
   apiCallBegan({
-    urls: ["/product/add-product"],
+    url: "/product/add-product",
     data,
     method: "POST",
     onStart: productRequested.type,
@@ -84,7 +84,7 @@ interface ProductParams {
 
 export const getAllProducts = (params: ProductParams) =>
   apiCallBegan({
-    urls: ["/product/all-products"],
+    url: "/product/all-products",
     method: "GET",
     params,
     onStart: productRequested.type,
@@ -94,7 +94,7 @@ export const getAllProducts = (params: ProductParams) =>
 
 export const getMyProducts = () =>
   apiCallBegan({
-    urls: ["/product/my-products"],
+    url: "/product/my-products",
     method: "GET",
     onStart: productRequested.type,
     onSuccess: myProductsRecieved.type,
@@ -103,7 +103,7 @@ export const getMyProducts = () =>
 
 export const getSingleProduct = (productId: string) =>
   apiCallBegan({
-    urls: [`/product/${productId}`],
+    url: `/product/${productId}`,
     method: "GET",
     onStart: productRequested.type,
     onSuccess: singleProductRecieved.type,

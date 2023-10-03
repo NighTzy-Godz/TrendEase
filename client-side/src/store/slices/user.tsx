@@ -29,14 +29,14 @@ const slice = createSlice({
     },
 
     userRequestSuccess: (user, action) => {
-      user.info = action.payload[0];
+      user.info = action.payload;
 
       user.loading = false;
       user.error = "";
     },
 
     userUpdateSuccess: (user, action) => {
-      user.info = action.payload[0];
+      user.info = action.payload;
       (user.loading = false), (user.error = "");
     },
   },
@@ -51,7 +51,7 @@ const {
 
 export const getUserData = () =>
   apiCallBegan({
-    urls: ["user/me"],
+    url: "/user/me",
     method: "GET",
     onStart: userRequested.type,
     onSuccess: userRequestSuccess.type,
@@ -60,7 +60,7 @@ export const getUserData = () =>
 
 export const updateUserData = (data: UserUpdateData) =>
   apiCallBegan({
-    urls: ["user/update-profile"],
+    url: "/user/update-profile",
     method: "PUT",
     data,
     onStart: userRequested.type,

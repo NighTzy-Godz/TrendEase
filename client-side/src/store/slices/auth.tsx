@@ -35,7 +35,7 @@ const slice = createSlice({
     authenticateUser: (auth, action) => {
       auth.loading = false;
       auth.error = "";
-      auth.token = action.payload[0];
+      auth.token = action.payload;
     },
 
     authChangePass: (auth, action) => {
@@ -49,7 +49,7 @@ const slice = createSlice({
 
     updateDecodedUser: (auth, action) => {
       if (auth.decodedUser) {
-        auth.decodedUser.address = action.payload[0].address;
+        auth.decodedUser.address = action.payload.address;
         auth.error = "";
       }
     },
@@ -63,7 +63,7 @@ const { authRequest, authRequestFailed, authenticateUser, updateDecodedUser } =
 
 export const userChangePass = (data: ChangePasswordData) =>
   apiCallBegan({
-    urls: ["/user/change-pass"],
+    url: "/user/change-pass",
     method: "PUT",
     data,
     onStart: authRequest.type,
@@ -71,9 +71,9 @@ export const userChangePass = (data: ChangePasswordData) =>
     successMessage: `Successfully Changed the Password!`,
   });
 
-export const loginUser = (data: LoginData) =>
-  apiCallBegan({
-    urls: ["/user/login"],
+export const loginUser = (data: LoginData) => {
+  return apiCallBegan({
+    url: "/user/login",
     method: "POST",
     data,
     onStart: authRequest.type,
@@ -81,10 +81,11 @@ export const loginUser = (data: LoginData) =>
     onError: authRequestFailed.type,
     successMessage: `Successfully Logged In!`,
   });
+};
 
 export const registerUser = (data: RegisterValuesData) =>
   apiCallBegan({
-    urls: ["user/register"],
+    url: "/user/register",
     method: "POST",
     data,
     onStart: authRequest.type,
@@ -94,7 +95,7 @@ export const registerUser = (data: RegisterValuesData) =>
 
 export const addUserAddress = (data: AddUserAddress) =>
   apiCallBegan({
-    urls: ["user/add-address"],
+    url: "/user/add-address",
     method: "POST",
     data,
     onStart: authRequest.type,

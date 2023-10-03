@@ -29,7 +29,7 @@ const slice = createSlice({
     },
 
     cartAdded: (cart, action) => {
-      cart.cart.push(action.payload[0]);
+      cart.cart.push(action.payload);
     },
 
     cartQtyChange: (cart, action) => {
@@ -39,13 +39,13 @@ const slice = createSlice({
     },
 
     allUserCartAdded: (cart, action) => {
-      cart.cart = action.payload[0];
+      cart.cart = action.payload;
     },
 
     removeCart: (cart, action) => {
       cart.loading = false;
       const newCart = cart.cart.filter(
-        (cart) => cart._id !== action.payload[0]._id
+        (cart) => cart._id !== action.payload._id
       );
       cart.cart = newCart;
     },
@@ -68,7 +68,7 @@ const {
 
 export const getUserCart = () =>
   apiCallBegan({
-    urls: ["/cart/get-user-cart"],
+    url: "/cart/get-user-cart",
     method: "GET",
     onStart: cartRequested.type,
     onSuccess: allUserCartAdded.type,
@@ -77,7 +77,7 @@ export const getUserCart = () =>
 
 export const addToCart = (productId: string) =>
   apiCallBegan({
-    urls: ["/cart/add-cart"],
+    url: "/cart/add-cart",
     method: "POST",
     data: { productId },
     onStart: cartRequested.type,
@@ -88,7 +88,7 @@ export const addToCart = (productId: string) =>
 
 export const deleteCart = (cartId: string) =>
   apiCallBegan({
-    urls: [`/cart/delete-cart/${cartId}`],
+    url: `/cart/delete-cart/${cartId}`,
     method: "DELETE",
     onStart: cartRequested.type,
     onSuccess: removeCart.type,

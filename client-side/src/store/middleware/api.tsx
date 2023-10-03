@@ -36,7 +36,6 @@ const api: Middleware =
       data,
       headers: {
         "x-auth-token": localStorage.getItem("token") || undefined,
-        "Content-Type": "multipart/form-data",
       },
     };
 
@@ -44,9 +43,8 @@ const api: Middleware =
       config.params = { ...queryParams, ...params };
     }
 
-    const request = await axios.request(config);
-
     try {
+      const request = await axios.request(config);
       const responseData = request.data;
 
       dispatch(apiCallSuccess(responseData));

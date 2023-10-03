@@ -42,7 +42,7 @@ const slice = createSlice({
     myOrdersUpdate: (state, action) => {
       state.loading = false;
       const filteredOrder = state.myOrders.filter(
-        (item) => item._id !== action.payload[0]._id
+        (item) => item._id !== action.payload._id
       );
 
       state.myOrders = filteredOrder;
@@ -51,21 +51,21 @@ const slice = createSlice({
     mySoldOrderRequestSuccess: (state, action) => {
       state.loading = false;
       state.error = "";
-      state.mySoldOrders = action.payload[0];
+      state.mySoldOrders = action.payload;
     },
 
     mySoldOrdersUpdate: (state, action) => {
       state.loading = false;
       state.error = "";
       const filteredOrder = state.mySoldOrders.filter(
-        (item) => item._id !== action.payload[0]._id
+        (item) => item._id !== action.payload._id
       );
 
       state.mySoldOrders = filteredOrder;
     },
 
     myRecievedOrderSuccess: (state, action) => {
-      (state.loading = false), (state.myRecievedOrders = action.payload[0]);
+      (state.loading = false), (state.myRecievedOrders = action.payload);
       state.error = "";
     },
 
@@ -73,7 +73,7 @@ const slice = createSlice({
       state.loading = false;
       state.error = "";
       const filteredOrder = state.myRecievedOrders.filter((item) => {
-        return item._id !== action.payload[0].orderPost;
+        return item._id !== action.payload.orderPost;
       });
 
       state.myRecievedOrders = filteredOrder;
@@ -94,7 +94,7 @@ const {
 
 export const getMyOrders = () =>
   apiCallBegan({
-    urls: ["/order/my-orders"],
+    url: "/order/my-orders",
     method: "GET",
     onStart: orderRequested.type,
     onSuccess: myOrderRequestSuccess.type,
@@ -103,7 +103,7 @@ export const getMyOrders = () =>
 
 export const getMySoldOrders = () =>
   apiCallBegan({
-    urls: ["/order/my-sold-orders"],
+    url: "/order/my-sold-orders",
     method: "GET",
     onStart: orderRequested.type,
     onSuccess: mySoldOrderRequestSuccess.type,
@@ -112,7 +112,7 @@ export const getMySoldOrders = () =>
 
 export const getMyRecievedOrders = () =>
   apiCallBegan({
-    urls: ["/order/my-recieved-orders"],
+    url: "/order/my-recieved-orders",
     method: "GET",
     onStart: orderRequested.type,
     onSuccess: myRecievedOrderSuccess.type,
@@ -121,7 +121,7 @@ export const getMyRecievedOrders = () =>
 
 export const orderProcessed = (data: UpdateOrderStatusData) =>
   apiCallBegan({
-    urls: ["/order/order-processed"],
+    url: "/order/order-processed",
     method: "PUT",
     data,
     onStart: orderRequested.type,
@@ -132,7 +132,7 @@ export const orderProcessed = (data: UpdateOrderStatusData) =>
 
 export const orderRecieved = (data: UpdateOrderStatusData) =>
   apiCallBegan({
-    urls: ["/order/order-recieved"],
+    url: "/order/order-recieved",
     method: "PUT",
     data,
     onStart: orderRequested.type,
@@ -143,7 +143,7 @@ export const orderRecieved = (data: UpdateOrderStatusData) =>
 
 export const orderReviewed = (data: ReviewSubmitData) =>
   apiCallBegan({
-    urls: ["/review/add-review"],
+    url: "/review/add-review",
     data,
     method: "POST",
     onStart: orderRequested.type,

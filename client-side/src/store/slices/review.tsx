@@ -30,7 +30,7 @@ const slice = createSlice({
     reviewRequestSuccess: (state, action) => {
       (state.loading = false),
         (state.error = ""),
-        (state.myReviews = action.payload[0]);
+        (state.myReviews = action.payload);
     },
   },
 });
@@ -40,7 +40,7 @@ const { reviewRequested, reviewRequestFailed, reviewRequestSuccess } =
 
 export const getMyReviews = () =>
   apiCallBegan({
-    urls: ["/review/myReviews"],
+    url: "/review/myReviews",
     onStart: reviewRequested.type,
     onError: reviewRequestFailed.type,
     onSuccess: reviewRequestSuccess.type,

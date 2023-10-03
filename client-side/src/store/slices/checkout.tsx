@@ -83,7 +83,7 @@ const { checkoutRequested, checkoutRequestFailed, checkoutSuccess } =
 
 export const addOrder = (data: AddOrderData) =>
   apiCallBegan({
-    urls: ["/order/add-order"],
+    url: "/order/add-order",
     method: "POST",
     data,
     onStart: checkoutRequested.type,
