@@ -19,7 +19,6 @@ interface IUser extends Document {
   address: string;
   balance: string;
   password: string;
-  customer_orders: mongoose.Schema.Types.ObjectId[];
   genereateAuthToken(): string;
 }
 

@@ -9,6 +9,10 @@ interface UserRegisterData {
   confirmPassword: string;
 }
 
+interface UserUpdateData extends UserRegisterData {
+  bio: string;
+}
+
 interface UserChangePasswordData {
   currPassword: string;
   newPassword: string;
@@ -33,6 +37,19 @@ export const userRegisterValidator = (data: UserRegisterData) => {
     phone: Joi.string().min(11).max(11).required(),
     password: Joi.string().min(5).required(),
     confirmPassword: Joi.string().min(5).required(),
+  });
+
+  return schema.validate(data);
+};
+
+export const userUpdateValidator = (data: UserUpdateData) => {
+  const schema: Schema<UserUpdateData> = Joi.object({
+    bio: Joi.string().allow(null || ""),
+    address: Joi.string().allow(null || ""),
+    first_name: Joi.string().min(3).required(),
+    last_name: Joi.string().min(2).required(),
+    email: Joi.string().email().required(),
+    phone: Joi.string().min(11).max(11).required(),
   });
 
   return schema.validate(data);
