@@ -15,7 +15,7 @@ const api: Middleware =
     next(action);
 
     const {
-      urls,
+      url,
       method,
       data,
       params,
@@ -27,29 +27,27 @@ const api: Middleware =
 
     if (onStart) dispatch({ type: onStart });
 
-    const requests = urls.map((url: string) => {
-      const queryParams: AxiosRequestConfig["params"] = {};
-      const config: AxiosRequestConfig = {
-        baseURL: "http://localhost:8080/api",
-        url,
-        params: queryParams,
-        method,
-        data,
-        headers: {
-          "x-auth-token": localStorage.getItem("token") || undefined,
-          "Content-Type": "multipart/form-data",
-        },
-      };
+    const queryParams: AxiosRequestConfig["params"] = {};
+    const config: AxiosRequestConfig = {
+      baseURL: "http://localhost:8080/api",
+      url,
+      params: queryParams,
+      method,
+      data,
+      headers: {
+        "x-auth-token": localStorage.getItem("token") || undefined,
+        "Content-Type": "multipart/form-data",
+      },
+    };
 
-      if (params) {
-        config.params = { ...queryParams, ...params };
-      }
-      return axios.request(config);
-    });
+    if (params) {
+      config.params = { ...queryParams, ...params };
+    }
+
+    const request = await axios.request(config);
 
     try {
-      const responses = await Promise.all(requests);
-      const responseData = responses.map((response) => response.data);
+      const responseData = request.data;
 
       dispatch(apiCallSuccess(responseData));
 
