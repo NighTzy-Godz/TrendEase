@@ -26,12 +26,7 @@ function Register() {
   const authError = useSelector((state: State) => state?.entities?.auth?.error);
 
   useEffect(() => {
-    console.log(submitted);
-    console.log(authError);
-
     if (submitted && !authError) {
-      console.log("navigating");
-
       navigate("/login");
       return setSubmitted(false);
     }

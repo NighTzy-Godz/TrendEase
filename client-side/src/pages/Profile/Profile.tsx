@@ -14,7 +14,7 @@ import { getMyProducts } from "../../store/slices/product";
 
 function Profile() {
   const dispatch = useDispatch();
-  const userInfo = useSelector((state: State) => state.entities.user.info.user);
+  const userInfo = useSelector((state: State) => state.entities.user.info);
   const mySoldOrders = useSelector(
     (state: State) => state.entities.order.mySoldOrders
   );
@@ -23,7 +23,8 @@ function Profile() {
     (state: State) => state.entities.product.myProducts
   );
 
-  const { first_name, last_name, email, bio } = userInfo || {};
+  const { first_name, last_name, email, bio, pfp, cover_photo } =
+    userInfo || {};
   const full_name = first_name + " " + last_name;
   useEffect(() => {
     dispatch(getUserData());
@@ -44,9 +45,11 @@ function Profile() {
     <div className="profile">
       <div className="container">
         <ProfileHeader
+          pfp={pfp as string}
+          cover_photo={cover_photo as string}
           full_name={full_name}
-          email={email}
-          bio={bio}
+          email={email as string}
+          bio={bio as string}
           soldOrders={mySoldOrders?.length}
           myOrders={myOrders?.length}
           myProducts={myProducts?.length as number}

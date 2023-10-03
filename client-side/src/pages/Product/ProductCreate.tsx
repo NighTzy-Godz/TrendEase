@@ -61,6 +61,7 @@ function ProductCreate() {
     formData.append("price", price.toString());
     formData.append("quantity", quantity.toString()),
       Array.from(img).map((item) => {
+        console.log(item instanceof File);
         formData.append("img", item);
       });
     dispatch(createProduct(formData as any));

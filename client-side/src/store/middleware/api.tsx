@@ -37,6 +37,7 @@ const api: Middleware =
         data,
         headers: {
           "x-auth-token": localStorage.getItem("token") || undefined,
+          "Content-Type": "multipart/form-data",
         },
       };
 

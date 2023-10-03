@@ -11,6 +11,8 @@ interface ProfileHeaderProps {
   soldOrders: number;
   myOrders: number;
   myProducts: number;
+  pfp: string;
+  cover_photo: string;
 }
 
 function ProfileHeader({
@@ -20,17 +22,23 @@ function ProfileHeader({
   soldOrders,
   myOrders,
   myProducts,
+  pfp,
+  cover_photo,
 }: ProfileHeaderProps) {
   return (
     <div className="profile_header">
       <div className="cover_photo">
-        <img src={img} alt="" />
+        <img src={cover_photo || img} alt="" />
       </div>
       <div className="profile_pfp">
-        <img src={img} alt="" />
+        <img src={pfp} alt="" />
 
         <div className="profile_edit_btn">
-          <ButtonLink size={ButtonSize.SMALL} className="primary" path="/">
+          <ButtonLink
+            size={ButtonSize.SMALL}
+            className="primary"
+            path="/edit-profile"
+          >
             Edit Profile
           </ButtonLink>
         </div>
