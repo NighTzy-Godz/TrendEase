@@ -32,7 +32,7 @@ function Products() {
   );
 
   const paginatedProducts = paginate(products, currPage, PAGE_LOAD);
-  console.log(paginatedProducts);
+
   const renderAllProducts = () => {
     if (paginatedProducts.length === 0) {
       return (
@@ -82,6 +82,7 @@ function Products() {
 
   const handleResetFilter = () => {
     setProductFilter({ ...productFilter, category: "", sort_by: "popular" });
+    setCurrPage(1);
     setSubmitted(true);
   };
 

@@ -65,7 +65,7 @@ const slice = createSlice({
     },
 
     myRecievedOrderSuccess: (state, action) => {
-      (state.loading = false), (state.myRecievedOrders = action.payload);
+      (state.loading = false), (state.myRecievedOrders = action.payload.data);
       state.error = "";
     },
 
