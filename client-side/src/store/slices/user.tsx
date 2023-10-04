@@ -7,12 +7,14 @@ interface UserState {
   info: UserData | null;
   error: string;
   loading: boolean;
+  statusCode: number | null;
 }
 
 const initialState: UserState = {
   info: null,
   error: "",
   loading: false,
+  statusCode: null,
 };
 
 const slice = createSlice({
@@ -29,18 +31,26 @@ const slice = createSlice({
     },
 
     userRequestSuccess: (user, action) => {
-      user.info = action.payload;
+      user.info = action.payload.data;
 
       user.loading = false;
       user.error = "";
     },
 
     userUpdateSuccess: (user, action) => {
-      user.info = action.payload;
-      (user.loading = false), (user.error = "");
+      user.info = action.payload.data;
+      (user.loading = false),
+        (user.statusCode = action.payload.status),
+        (user.error = "");
+    },
+
+    setStatusCode: (user, action) => {
+      user.statusCode = action.payload;
     },
   },
 });
+
+export const { setStatusCode } = slice.actions;
 
 const {
   userRequested,

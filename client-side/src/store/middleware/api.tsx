@@ -45,11 +45,12 @@ const api: Middleware =
 
     try {
       const request = await axios.request(config);
-      const responseData = request.data;
+      const data = request.data;
+      const status = request.status;
 
-      dispatch(apiCallSuccess(responseData));
+      dispatch(apiCallSuccess({ data }));
 
-      if (onSuccess) dispatch({ type: onSuccess, payload: responseData });
+      if (onSuccess) dispatch({ type: onSuccess, payload: { data, status } });
       if (successMessage)
         toast.success(successMessage, {
           autoClose: 2500,

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { apiCallBegan } from "../actions/apiActions";
+import { apiCallBegan, apiCallSuccess } from "../actions/apiActions";
 import { LoginData } from "../../pages/auth/Login";
 import { RegisterValuesData } from "../../pages/auth/Register";
 import { ChangePasswordData } from "../../pages/auth/ChangePassword";
@@ -9,6 +9,7 @@ interface AuthState {
   loading: boolean;
   error: unknown;
   token: string;
+  statusCode: number | null;
   decodedUser: DecodedUserData | null;
 }
 
@@ -16,6 +17,7 @@ const initialState: AuthState = {
   loading: false,
   error: null,
   token: "",
+  statusCode: null,
   decodedUser: null,
 };
 
@@ -35,16 +37,22 @@ const slice = createSlice({
     authenticateUser: (auth, action) => {
       auth.loading = false;
       auth.error = "";
-      auth.token = action.payload;
+      auth.token = action.payload.data;
+      auth.statusCode = action.payload.status;
     },
 
     authChangePass: (auth, action) => {
       auth.loading = false;
       auth.error = "";
+      auth.statusCode = action.payload.status;
     },
 
     setDecodedUser: (auth, action) => {
       auth.decodedUser = action.payload;
+    },
+
+    setStatusCode: (auth, action) => {
+      auth.statusCode = action.payload;
     },
 
     updateDecodedUser: (auth, action) => {
@@ -56,10 +64,15 @@ const slice = createSlice({
   },
 });
 
-export const { setDecodedUser } = slice.actions;
+export const { setDecodedUser, setStatusCode } = slice.actions;
 
-const { authRequest, authRequestFailed, authenticateUser, updateDecodedUser } =
-  slice.actions;
+const {
+  authRequest,
+  authRequestFailed,
+  authenticateUser,
+  authChangePass,
+  updateDecodedUser,
+} = slice.actions;
 
 export const userChangePass = (data: ChangePasswordData) =>
   apiCallBegan({
@@ -68,11 +81,12 @@ export const userChangePass = (data: ChangePasswordData) =>
     data,
     onStart: authRequest.type,
     onError: authRequestFailed.type,
+    onSuccess: authChangePass.type,
     successMessage: `Successfully Changed the Password!`,
   });
 
-export const loginUser = (data: LoginData) => {
-  return apiCallBegan({
+export const loginUser = (data: LoginData) =>
+  apiCallBegan({
     url: "/user/login",
     method: "POST",
     data,
@@ -81,7 +95,6 @@ export const loginUser = (data: LoginData) => {
     onError: authRequestFailed.type,
     successMessage: `Successfully Logged In!`,
   });
-};
 
 export const registerUser = (data: RegisterValuesData) =>
   apiCallBegan({

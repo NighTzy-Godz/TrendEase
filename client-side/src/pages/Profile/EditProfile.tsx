@@ -14,7 +14,11 @@ export interface UserUpdateData {
 
 import { State } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserData, updateUserData } from "../../store/slices/user";
+import {
+  getUserData,
+  setStatusCode,
+  updateUserData,
+} from "../../store/slices/user";
 import { useForm } from "react-hook-form";
 import InputContainer from "../../components/containers/InputContainer";
 import Button, { ButtonSize } from "../../components/common/Button";
@@ -22,7 +26,9 @@ import { UserData } from "../../interfaces/user";
 import { useNavigate } from "react-router-dom";
 function EditProfile() {
   const currUser = useSelector((state: State) => state?.entities?.user?.info);
-  const error = useSelector((state: State) => state?.entities?.user?.error);
+  const statusCode = useSelector(
+    (state: State) => state?.entities?.user?.statusCode
+  );
   const [submitted, setSubmitted] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -50,8 +56,8 @@ function EditProfile() {
   }, [currUser]);
 
   useEffect(() => {
-    if (submitted && !error) {
-      setSubmitted(false);
+    if (statusCode === 200) {
+      dispatch(setStatusCode(null));
       navigate("/profile");
     }
   });
@@ -83,10 +89,6 @@ function EditProfile() {
     });
 
     dispatch(updateUserData(formData as any));
-
-    setTimeout(() => {
-      setSubmitted(true);
-    }, 50);
   };
 
   return (

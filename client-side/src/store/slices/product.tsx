@@ -9,6 +9,7 @@ interface ProductState {
   products: Array<ProductData>;
   singleProduct: ProductData | null;
   myProducts: ProductData[] | null;
+  statusCode: number | null;
 }
 
 const initialState: ProductState = {
@@ -17,6 +18,7 @@ const initialState: ProductState = {
   products: [],
   singleProduct: null,
   myProducts: null,
+  statusCode: null,
 };
 
 const slice = createSlice({
@@ -35,27 +37,34 @@ const slice = createSlice({
     productCreated: (product, action) => {
       product.loading = false;
       product.error = "";
+      product.statusCode = action.payload.status;
     },
 
     productsRecieved: (product, action) => {
       product.loading = false;
-      product.products = action.payload;
+      product.products = action.payload.data;
       product.error = "";
     },
 
     myProductsRecieved: (product, action) => {
       product.loading = false;
-      product.myProducts = action.payload;
+      product.myProducts = action.payload.data;
       product.error = "";
     },
 
     singleProductRecieved: (product, action) => {
       product.loading = false;
-      product.singleProduct = action.payload;
+      product.singleProduct = action.payload.data;
       product.error = "";
+    },
+
+    setStatusCode: (product, action) => {
+      product.statusCode = action.payload;
     },
   },
 });
+
+export const { setStatusCode } = slice.actions;
 
 const {
   productRequested,

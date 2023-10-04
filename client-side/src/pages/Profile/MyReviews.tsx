@@ -33,7 +33,7 @@ function MyReviews() {
     dispatch(getMyReviews());
   }, []);
 
-  let filteredReview = recievedOrders.filter((item) => {
+  let filteredReview = recievedOrders?.filter((item) => {
     return item.rated === reviewPageFilter.value;
   });
 

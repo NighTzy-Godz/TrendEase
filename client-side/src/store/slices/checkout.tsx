@@ -20,6 +20,7 @@ interface CheckoutState {
   loading: boolean;
   error: unknown;
   submitted: boolean;
+  statusCode: number | null;
 }
 
 const initialState: CheckoutState = {
@@ -28,6 +29,7 @@ const initialState: CheckoutState = {
   loading: false,
   error: null,
   submitted: false,
+  statusCode: null,
 };
 
 const slice = createSlice({
@@ -46,6 +48,8 @@ const slice = createSlice({
     },
 
     checkoutSuccess: (state, action) => {
+      console.log(action.payload);
+      state.statusCode = action.payload.status;
       state.loading = false;
       state.submitted = false;
       state.error = null;
@@ -68,6 +72,10 @@ const slice = createSlice({
     setSubmitted: (state, action) => {
       state.submitted = action.payload;
     },
+
+    setStatusCode: (state, action) => {
+      state.statusCode = action.payload;
+    },
   },
 });
 
@@ -76,6 +84,7 @@ export const {
   setPaymentMethod,
   setCheckoutBuyNow,
   setSubmitted,
+  setStatusCode,
 } = slice.actions;
 
 const { checkoutRequested, checkoutRequestFailed, checkoutSuccess } =

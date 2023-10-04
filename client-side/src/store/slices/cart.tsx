@@ -29,7 +29,7 @@ const slice = createSlice({
     },
 
     cartAdded: (cart, action) => {
-      cart.cart.push(action.payload);
+      cart.cart.push(action.payload.data);
     },
 
     cartQtyChange: (cart, action) => {
@@ -39,7 +39,7 @@ const slice = createSlice({
     },
 
     allUserCartAdded: (cart, action) => {
-      cart.cart = action.payload;
+      cart.cart = action.payload.data;
     },
 
     removeCart: (cart, action) => {

@@ -21,13 +21,13 @@ function MyOrders() {
   const myOrders = useSelector((state: State) => state.entities.order.myOrders);
 
   useEffect(() => {
-    if (myOrders.length === 0) dispatch(getMyOrders());
+    if (myOrders?.length === 0) dispatch(getMyOrders());
   }, []);
 
   let filteredOrder = myOrders;
 
   if (orderFilter) {
-    filteredOrder = myOrders.filter((order: OrderData) => {
+    filteredOrder = myOrders?.filter((order: OrderData) => {
       return order.status === orderFilter.value;
     });
   } else {
@@ -35,7 +35,7 @@ function MyOrders() {
   }
 
   const renderMyOrders = () => {
-    if (filteredOrder.length === 0) {
+    if (filteredOrder?.length === 0) {
       return (
         <div className="no_orders">
           <h3>No {orderFilter.name} Orders Found At The Moment</h3>

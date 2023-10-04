@@ -36,7 +36,7 @@ const slice = createSlice({
     myOrderRequestSuccess: (state, action) => {
       state.loading = false;
       state.error = "";
-      state.myOrders = action.payload[0];
+      state.myOrders = action.payload.data;
     },
 
     myOrdersUpdate: (state, action) => {
@@ -51,7 +51,7 @@ const slice = createSlice({
     mySoldOrderRequestSuccess: (state, action) => {
       state.loading = false;
       state.error = "";
-      state.mySoldOrders = action.payload;
+      state.mySoldOrders = action.payload.data;
     },
 
     mySoldOrdersUpdate: (state, action) => {

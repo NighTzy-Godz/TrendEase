@@ -11,7 +11,11 @@ import Divider from "../components/common/Divider";
 import PaymentDetails from "../components/checkout/PaymentDetails";
 import Button, { ButtonSize } from "../components/common/Button";
 import formatCurrency from "../utils/formatCurrency";
-import { addOrder, setSubmitted } from "../store/slices/checkout";
+import {
+  addOrder,
+  setStatusCode,
+  setSubmitted,
+} from "../store/slices/checkout";
 
 const SHIPPING_FEE = 40;
 const TAX = 0.012;
@@ -34,6 +38,9 @@ function Checkout() {
   const paymentMethod = useSelector(
     (state: State) => state?.entities?.checkout?.paymentMethod
   );
+  const statusCode = useSelector(
+    (state: State) => state.entities.checkout.statusCode
+  );
 
   const { error } = useSelector((state: State) => state?.entities?.checkout);
 
@@ -44,12 +51,12 @@ function Checkout() {
   });
 
   useEffect(() => {
-    if (submitted && !error) {
-      setSubmitted(false);
+    if (statusCode === 200 && !error) {
       dispatch(resetCart(""));
+      dispatch(setStatusCode(null));
       navigate("/my-orders");
     }
-  }, [submitted, error]);
+  }, [statusCode, error]);
 
   // NOTE: This is to prevent the user to accidentally accessing the checkout page
   useEffect(() => {
@@ -100,9 +107,6 @@ function Checkout() {
     };
 
     dispatch(addOrder(checkoutData));
-    setTimeout(() => {
-      setSubmitted(true);
-    }, 50);
   };
 
   return (

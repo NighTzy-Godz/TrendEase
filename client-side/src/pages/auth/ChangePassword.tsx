@@ -4,7 +4,7 @@ import PaddedPage from "../../components/containers/PaddedPage";
 import InputContainer from "../../components/containers/InputContainer";
 import Button, { ButtonSize } from "../../components/common/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { userChangePass } from "../../store/slices/auth";
+import { setStatusCode, userChangePass } from "../../store/slices/auth";
 import { useNavigate } from "react-router-dom";
 
 export interface ChangePasswordData {
@@ -12,13 +12,18 @@ export interface ChangePasswordData {
   newPassword: string;
   confirmPassword: string;
 }
+import { State } from "../../store/store";
 
 function ChangePassword() {
   const [submitted, setSubmitted] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const error = useSelector((state: any) => state.entities.auth.error);
+  const error = useSelector((state: State) => state.entities.auth.error);
+  const statusCode = useSelector(
+    (state: State) => state.entities.auth.statusCode
+  );
+
   const {
     register,
     handleSubmit,
@@ -26,12 +31,15 @@ function ChangePassword() {
   } = useForm<ChangePasswordData>();
 
   useEffect(() => {
-    if (submitted && !error) return navigate("/profile");
-  }, [submitted, error]);
+    console.log(statusCode);
+    if (statusCode === 200 && !error) {
+      dispatch(setStatusCode(null));
+      return navigate("/profile");
+    }
+  }, [statusCode, error]);
 
   const handleFormSubmit = (data: ChangePasswordData) => {
     dispatch(userChangePass(data));
-    setSubmitted(true);
   };
 
   return (

@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import PaddedPage from "../../components/containers/PaddedPage";
 import { setCheckoutBuyNow } from "../../store/slices/checkout";
 import { State } from "../../store/store";
+import { UserData } from "../../interfaces/user";
 
 function SingleProduct() {
   const { productId } = useParams();
@@ -38,8 +39,8 @@ function SingleProduct() {
     sold,
   } = product || {};
 
-  const { _id: productOwner, pfp, email } = owner || {};
-  const isOwner = currUser?._id === owner?._id;
+  const { _id: productOwner, pfp, email } = (owner as UserData) || {};
+  const isOwner = currUser?._id === productOwner;
 
   const handleAddCart = (productId: string) => {
     if (!currUser) {
@@ -129,7 +130,7 @@ function SingleProduct() {
             <div className="top_section">
               <h1>{title}</h1>
               <div className="product_info_flex">
-                <p>P {formatCurrency(price)}</p>
+                <p>P {formatCurrency(price as number)}</p>
                 <p>{ratings} Stars</p> <p>{sold} sold</p>
               </div>
             </div>

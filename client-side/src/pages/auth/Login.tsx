@@ -5,7 +5,7 @@ import Button, { ButtonSize } from "../../components/common/Button";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../store/slices/auth";
+import { loginUser, setStatusCode } from "../../store/slices/auth";
 import { useForm } from "react-hook-form";
 import PaddedPage from "../../components/containers/PaddedPage";
 
@@ -14,11 +14,16 @@ export interface LoginData {
   password: string;
 }
 
+import { State } from "../../store/store";
+
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const token = useSelector((state: any) => state.entities.auth.token);
-  const authError = useSelector((state: any) => state.entities.auth.error);
+  const token = useSelector((state: State) => state.entities.auth.token);
+  const authError = useSelector((state: State) => state.entities.auth.error);
+  const statusCode = useSelector(
+    (state: State) => state.entities.auth.statusCode
+  );
 
   const {
     register,
@@ -28,8 +33,12 @@ function Login() {
 
   useEffect(() => {
     if (!token) return;
-    navigate("/profile");
-  }, [authError]);
+
+    if (statusCode === 200) {
+      dispatch(setStatusCode(null));
+      navigate("/profile");
+    }
+  }, [authError, statusCode]);
 
   const handleFormSubmit = (data: LoginData) => {
     dispatch(loginUser(data));
