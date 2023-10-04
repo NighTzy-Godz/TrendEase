@@ -12,12 +12,17 @@ import { ButtonSize } from "../../components/common/Button";
 import Divider from "../../components/common/Divider";
 import OrderFilter from "../../components/order/OrderFilter";
 import CustomerOrderCard from "../../components/order/CustomerOrderCard";
+import paginate from "../../utils/paginate";
+import Paginate from "../../components/common/Paginate";
 
 function MyOrders() {
+  const PAGE_LOAD = 10;
   const dispatch = useDispatch();
   const [orderFilter, setOrderFilter] = useState<OrderStatusValue>(
     orderStatus[0]
   );
+  const [currPage, setCurrPage] = useState(1);
+
   const myOrders = useSelector((state: State) => state.entities.order.myOrders);
 
   useEffect(() => {
@@ -34,6 +39,12 @@ function MyOrders() {
     filteredOrder = myOrders;
   }
 
+  const paginatedOrders = paginate(filteredOrder, currPage, PAGE_LOAD);
+
+  const handlePaginateClick = (page: number) => {
+    setCurrPage(page);
+  };
+
   const renderMyOrders = () => {
     if (filteredOrder?.length === 0) {
       return (
@@ -47,7 +58,7 @@ function MyOrders() {
     }
     return (
       <div className="order_list">
-        {filteredOrder?.map((order: OrderData) => {
+        {paginatedOrders?.map((order: OrderData) => {
           return (
             <React.Fragment key={order._id}>
               <CustomerOrderCard data={order} />
@@ -77,6 +88,12 @@ function MyOrders() {
         />
         <Divider />
         {renderMyOrders()}
+        <Paginate
+          pageLoad={10}
+          currPage={currPage}
+          itemCount={filteredOrder.length}
+          onPaginateClick={handlePaginateClick}
+        />
       </div>
     </PaddedPage>
   );

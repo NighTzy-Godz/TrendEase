@@ -17,7 +17,7 @@ import Paginate from "../../components/common/Paginate";
 
 function Products() {
   const dispatch = useDispatch();
-
+  const PAGE_LOAD = 8;
   const [productFilter, setProductFilter] = useState({
     sort_by: "",
     category: "",
@@ -31,7 +31,7 @@ function Products() {
     (state: State) => state?.entities?.product?.products
   );
 
-  const paginatedProducts = paginate(products, currPage, 8);
+  const paginatedProducts = paginate(products, currPage, PAGE_LOAD);
   console.log(paginatedProducts);
   const renderAllProducts = () => {
     if (paginatedProducts.length === 0) {
