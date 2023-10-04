@@ -103,14 +103,6 @@ export async function userUpdate(
 
     const currUser = req.user?._id;
 
-    const exisitingEmail = await User.findOne({ email }).select("email");
-    if (exisitingEmail)
-      return res.status(409).send("User with this email already exists");
-
-    const exisitingNumber = await User.findOne({ phone }).select("phone");
-    if (exisitingNumber)
-      return res.status(409).send("User with this phone number already exists");
-
     const foundUser = await User.findOne({ _id: currUser }).select("-password");
     if (!foundUser) return res.status(404).send("User did not found");
 

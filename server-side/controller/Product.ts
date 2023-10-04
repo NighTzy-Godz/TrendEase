@@ -103,8 +103,6 @@ export const createProduct = async (
     const { error } = createProductValidator(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
-    console.log(req.files);
-
     if (!req.files || req.files.length === 0)
       return res.status(400).send("Images cannot be empty");
 
