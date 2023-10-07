@@ -1,7 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import { cloudinary } from "../cloudinary/cloudinary";
 
-import { createProductValidator } from "../validators/ProductValidator";
+import {
+  createProductValidator,
+  updateProductValidator,
+} from "../validators/ProductValidator";
 import Product, { ProductCategory } from "../models/Product";
 
 interface FilterCriteria {
@@ -137,6 +140,34 @@ export const createProduct = async (
       images: imageLinks,
       owner: (req as any).user._id,
     });
+
+    await product.save();
+
+    res.send(product);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { title, desc, price, quantity, category } = req.body;
+    const { productId } = req.params;
+    const { error } = updateProductValidator(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    const product = await Product.findOne({ _id: productId });
+    if (!product) return res.status(404).send("Product did not found");
+
+    product.title = title;
+    product.desc = desc;
+    product.price = price;
+    product.quantity = quantity;
+    product.category = category;
 
     await product.save();
 

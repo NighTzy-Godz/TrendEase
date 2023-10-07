@@ -18,10 +18,24 @@ interface CreateProductData {
   category: Category;
 }
 
+interface UpdateProductData extends CreateProductData {}
+
 export const createProductValidator = (
   data: CreateProductData
 ): Joi.ValidationResult => {
   const schema: Schema<CreateProductData> = Joi.object({
+    title: Joi.string().min(10).max(150).required(),
+    desc: Joi.string().min(10).required(),
+    price: Joi.number().required(),
+    quantity: Joi.number().required(),
+    category: Joi.string().valid(...Object.values(Category)),
+  });
+
+  return schema.validate(data);
+};
+
+export const updateProductValidator = (data: UpdateProductData) => {
+  const schema: Schema<UpdateProductData> = Joi.object({
     title: Joi.string().min(10).max(150).required(),
     desc: Joi.string().min(10).required(),
     price: Joi.number().required(),

@@ -8,6 +8,7 @@ import {
   getAllMyProducts,
   getAllProducts,
   getSingleProduct,
+  updateProduct,
 } from "../controller/Product";
 import isAuth from "../middleware/isAuth";
 
@@ -18,5 +19,6 @@ router.get("/my-products", isAuth, getAllMyProducts);
 router.get("/:productId", getSingleProduct);
 
 router.post("/add-product", upload.array("img"), isAuth, createProduct);
+router.put("/edit-product/:productId", isAuth, updateProduct);
 
 export default router;
