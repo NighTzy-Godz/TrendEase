@@ -1,63 +1,56 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
-import "../../assets/css/pages/product_create.css";
-import { useForm } from "react-hook-form";
-import InputContainer from "../../components/containers/InputContainer";
-import Button, { ButtonSize } from "../../components/common/Button";
-import categoryOptions from "../../data/categoryOptions";
-import { useDispatch, useSelector } from "react-redux";
-import { createProduct } from "../../store/slices/product";
-import { useNavigate } from "react-router-dom";
+import React, { ChangeEvent, useEffect } from "react";
 import PaddedPage from "../../components/containers/PaddedPage";
+import InputContainer from "../../components/containers/InputContainer";
+import { useForm } from "react-hook-form";
 
+import { ProductData, ProductEditData } from "../../interfaces/product";
+import categoryOptions from "../../data/categoryOptions";
+import Button, { ButtonSize } from "../../components/common/Button";
 import { State } from "../../store/store";
-import { ProductCategory, ProductCreateData } from "../../interfaces/product";
-function ProductCreate() {
-  const [submitted, setSubmitted] = useState(false);
-
-  const dispatch = useDispatch();
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getSingleProduct,
+  setStatusCode,
+  updateProduct,
+} from "../../store/slices/product";
+import { useNavigate, useParams } from "react-router-dom";
+function EditProduct() {
   const navigate = useNavigate();
-  const error = useSelector((state: State) => state?.entities?.product?.error);
-  const loading = useSelector(
-    (state: State) => state?.entities?.product?.loading
+  const dispatch = useDispatch();
+  const { productId } = useParams();
+  const loading = useSelector((state: State) => state.entities.product.loading);
+  const statusCode = useSelector(
+    (state: State) => state.entities.product.statusCode
+  );
+  const currProduct = useSelector(
+    (state: State) => state.entities.product.singleProduct
   );
 
-  useEffect(() => {
-    if (submitted && !error) {
-      setSubmitted(false);
-      navigate("/my-products");
-    }
-  }, [submitted, error]);
+  const { title, desc, price, quantity } = (currProduct as ProductData) || {};
 
   const {
     register,
     handleSubmit,
-
     formState: { errors },
-  } = useForm<ProductCreateData>();
+  } = useForm<ProductEditData>({
+    defaultValues: {
+      title,
+      desc,
+      price,
+      quantity,
+    },
+  });
 
-  const onSubmit = async (data: ProductCreateData) => {
-    const { title, img, category, desc, price, quantity } = data;
-    const formData = new FormData();
-    formData.append("category", category);
-    formData.append("title", title);
-    formData.append("desc", desc);
-    formData.append("price", price.toString());
-    formData.append("quantity", quantity.toString()),
-      Array.from(img).map((item) => {
-        console.log(item instanceof File);
-        formData.append("img", item);
-      });
-    dispatch(createProduct(formData as any));
+  useEffect(() => {
+    dispatch(getSingleProduct(productId as string));
+  }, []);
 
-    setTimeout(() => {
-      setSubmitted(true);
-    }, 50);
-  };
-
-  const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    e.currentTarget.style.height = "auto";
-    e.currentTarget.style.height = e.currentTarget.scrollHeight + "px";
-  };
+  useEffect(() => {
+    if (statusCode === 200) {
+      setStatusCode(null);
+      navigate(`/products/${productId}`);
+    }
+  }, [statusCode]);
 
   const renderCategoryOptions = () => {
     return categoryOptions.map((item) => {
@@ -69,22 +62,21 @@ function ProductCreate() {
     });
   };
 
+  const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    e.currentTarget.style.height = "auto";
+    e.currentTarget.style.height = e.currentTarget.scrollHeight + "px";
+  };
+
+  const handleFormSubmit = (data: ProductEditData) => {
+    dispatch(updateProduct(data, productId as string));
+  };
+
   return (
-    <PaddedPage className="product_create">
+    <PaddedPage className="auth_form edit_product">
       <div className="container">
         <div className="form_container">
-          <h3>Product Create</h3>
-          <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
-            <InputContainer>
-              <label>Images</label>
-              <input
-                type="file"
-                accept="image/*"
-                multiple
-                {...register("img", { required: "Image is required" })}
-              />
-              {errors.img && <p className="form_error">{errors.img.message}</p>}
-            </InputContainer>
+          <h3>Edit Product Form</h3>
+          <form onSubmit={handleSubmit(handleFormSubmit)}>
             <InputContainer>
               <label>Title</label>
               <input
@@ -174,7 +166,7 @@ function ProductCreate() {
               className={`${loading && "loading"} primary`}
               size={ButtonSize.MEDIUM}
             >
-              Submit
+              Update Product
             </Button>
           </form>
         </div>
@@ -183,4 +175,4 @@ function ProductCreate() {
   );
 }
 
-export default ProductCreate;
+export default EditProduct;

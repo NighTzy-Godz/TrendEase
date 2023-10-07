@@ -1,6 +1,6 @@
 import { UserData } from "../user";
 
-enum ProductCategory {
+export enum ProductCategory {
   Electronics = "electronics",
   Fashion = "fashion",
   Appliances = "appliances",
@@ -32,4 +32,26 @@ export interface ProductFilterData {
   id: number;
   name: string;
   value: string;
+}
+
+export interface ProductCreateData {
+  img: FileList;
+  title: string;
+  desc: string;
+  price: number;
+  quantity: number;
+  category: ProductCategory;
+}
+
+export interface ProductEditData {
+  title: string;
+  desc: string;
+  price: number;
+  quantity: number;
+  category: ProductCategory;
+}
+
+export interface ProductParams {
+  sort_by: string;
+  category: string;
 }

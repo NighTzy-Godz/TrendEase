@@ -1,6 +1,8 @@
 @media screen and (min-width: 1200px) {
   .profile {
     background-color: var(--bg-color);
+    min-height: 92dvh;
+    padding-bottom: 1px;
   }
 
   .profile_option {

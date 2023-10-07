@@ -1,6 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "../actions/apiActions";
-import { IProductCreate } from "../../pages/Product/ProductCreate";
+import {
+  ProductCreateData,
+  ProductEditData,
+  ProductParams,
+} from "../../interfaces/product";
 import { ProductData } from "../../interfaces/product";
 
 interface ProductState {
@@ -58,6 +62,13 @@ const slice = createSlice({
       product.error = "";
     },
 
+    singleProductUpdated: (product, action) => {
+      product.loading = false;
+      product.singleProduct = action.payload.data;
+      product.error = "";
+      product.statusCode = action.payload.status;
+    },
+
     setStatusCode: (product, action) => {
       product.statusCode = action.payload;
     },
@@ -73,9 +84,10 @@ const {
   productsRecieved,
   myProductsRecieved,
   singleProductRecieved,
+  singleProductUpdated,
 } = slice.actions;
 
-export const createProduct = (data: IProductCreate) =>
+export const createProduct = (data: ProductCreateData) =>
   apiCallBegan({
     url: "/product/add-product",
     data,
@@ -86,10 +98,16 @@ export const createProduct = (data: IProductCreate) =>
     successMessage: "Successfully Created the Product",
   });
 
-interface ProductParams {
-  sort_by: string;
-  category: string;
-}
+export const updateProduct = (data: ProductEditData, productId: string) =>
+  apiCallBegan({
+    url: `/product/edit-product/${productId}`,
+    data,
+    method: "PUT",
+    onStart: productRequested.type,
+    onSuccess: singleProductUpdated.type,
+    onError: productRequestFailed.type,
+    successMessage: "Product has been successfully updated!",
+  });
 
 export const getAllProducts = (params: ProductParams) =>
   apiCallBegan({

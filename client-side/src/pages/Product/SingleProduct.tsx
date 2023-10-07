@@ -71,7 +71,12 @@ function SingleProduct() {
     if (isOwner) {
       return (
         <>
-          <Button size={ButtonSize.LARGE}>Edit</Button>
+          <ButtonLink
+            path={`/edit-product/${productId}`}
+            size={ButtonSize.LARGE}
+          >
+            Edit
+          </ButtonLink>
 
           <Button className="primary" size={ButtonSize.LARGE}>
             Delete

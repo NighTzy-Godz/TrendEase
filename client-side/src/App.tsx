@@ -26,6 +26,7 @@ import CustomerOrders from "./pages/Profile/CustomerOrders";
 import MyReviews from "./pages/Profile/MyReviews";
 import AddAddress from "./pages/AddAddress";
 import EditProfile from "./pages/Profile/EditProfile";
+import EditProduct from "./pages/Product/EditProduct";
 function App() {
   const token1 = useSelector((state: State) => state.entities.auth.token);
   const token2 = localStorage.getItem("token");
@@ -57,6 +58,7 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/products/:productId" element={<SingleProduct />} />
           <Route path="/create-product" element={<ProductCreate />} />
+          <Route path="/edit-product/:productId" element={<EditProduct />} />
 
           <Route path="/cart" element={<Cart />} />
 

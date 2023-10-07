@@ -74,7 +74,8 @@
     gap: 20px;
   }
 
-  .single_product_optionBtn button {
+  .single_product_optionBtn button,
+  .single_product_optionBtn a {
     width: 40%;
   }
 
