@@ -30,7 +30,7 @@ const slice = createSlice({
     reviewRequestSuccess: (state, action) => {
       (state.loading = false),
         (state.error = ""),
-        (state.myReviews = action.payload);
+        (state.myReviews = action.payload.data);
     },
   },
 });
