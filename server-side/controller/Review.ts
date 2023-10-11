@@ -88,3 +88,23 @@ export async function addReview(
     next(error);
   }
 }
+
+export async function getProductReviews(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { productId } = req.params;
+
+    const productReview = await Review.find({
+      productPost: productId,
+    })
+      .populate("orderPost reviewOwner")
+      .populate({ path: "orderPost", populate: { path: "item.product" } });
+
+    res.send(productReview);
+  } catch (error) {
+    next(error);
+  }
+}
