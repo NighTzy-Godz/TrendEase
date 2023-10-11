@@ -4,12 +4,14 @@ import { apiCallBegan } from "../actions/apiActions";
 
 interface ReviewState {
   myReviews: ReviewData[];
+  productReview: ReviewData[];
   loading: boolean;
   error: string;
 }
 
 const initialState: ReviewState = {
   myReviews: [],
+  productReview: [],
   loading: false,
   error: "",
 };
@@ -32,11 +34,21 @@ const slice = createSlice({
         (state.error = ""),
         (state.myReviews = action.payload.data);
     },
+
+    productReviewSuccess: (state, action) => {
+      state.loading = false;
+      state.error = "";
+      state.productReview = action.payload.data;
+    },
   },
 });
 
-const { reviewRequested, reviewRequestFailed, reviewRequestSuccess } =
-  slice.actions;
+const {
+  reviewRequested,
+  reviewRequestFailed,
+  reviewRequestSuccess,
+  productReviewSuccess,
+} = slice.actions;
 
 export const getMyReviews = () =>
   apiCallBegan({
@@ -44,6 +56,14 @@ export const getMyReviews = () =>
     onStart: reviewRequested.type,
     onError: reviewRequestFailed.type,
     onSuccess: reviewRequestSuccess.type,
+  });
+
+export const getProductReviews = (productId: string) =>
+  apiCallBegan({
+    url: `/review/${productId}`,
+    onStart: reviewRequested.type,
+    onError: reviewRequestFailed.type,
+    onSuccess: productReviewSuccess.type,
   });
 
 export default slice.reducer;

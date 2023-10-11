@@ -1,8 +1,9 @@
 import { OrderData } from "../order";
+import { ProductData } from "../product";
 import { UserData } from "../user";
 
 export interface ReviewSubmitData {
-  productId: string,
+  productId: string;
   orderId: string;
   content: string;
   rating: number;

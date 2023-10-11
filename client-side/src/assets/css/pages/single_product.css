@@ -101,10 +101,17 @@
   .single_product_ratings h3 {
     color: var(--main-color);
     font-size: 28px;
+    margin-bottom: 20px;
   }
 
   .single_product_ratings p {
     color: var(--text-color);
     font-size: 21px;
+  }
+
+  .product_review_grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 }

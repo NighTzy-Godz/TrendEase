@@ -18,13 +18,13 @@ function ReviewCard({ data }: ReviewCardProps) {
     content,
   } = data;
 
-  const { images, title } = product;
+  const { images = [], title } = product;
   const full_name = first_name + " " + last_name;
   const slicedReviewContent =
-    content.length > 100 ? `${content.slice(0, 100)} ...` : content;
+    content?.length > 100 ? `${content.slice(0, 100)} ...` : content;
 
   const slicedItemTitle =
-    title.length > 60 ? `${title.slice(0, 60)} ...` : title;
+    title?.length > 60 ? `${title.slice(0, 60)} ...` : title;
 
   return (
     <div className="review_card">

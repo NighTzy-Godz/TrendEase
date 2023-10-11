@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../assets/css/pages/single_product.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,8 +15,14 @@ import PaddedPage from "../../components/containers/PaddedPage";
 import { setCheckoutBuyNow } from "../../store/slices/checkout";
 import { State } from "../../store/store";
 import { UserData } from "../../interfaces/user";
+import { getProductReviews } from "../../store/slices/review";
+import ReviewCard from "../../components/review/ReviewCard";
+import Paginate from "../../components/common/Paginate";
+import paginate from "../../utils/paginate";
 
 function SingleProduct() {
+  const PAGE_LOAD = 6;
+  const [currPage, setCurrPage] = useState(1);
   const { productId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -26,6 +32,12 @@ function SingleProduct() {
   const currUser = useSelector(
     (state: State) => state?.entities?.auth?.decodedUser
   );
+
+  const productReview = useSelector(
+    (state: State) => state.entities.review.productReview
+  );
+
+  const paginatedReviews = paginate(productReview, currPage, PAGE_LOAD);
 
   const {
     category,
@@ -67,6 +79,10 @@ function SingleProduct() {
     navigate("/checkout");
   };
 
+  const handlePaginateClick = (page: number) => {
+    setCurrPage(page);
+  };
+
   const renderBtnOption = () => {
     if (isOwner) {
       return (
@@ -105,9 +121,23 @@ function SingleProduct() {
     }
   };
 
+  const renderProductReviews = () => {
+    if (productReview.length === 0) return <p>No Ratings at the moment</p>;
+    return (
+      <div className="product_review_grid">
+        {paginatedReviews.map((review) => (
+          <React.Fragment key={review._id}>
+            <ReviewCard data={review} />
+          </React.Fragment>
+        ))}
+      </div>
+    );
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(getSingleProduct(productId as string));
+    dispatch(getProductReviews(productId as string));
   }, [productId]);
 
   return (
@@ -168,7 +198,14 @@ function SingleProduct() {
 
         <div className="single_product_ratings">
           <h3>Product Ratings</h3>
-          <p>No Ratings at the moment</p>
+          {renderProductReviews()}
+
+          <Paginate
+            currPage={currPage}
+            itemCount={productReview.length}
+            pageLoad={PAGE_LOAD}
+            onPaginateClick={handlePaginateClick}
+          />
         </div>
       </div>
     </PaddedPage>
