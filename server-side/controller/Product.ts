@@ -76,7 +76,7 @@ export const getLatestProducts = async (
         $limit: 6,
       },
     ]).exec();
-    console.log(latestProducts);
+
     res.send(latestProducts);
   } catch (error) {
     next(error);
@@ -95,8 +95,9 @@ export const getTopProducts = async (
           sold: -1,
           rating: -1,
         },
-        $limit: 5,
       },
+
+      { $limit: 5 },
     ]);
 
     res.send(topProducts);
