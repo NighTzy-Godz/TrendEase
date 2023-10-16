@@ -16,16 +16,19 @@ interface ProductState {
   singleProduct: ProductData | null;
   myProducts: ProductData[] | null;
   latestProducts: ProductData[];
+  topProducts: ProductData[];
 }
 
 const initialState: ProductState = {
   error: "",
+  statusCode: null,
   loading: false,
+
   products: [],
   singleProduct: null,
   myProducts: null,
-  statusCode: null,
   latestProducts: [],
+  topProducts: [],
 };
 
 const slice = createSlice({
@@ -77,6 +80,11 @@ const slice = createSlice({
       product.error = "";
       product.latestProducts = action.payload.data;
     },
+    topProductsRecieved: (product, action) => {
+      product.loading = false;
+      product.error = "";
+      product.topProducts = action.payload.data;
+    },
 
     setStatusCode: (product, action) => {
       product.statusCode = action.payload;
@@ -95,6 +103,7 @@ const {
   myProductsRecieved,
   singleProductRecieved,
   singleProductUpdated,
+  topProductsRecieved,
 } = slice.actions;
 
 export const getLatestProducts = () =>
@@ -103,6 +112,15 @@ export const getLatestProducts = () =>
     method: "GET",
     onStart: productRequested.type,
     onSuccess: latestProductsRecieved.type,
+    onError: productRequestFailed.type,
+  });
+
+export const getTopProducts = () =>
+  apiCallBegan({
+    url: "/product/topProducts",
+    method: "GET",
+    onStart: productRequested.type,
+    onSuccess: topProductsRecieved.type,
     onError: productRequestFailed.type,
   });
 
