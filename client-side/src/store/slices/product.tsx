@@ -10,10 +10,12 @@ import { ProductData } from "../../interfaces/product";
 interface ProductState {
   error: string;
   loading: boolean;
+  statusCode: number | null;
+
   products: Array<ProductData>;
   singleProduct: ProductData | null;
   myProducts: ProductData[] | null;
-  statusCode: number | null;
+  latestProducts: ProductData[];
 }
 
 const initialState: ProductState = {
@@ -23,6 +25,7 @@ const initialState: ProductState = {
   singleProduct: null,
   myProducts: null,
   statusCode: null,
+  latestProducts: [],
 };
 
 const slice = createSlice({
@@ -69,6 +72,12 @@ const slice = createSlice({
       product.statusCode = action.payload.status;
     },
 
+    latestProductsRecieved: (product, action) => {
+      product.loading = false;
+      product.error = "";
+      product.latestProducts = action.payload.data;
+    },
+
     setStatusCode: (product, action) => {
       product.statusCode = action.payload;
     },
@@ -78,6 +87,7 @@ const slice = createSlice({
 export const { setStatusCode } = slice.actions;
 
 const {
+  latestProductsRecieved,
   productRequested,
   productRequestFailed,
   productCreated,
@@ -87,15 +97,41 @@ const {
   singleProductUpdated,
 } = slice.actions;
 
-export const createProduct = (data: ProductCreateData) =>
+export const getLatestProducts = () =>
   apiCallBegan({
-    url: "/product/add-product",
-    data,
-    method: "POST",
+    url: "/product/latestProducts",
+    method: "GET",
     onStart: productRequested.type,
-    onSuccess: productCreated.type,
+    onSuccess: latestProductsRecieved.type,
     onError: productRequestFailed.type,
-    successMessage: "Successfully Created the Product",
+  });
+
+export const getAllProducts = (params: ProductParams) =>
+  apiCallBegan({
+    url: "/product/all-products",
+    method: "GET",
+    params,
+    onStart: productRequested.type,
+    onSuccess: productsRecieved.type,
+    onError: productRequestFailed.type,
+  });
+
+export const getSingleProduct = (productId: string) =>
+  apiCallBegan({
+    url: `/product/single-product/${productId}`,
+    method: "GET",
+    onStart: productRequested.type,
+    onSuccess: singleProductRecieved.type,
+    onError: productRequestFailed.type,
+  });
+
+export const getMyProducts = () =>
+  apiCallBegan({
+    url: "/product/my-products",
+    method: "GET",
+    onStart: productRequested.type,
+    onSuccess: myProductsRecieved.type,
+    onError: productRequestFailed.type,
   });
 
 export const updateProduct = (data: ProductEditData, productId: string) =>
@@ -109,32 +145,15 @@ export const updateProduct = (data: ProductEditData, productId: string) =>
     successMessage: "Product has been successfully updated!",
   });
 
-export const getAllProducts = (params: ProductParams) =>
+export const createProduct = (data: ProductCreateData) =>
   apiCallBegan({
-    url: "/product/all-products",
-    method: "GET",
-    params,
+    url: "/product/add-product",
+    data,
+    method: "POST",
     onStart: productRequested.type,
-    onSuccess: productsRecieved.type,
+    onSuccess: productCreated.type,
     onError: productRequestFailed.type,
-  });
-
-export const getMyProducts = () =>
-  apiCallBegan({
-    url: "/product/my-products",
-    method: "GET",
-    onStart: productRequested.type,
-    onSuccess: myProductsRecieved.type,
-    onError: productRequestFailed.type,
-  });
-
-export const getSingleProduct = (productId: string) =>
-  apiCallBegan({
-    url: `/product/${productId}`,
-    method: "GET",
-    onStart: productRequested.type,
-    onSuccess: singleProductRecieved.type,
-    onError: productRequestFailed.type,
+    successMessage: "Successfully Created the Product",
   });
 
 export default slice.reducer;
