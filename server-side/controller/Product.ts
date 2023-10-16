@@ -60,6 +60,21 @@ export const getAllProducts = async (
   }
 };
 
+export const getLatestProducts = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const latestProducts = await Product.find()
+      .sort({ createdAt: -1 })
+      .limit(6);
+    res.send(latestProducts);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getAllMyProducts = async (
   req: Request,
   res: Response,
