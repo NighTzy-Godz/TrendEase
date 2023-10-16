@@ -75,6 +75,28 @@ export const getLatestProducts = async (
   }
 };
 
+export const getTopProducts = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const topProducts = await Product.aggregate([
+      {
+        $sort: {
+          sold: -1,
+          rating: -1,
+        },
+        $limit: 5,
+      },
+    ]);
+
+    res.send(topProducts);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getAllMyProducts = async (
   req: Request,
   res: Response,
