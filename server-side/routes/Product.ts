@@ -18,7 +18,7 @@ const router = Router();
 
 router.get("/all-products", getAllProducts);
 router.get("/my-products", isAuth, getAllMyProducts);
-router.get("/:productId", getSingleProduct);
+router.get("/single-product/:productId", getSingleProduct);
 
 router.get("/topProducts", getTopProducts);
 router.get("/latestProducts", getLatestProducts);

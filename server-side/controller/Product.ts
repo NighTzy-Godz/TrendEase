@@ -66,9 +66,17 @@ export const getLatestProducts = async (
   next: NextFunction
 ) => {
   try {
-    const latestProducts = await Product.find()
-      .sort({ createdAt: -1 })
-      .limit(6);
+    const latestProducts = await Product.aggregate([
+      {
+        $sort: {
+          createdAt: -1,
+        },
+      },
+      {
+        $limit: 6,
+      },
+    ]).exec();
+    console.log(latestProducts);
     res.send(latestProducts);
   } catch (error) {
     next(error);
