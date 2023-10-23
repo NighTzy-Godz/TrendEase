@@ -73,7 +73,7 @@ export const getLatestProducts = async (
         },
       },
       {
-        $limit: 6,
+        $limit: 8,
       },
     ]).exec();
 
@@ -97,7 +97,7 @@ export const getTopProducts = async (
         },
       },
 
-      { $limit: 5 },
+      { $limit: 8 },
     ]);
 
     res.send(topProducts);
