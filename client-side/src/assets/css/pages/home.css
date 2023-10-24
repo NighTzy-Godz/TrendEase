@@ -49,8 +49,14 @@
     margin-bottom: 80px;
   }
 
+  .slick-track {
+    display: flex !important;
+    gap: 1rem;
+  }
+
   .home_categorized_products h1 {
     color: var(--main-color);
     margin-bottom: 10px;
+    margin-left: 13px;
   }
 }
