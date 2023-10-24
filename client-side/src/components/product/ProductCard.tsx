@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 import formatCurrency from "../../utils/formatCurrency";
 
 import { ProductData } from "../../interfaces/product";
+import Stars from "../common/Stars";
 
 interface ProductCardProps {
   data: ProductData;
 }
 
 function ProductCard({ data }: ProductCardProps) {
-  const { images, _id, title, price } = data;
+  const { images, _id, title, price, ratings, sold } = data;
 
   const trimmedTitle =
     title.length > 60 ? `${title.substring(0, 60)} ...` : title;
@@ -26,6 +27,11 @@ function ProductCard({ data }: ProductCardProps) {
         </div>
         <div className="price">
           <h4>P {formatCurrency(price)}</h4>
+        </div>
+
+        <div className="stats">
+          <Stars rating={ratings} />
+          <p>{sold} Sold</p>
         </div>
       </div>
     </Link>
