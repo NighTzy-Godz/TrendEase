@@ -3,12 +3,10 @@
     background-color: var(--bg-color);
   }
 
-  .home .test {
-    background-color: red;
-  }
-
   .landing_page {
     position: relative;
+    /* background: red; */
+    min-height: 650px;
   }
 
   .landing_page .container {
@@ -47,11 +45,6 @@
 
   .home_categorized_products {
     margin-bottom: 80px;
-  }
-
-  .slick-track {
-    display: flex !important;
-    gap: 1rem;
   }
 
   .home_categorized_products h1 {

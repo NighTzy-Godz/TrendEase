@@ -29,7 +29,7 @@ function EditProfile() {
   const statusCode = useSelector(
     (state: State) => state?.entities?.user?.statusCode
   );
-  const [submitted, setSubmitted] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -198,7 +198,6 @@ function EditProfile() {
               <label>Address</label>
               <textarea
                 {...register("address", {
-                  required: "Address Input is a required field",
                   minLength: {
                     value: 10,
                     message:
