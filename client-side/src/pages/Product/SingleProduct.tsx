@@ -19,10 +19,13 @@ import { getProductReviews } from "../../store/slices/review";
 import ReviewCard from "../../components/review/ReviewCard";
 import Paginate from "../../components/common/Paginate";
 import paginate from "../../utils/paginate";
+import ImageSlider from "../../components/common/ImageSlider";
 
 function SingleProduct() {
   const PAGE_LOAD = 6;
   const [currPage, setCurrPage] = useState(1);
+  const [currImg, setCurrImg] = useState("");
+
   const { productId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -155,11 +158,7 @@ function SingleProduct() {
 
         <div className="single_product_container">
           <div className="single_product_images">
-            {/* {images?.length > 1 && <div className="image_slider"></div>} */}
-
-            <div className="mainImg">
-              <img src={images[0]} alt="" />
-            </div>
+            <ImageSlider images={images} />
           </div>
           <div className="single_product_info">
             <div className="top_section">

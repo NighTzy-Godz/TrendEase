@@ -15,7 +15,7 @@ function Paginate({
   onPaginateClick,
 }: PaginateProps) {
   const pageCount = itemCount / pageLoad;
-  console.log(pageCount);
+
   if (pageCount <= 1) return;
 
   const pages = _.range(1, pageCount + 1);

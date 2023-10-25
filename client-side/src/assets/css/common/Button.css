@@ -13,6 +13,10 @@
     pointer-events: none;
   }
 
+  .not_available {
+    pointer-events: none;
+  }
+
   .large {
     width: 100px;
     padding: 6px;
