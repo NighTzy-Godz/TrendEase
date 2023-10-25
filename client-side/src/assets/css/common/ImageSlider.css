@@ -1,7 +1,7 @@
 @media screen and (min-width: 1200px) {
   .slider_container {
-    position: relative;
-    /* overflow: hidden; */
+    display: block;
+    min-width: 300px;
   }
 
   .image_slider {
@@ -13,8 +13,9 @@
   }
 
   .slider_container img {
+    display: block !important;
     width: 17.5%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
     cursor: pointer;
     border: 3px solid transparent;
