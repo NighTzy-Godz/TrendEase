@@ -8,12 +8,10 @@ interface ImageSliderProps {
 }
 
 function ImageSlider({ images }: ImageSliderProps) {
-  const enoughImages = images.length < 4;
-
   const SETTINGS = {
     infinite: true,
     speed: 500,
-    slidesToShow: enoughImages ? images.length : 5,
+    slidesToShow: images?.length < 4 ? images.length : 5,
     slidesToScroll: 2,
     autoPlay: true,
   };
@@ -28,7 +26,7 @@ function ImageSlider({ images }: ImageSliderProps) {
     return (
       <div
         className="slider_container"
-        style={{ width: enoughImages ? `${150 * images.length}px` : "auto" }}
+        style={{ width: `${images.length < 4 && 150 * images.length}px` }}
       >
         <Slider {...SETTINGS}>
           {images.map((img) => {

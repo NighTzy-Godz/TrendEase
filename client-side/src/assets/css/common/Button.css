@@ -1,22 +1,55 @@
+.button {
+  display: block;
+  text-align: center;
+  border-radius: 21px;
+  transition: all 0.3s;
+  cursor: pointer;
+  color: var(--sub-color);
+}
+
+.loading {
+  /* cursor: not-allowed; */
+  pointer-events: none;
+}
+
+.not_available {
+  pointer-events: none;
+}
+
+.plain {
+  background-color: var(--plain);
+  /* color: var(--sub-color); */
+  border: 1px solid var(--plain);
+}
+
+.plain:hover {
+  background-color: var(--plain-hover);
+
+  border: 1px solid var(--plain-hover);
+}
+
+.primary {
+  background-color: var(--primary);
+  color: var(--sub-color);
+  border: 1px solid var(--primary);
+}
+
+.primary:hover {
+  background-color: var(--primary-hover);
+}
+
+.danger {
+  border: 1px solid var(--danger);
+  background-color: var(--danger);
+  color: var(--text-color);
+}
+
+.danger:hover {
+  background-color: var(--danger-hover);
+  color: var(--text-color);
+}
+
 @media screen and (min-width: 1200px) {
-  .button {
-    display: block;
-    text-align: center;
-    border-radius: 21px;
-    transition: all 0.3s;
-    cursor: pointer;
-    color: var(--sub-color);
-  }
-
-  .loading {
-    /* cursor: not-allowed; */
-    pointer-events: none;
-  }
-
-  .not_available {
-    pointer-events: none;
-  }
-
   .large {
     width: 100px;
     padding: 6px;
@@ -40,37 +73,30 @@
     padding: 4px;
     font-size: 14px;
   }
+}
 
-  .plain {
-    background-color: var(--plain);
-    /* color: var(--sub-color); */
-    border: 1px solid var(--plain);
+@media screen and (992px <= width <= 1199px) {
+  .large {
+    width: 90px;
+    padding: 6px;
+    font-size: 19.5px;
   }
 
-  .plain:hover {
-    background-color: var(--plain-hover);
-
-    border: 1px solid var(--plain-hover);
+  .medium {
+    width: 80px;
+    padding: 6px;
+    font-size: 17px;
   }
 
-  .primary {
-    background-color: var(--primary);
-    color: var(--sub-color);
-    border: 1px solid var(--primary);
+  .small {
+    width: 70px;
+    padding: 6px;
+    font-size: 16px;
   }
 
-  .primary:hover {
-    background-color: var(--primary-hover);
-  }
-
-  .danger {
-    border: 1px solid var(--danger);
-    background-color: var(--danger);
-    color: var(--text-color);
-  }
-
-  .danger:hover {
-    background-color: var(--danger-hover);
-    color: var(--text-color);
+  .x_small {
+    width: 60px;
+    padding: 4px;
+    font-size: 15px;
   }
 }
