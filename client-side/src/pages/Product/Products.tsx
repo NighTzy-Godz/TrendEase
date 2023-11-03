@@ -14,17 +14,25 @@ import RadioBox from "../../components/common/RadioBox";
 import categoryOptions from "../../data/categoryOptions";
 import paginate from "../../utils/paginate";
 import Paginate from "../../components/common/Paginate";
+import useScrollHeight from "../../hooks/useScrollHeight";
+import useDeviceWidth from "../../hooks/useDeviceWidth";
 
 function Products() {
   const dispatch = useDispatch();
+  const { scrollHeight } = useScrollHeight();
+  const { deviceWidth } = useDeviceWidth();
+
+  const isStickyFilter =
+    scrollHeight >= 200 && deviceWidth < 1199 && deviceWidth > 575
+      ? "stickyFilter"
+      : "";
+  console.log(scrollHeight, deviceWidth, isStickyFilter);
   const PAGE_LOAD = 8;
   const [productFilter, setProductFilter] = useState({
     sort_by: "",
     category: "",
   });
-
   const [currPage, setCurrPage] = useState(1);
-
   const [submitted, setSubmitted] = useState(false);
 
   const products = useSelector(
@@ -32,6 +40,10 @@ function Products() {
   );
 
   const paginatedProducts = paginate(products, currPage, PAGE_LOAD);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currPage]);
 
   const renderAllProducts = () => {
     if (paginatedProducts.length === 0) {
@@ -103,7 +115,7 @@ function Products() {
 
         <div className="all_products_container">
           {/* Category Section Here */}
-          <div className="product_filter">
+          <div className={`product_filter ${isStickyFilter}`}>
             <h3 className="product_filter_title">Product Filter Fields</h3>
 
             <InputContainer>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "./TopNavbar.css";
 import ButtonLink from "../common/ButtonLink";
@@ -9,9 +9,10 @@ import { State } from "../../store/store";
 
 interface TopNavbarProps {
   token: string | null;
+  deviceWidth: number;
 }
 
-function TopNavbar({ token }: TopNavbarProps) {
+function TopNavbar({ token, deviceWidth }: TopNavbarProps) {
   const userCart = useSelector((state: State) => state.entities.cart.cart);
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -22,13 +23,20 @@ function TopNavbar({ token }: TopNavbarProps) {
     }
   }, [token]);
 
-  return (
-    <nav className="nav_top">
-      <div className="container">
+  const renderNavbarContent = () => {
+    if (deviceWidth < 768)
+      return (
+        <div className="logo">
+          {" "}
+          <Link to="/">Trendease</Link>{" "}
+        </div>
+      );
+    return (
+      <React.Fragment>
+        {" "}
         <div className="logo">
           <Link to="/">TrendEase</Link>
         </div>
-
         <ul>
           <li>
             <NavLink to="/">Home</NavLink>
@@ -53,7 +61,6 @@ function TopNavbar({ token }: TopNavbarProps) {
             </>
           )}
         </ul>
-
         <div className="nav_auth">
           {!isAuthenticated ? (
             <ButtonLink size={ButtonSize.LARGE} path="/login">
@@ -65,7 +72,13 @@ function TopNavbar({ token }: TopNavbarProps) {
             </ButtonLink>
           )}
         </div>
-      </div>
+      </React.Fragment>
+    );
+  };
+
+  return (
+    <nav className="nav_top">
+      <div className="container">{renderNavbarContent()}</div>
     </nav>
   );
 }
