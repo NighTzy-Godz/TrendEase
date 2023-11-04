@@ -16,12 +16,39 @@ import { State } from "../store/store";
 import ButtonLink from "../components/common/ButtonLink";
 import { ButtonSize } from "../components/common/Button";
 
-const SETTINGS = {
-  infinite: true,
+const settings = {
+  autoPlay: true,
+
+  infinite: false,
   speed: 500,
   slidesToShow: 5,
   slidesToScroll: 2,
-  autoplay: true,
+  initialSlide: 0,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        infinite: true,
+      },
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        initialSlide: 2,
+      },
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+      },
+    },
+  ],
 };
 
 function Home() {
@@ -77,14 +104,14 @@ function Home() {
       <div className="home_categorized_products">
         <div className="container">
           <h1>Latest Products</h1>
-          <Slider {...SETTINGS}>{renderSliderProducts(latestProducts)}</Slider>
+          <Slider {...settings}>{renderSliderProducts(latestProducts)}</Slider>
         </div>
       </div>
 
       <div className="home_categorized_products">
         <div className="container">
           <h1>Top Rated Products</h1>
-          <Slider {...SETTINGS}>{renderSliderProducts(topProducts)}</Slider>
+          <Slider {...settings}>{renderSliderProducts(topProducts)}</Slider>
         </div>
       </div>
     </div>

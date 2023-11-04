@@ -44,7 +44,123 @@
   }
 
   .home_categorized_products {
-    margin-bottom: 80px;
+    padding-bottom: 80px;
+  }
+
+  .home_categorized_products h1 {
+    color: var(--main-color);
+    margin-bottom: 10px;
+    margin-left: 13px;
+  }
+}
+
+@media screen and (992px <= width <= 1199px) {
+  .home {
+    background-color: var(--bg-color);
+  }
+
+  .landing_page {
+    position: relative;
+    /* background: red;  */
+    min-height: 500px;
+  }
+
+  .landing_page .container {
+    display: flex;
+    height: 600px;
+  }
+
+  .landing_page_left {
+    height: 100%;
+    width: 60%;
+    display: grid;
+    place-content: center;
+  }
+
+  .landing_page_left .text {
+    margin-bottom: 30px;
+  }
+
+  .landing_page_left h1 {
+    font-size: 60px;
+    line-height: 1;
+    color: var(--main-color);
+    margin-bottom: 30px;
+  }
+
+  .landing_page_left p {
+    font-size: 18px;
+    color: var(--text-color);
+  }
+
+  .landing_page_left .btn a {
+    width: 150px;
+  }
+
+  .landing_page_right {
+    /* display: none; */
+    width: 40%;
+  }
+
+  .home_categorized_products {
+    padding-bottom: 40px;
+  }
+
+  .home_categorized_products h1 {
+    color: var(--main-color);
+    margin-bottom: 10px;
+    margin-left: 13px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .home {
+    background-color: var(--bg-color);
+  }
+
+  .landing_page {
+    position: relative;
+    /* background: red;  */
+    min-height: 500px;
+  }
+
+  .landing_page .container {
+    display: flex;
+    height: 500px;
+  }
+
+  .landing_page_left {
+    height: 100%;
+    display: grid;
+    place-content: center;
+  }
+
+  .landing_page_left .text {
+    margin-bottom: 30px;
+  }
+
+  .landing_page_left h1 {
+    font-size: 50px;
+    line-height: 1;
+    color: var(--main-color);
+    margin-bottom: 30px;
+  }
+
+  .landing_page_left p {
+    font-size: 17px;
+    color: var(--text-color);
+  }
+
+  .landing_page_left .btn a {
+    width: 150px;
+  }
+
+  .landing_page_right {
+    display: none;
+  }
+
+  .home_categorized_products {
+    padding-bottom: 40px;
   }
 
   .home_categorized_products h1 {

@@ -13,8 +13,8 @@
   .product_card_info .title {
     margin-top: 5px;
     margin-bottom: 10px;
-    /* background-color: red; */
-    min-height: 30px;
+    background-color: red;
+    max-height: 30px;
   }
 
   .product_card_info .title p {
@@ -56,16 +56,17 @@
   }
 
   .product_card_info .title {
+    display: block;
     margin-top: 5px;
     margin-bottom: 10px;
-    /* background-color: red; */
-    min-height: 30px;
   }
 
   .product_card_info .title p {
+    display: block;
     color: var(--text-color);
     line-height: 1.1;
     font-size: 14px;
+    text-overflow: ellipsis;
   }
 
   .product_card_info .price h4 {
@@ -137,7 +138,7 @@
   .product_card {
     display: block;
     background-color: var(--sub-color);
-    min-height: 310px;
+    min-height: 260px;
     max-height: 310px;
   }
 
@@ -166,6 +167,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
     /* gap: 10px; */
   }
 
@@ -182,8 +184,9 @@
   .product_card {
     display: block;
     background-color: var(--sub-color);
-    min-height: 310px;
+    min-height: 240px;
     max-height: 310px;
+    position: relative;
   }
 
   .product_card_info {
@@ -193,11 +196,13 @@
   .product_card_info .title {
     margin-top: 5px;
     margin-bottom: 10px;
-    /* background-color: red; */
-    min-height: 30px;
+    overflow: hidden;
   }
 
   .product_card_info .title p {
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     color: var(--text-color);
     line-height: 1.1;
     font-size: 14px;
