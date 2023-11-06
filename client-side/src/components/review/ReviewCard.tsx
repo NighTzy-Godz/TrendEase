@@ -24,7 +24,7 @@ function ReviewCard({ data }: ReviewCardProps) {
     content?.length > 100 ? `${content.slice(0, 100)} ...` : content;
 
   const slicedItemTitle =
-    title?.length > 60 ? `${title.slice(0, 60)} ...` : title;
+    title?.length > 50 ? `${title.slice(0, 50)} ...` : title;
 
   return (
     <div className="review_card">

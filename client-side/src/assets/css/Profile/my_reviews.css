@@ -1,4 +1,4 @@
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 992px) {
   .myReviews {
     background-color: var(--bg-color);
   }
@@ -40,6 +40,246 @@
     margin-top: 30px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .review_form form {
+    width: 100% !important;
+    margin: 0 auto;
+  }
+
+  .review_form_item {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .review_form_item .img {
+    width: 25%;
+  }
+
+  .review_form_item .img img {
+    border-radius: 4px;
+  }
+
+  .review_form_item .name {
+    width: 75%;
+  }
+
+  .review_form_item .name p {
+    color: var(--text-color);
+    line-height: 1.5;
+  }
+}
+
+@media screen and (768px <= width <= 992px) {
+  .myReviews {
+    background-color: var(--bg-color);
+  }
+
+  .myReviews .header {
+    margin-bottom: 20px;
+    color: var(--main-color);
+  }
+
+  .myReviews .header h1 {
+    font-size: 27px;
+  }
+
+  .myReviews .header p {
+    color: var(--text-color);
+    font-size: 15px;
+  }
+
+  .myReviews .no_orders {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .myReviews .no_orders h1 {
+    font-size: 28px;
+    color: var(--main-color);
+  }
+
+  .myReviews_filter {
+    display: flex;
+    gap: 40px;
+  }
+
+  .myReviews_filter p {
+    font-size: 16px;
+    color: var(--text-color);
+    cursor: pointer;
+  }
+
+  .myReviews_filter p.active {
+    color: var(--main-color);
+  }
+
+  .myReviewGrid {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .review_form form {
+    width: 100% !important;
+    margin: 0 auto;
+  }
+
+  .review_form_item {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .review_form_item .img {
+    width: 25%;
+  }
+
+  .review_form_item .img img {
+    border-radius: 4px;
+  }
+
+  .review_form_item .name {
+    width: 75%;
+  }
+
+  .review_form_item .name p {
+    color: var(--text-color);
+    line-height: 1.5;
+  }
+}
+
+@media screen and (575px <= width <= 768px) {
+  .myReviews {
+    background-color: var(--bg-color);
+  }
+
+  .myReviews .header {
+    margin-bottom: 20px;
+    color: var(--main-color);
+  }
+
+  .myReviews .header h1 {
+    font-size: 27px;
+  }
+
+  .myReviews .header p {
+    color: var(--text-color);
+    font-size: 15px;
+  }
+
+  .myReviews .no_orders {
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .myReviews .no_orders h1 {
+    font-size: 26px;
+    color: var(--main-color);
+  }
+
+  .myReviews_filter {
+    display: flex;
+    gap: 40px;
+  }
+
+  .myReviews_filter p {
+    font-size: 16px;
+    color: var(--text-color);
+    cursor: pointer;
+  }
+
+  .myReviews_filter p.active {
+    color: var(--main-color);
+  }
+
+  .myReviewGrid {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .review_form form {
+    width: 100% !important;
+    margin: 0 auto;
+  }
+
+  .review_form_item {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .review_form_item .img {
+    width: 25%;
+  }
+
+  .review_form_item .img img {
+    border-radius: 4px;
+  }
+
+  .review_form_item .name {
+    width: 75%;
+  }
+
+  .review_form_item .name p {
+    color: var(--text-color);
+    line-height: 1.5;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .myReviews {
+    background-color: var(--bg-color);
+  }
+
+  .myReviews .header {
+    margin-bottom: 20px;
+    color: var(--main-color);
+  }
+
+  .myReviews .header h1 {
+    font-size: 27px;
+  }
+
+  .myReviews .header p {
+    color: var(--text-color);
+    font-size: 15px;
+  }
+
+  .myReviews .no_orders {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .myReviews .no_orders h1 {
+    color: var(--main-color);
+    font-size: 23px;
+  }
+
+  .myReviews_filter {
+    display: flex;
+    gap: 40px;
+  }
+
+  .myReviews_filter p {
+    font-size: 16px;
+    color: var(--text-color);
+    cursor: pointer;
+  }
+
+  .myReviews_filter p.active {
+    color: var(--main-color);
+  }
+
+  .myReviewGrid {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
     gap: 20px;
   }
 

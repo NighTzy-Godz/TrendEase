@@ -71,6 +71,12 @@ img {
   max-width: 100%;
 }
 
+.divider {
+  padding: 1px;
+  width: 100%;
+  background-color: var(--main-color);
+}
+
 .slick-track {
   display: flex !important;
   gap: 1rem;
