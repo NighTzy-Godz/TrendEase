@@ -1,4 +1,4 @@
-@media screen and (min-width: 200px) {
+@media screen and (min-width: 767px) {
   .single_product_owner_card {
     width: 100.7%;
     margin-top: 40px;
@@ -41,5 +41,53 @@
   .single_product_owner_card .owner_btn a {
     width: 100%;
     margin-bottom: 10px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .single_product_owner_card {
+    width: 100.7%;
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 8px;
+    align-items: center;
+    border: 1px solid white;
+    padding: 10px;
+  }
+
+  .single_product_owner_card .owner_info {
+    display: flex;
+  }
+
+  .single_product_owner_card .owner_img {
+    margin-right: 10px;
+  }
+
+  .single_product_owner_card .owner_img img {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+  }
+
+  .single_product_owner_card .owner_subDetails h3 {
+    color: var(--main-color);
+    font-size: 15px;
+  }
+
+  .single_product_owner_card .owner_subDetails p {
+    font-size: 13px;
+    color: var(--text-color);
+  }
+
+  .single_product_owner_card .owner_btn {
+    width: 40%;
+  }
+
+  .single_product_owner_card .owner_btn a {
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 14px;
+    padding: 5px;
   }
 }

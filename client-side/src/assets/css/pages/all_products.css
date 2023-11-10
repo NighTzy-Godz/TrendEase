@@ -342,9 +342,12 @@
 
   .all_products_header h1 {
     color: var(--primary);
+    font-size: 27px;
   }
 
   .all_products_header p {
+    font-size: 15px;
+    line-height: 1.1;
     color: var(--text-color);
   }
 
@@ -401,11 +404,13 @@
   }
 
   .all_products_container .product_list {
-    min-height: 530px;
-
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 2fr));
+  }
+
+  .all_products_container .product_list .product_card {
+    max-height: none;
   }
 
   .all_products .no_products h1 {

@@ -39,6 +39,7 @@ const settings = {
         slidesToShow: 2,
         slidesToScroll: 2,
         initialSlide: 2,
+        arrows: false,
       },
     },
     {
@@ -46,6 +47,7 @@ const settings = {
       settings: {
         slidesToShow: 2,
         slidesToScroll: 1,
+        arrows: false,
       },
     },
   ],

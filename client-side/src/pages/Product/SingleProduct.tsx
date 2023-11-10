@@ -20,11 +20,11 @@ import ReviewCard from "../../components/review/ReviewCard";
 import Paginate from "../../components/common/Paginate";
 import paginate from "../../utils/paginate";
 import ImageSlider from "../../components/common/ImageSlider";
+import Stars from "../../components/common/Stars";
 
 function SingleProduct() {
   const PAGE_LOAD = 6;
   const [currPage, setCurrPage] = useState(1);
-  const [currImg, setCurrImg] = useState("");
 
   const { productId } = useParams();
   const navigate = useNavigate();
@@ -165,7 +165,7 @@ function SingleProduct() {
               <h1>{title}</h1>
               <div className="product_info_flex">
                 <p>P {formatCurrency(price as number)}</p>
-                <p>{ratings} Stars</p> <p>{sold} sold</p>
+                <p>{ratings?.toFixed(1)} Stars</p> <p>{sold} sold</p>
               </div>
             </div>
 

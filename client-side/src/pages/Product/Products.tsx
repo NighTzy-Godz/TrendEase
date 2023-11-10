@@ -26,7 +26,7 @@ function Products() {
     scrollHeight >= 200 && deviceWidth < 1199 && deviceWidth > 575
       ? "stickyFilter"
       : "";
-  console.log(scrollHeight, deviceWidth, isStickyFilter);
+
   const PAGE_LOAD = 8;
   const [productFilter, setProductFilter] = useState({
     sort_by: "",

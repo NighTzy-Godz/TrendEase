@@ -92,6 +92,10 @@
     margin-bottom: 20px;
   }
 
+  .review_content p {
+    font-size: 18px;
+  }
+
   .review_item {
     display: flex;
     gap: 15px;
@@ -145,7 +149,11 @@
   }
 
   .review_content {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+  }
+
+  .review_content p {
+    font-size: 17px;
   }
 
   .review_item {
@@ -162,6 +170,7 @@
     font-size: 15px;
     line-height: 1.1;
     color: var(--sub-color);
+    margin-bottom: 5px;
   }
 }
 
@@ -217,12 +226,14 @@
   .review_item img {
     width: 50px;
     height: 50px;
+    object-fit: cover;
   }
 
   .review_item .item_info h3 {
     font-size: 14px;
     line-height: 1.1;
     color: var(--sub-color);
+    margin-bottom: 5px;
   }
 
   .review_item .item_info p {

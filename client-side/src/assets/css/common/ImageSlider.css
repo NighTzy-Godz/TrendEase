@@ -1,4 +1,4 @@
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 200px) {
   .slider_container {
     margin-top: 10px;
 
@@ -26,5 +26,18 @@
 
   .slider_container .active {
     border: 3px solid var(--main-color);
+  }
+
+  .slick-dots li {
+    margin: 0;
+  }
+
+  .slick-dots li button:before {
+    color: var(--text-color);
+    opacity: 0.75;
+  }
+
+  .slick-dots li.slick-active button:before {
+    color: var(--main-color);
   }
 }
