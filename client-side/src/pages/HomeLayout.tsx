@@ -14,7 +14,7 @@ function HomeLayout({ token }: HomeLayoutProps) {
     <>
       <TopNavbar token={token} deviceWidth={deviceWidth} />
       <Outlet />
-      <BottomNavbar />
+      <BottomNavbar token={token} />
     </>
   );
 }

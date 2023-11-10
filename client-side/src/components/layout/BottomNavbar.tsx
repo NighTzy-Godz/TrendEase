@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./BottomNavbar.css";
 import { Link, NavLink } from "react-router-dom";
 
-import navbarData from "../../data/navbarData";
+import navbarData, { NavbarData } from "../../data/navbarData";
 import useDeviceWidth from "../../hooks/useDeviceWidth";
-function BottomNavbar() {
+
+interface BottonNavbarProps {
+  token: string | null;
+}
+
+function BottomNavbar({ token }: BottonNavbarProps) {
   const { deviceWidth } = useDeviceWidth();
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, [token]);
 
   const renderBotNavbar = () => {
     if (deviceWidth > 768)
@@ -16,20 +29,35 @@ function BottomNavbar() {
         </div>
       );
 
-    return <ul className="bot_nav_links">{renderNavbarLinks}</ul>;
+    return <ul className="bot_nav_links">{renderNavbarLinks()}</ul>;
   };
 
-  const renderNavbarLinks = navbarData.map((data) => {
-    return (
-      <li key={data.id}>
-        <NavLink to={data.path}>
-          <i className={data.icon}></i>
-          {data.name}
-        </NavLink>
-      </li>
-    );
-  });
-
+  const renderNavbarLinks = () => {
+    if (!isAuthenticated) {
+      return navbarData.map((data) => {
+        if (data.auth) return;
+        return (
+          <li key={data.id}>
+            <NavLink to={data.path}>
+              <i className={data.icon}></i>
+              {data.name}
+            </NavLink>
+          </li>
+        );
+      });
+    }
+    return navbarData.map((data) => {
+      if (data.name === "Login") return;
+      return (
+        <li key={data.id}>
+          <NavLink to={data.path}>
+            <i className={data.icon}></i>
+            {data.name}
+          </NavLink>
+        </li>
+      );
+    });
+  };
   return (
     <nav className="bot_nav">
       <div className="container">{renderBotNavbar()}</div>

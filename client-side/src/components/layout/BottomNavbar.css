@@ -37,7 +37,7 @@
   }
   .bot_nav_links {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
   }
 
@@ -67,7 +67,7 @@
   }
   .bot_nav_links {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
   }
 
