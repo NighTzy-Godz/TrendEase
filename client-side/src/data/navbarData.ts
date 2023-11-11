@@ -20,19 +20,20 @@ const navbarData: NavbarData[] = [
     icon: "fa-solid fa-cart-shopping",
   },
   {
-    id: 2,
-    name: "Add Product",
-    path: "/create-product",
-    icon: "fa-solid fa-plus",
-    auth: true,
-  },
-  {
     id: 3,
     name: "Cart",
     path: "/cart",
     icon: "fa-solid fa-cart-shopping",
     auth: true,
   },
+  {
+    id: 2,
+    name: "Add Product",
+    path: "/create-product",
+    icon: "fa-solid fa-plus",
+    auth: true,
+  },
+
   {
     id: 4,
     name: "Profile",

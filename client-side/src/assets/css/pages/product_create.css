@@ -1,4 +1,4 @@
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 992px) {
   .product_create {
     background-color: var(--bg-color);
     padding: 80px 0px;
@@ -6,6 +6,32 @@
 
   .form_container h3 {
     font-size: 36px;
+    margin-bottom: 20px;
+    color: var(--text-color);
+  }
+}
+
+@media screen and (575px <= width <= 992px) {
+  .product_create {
+    background-color: var(--bg-color);
+    padding: 70px 0px;
+  }
+
+  .form_container h3 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: var(--text-color);
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .product_create {
+    background-color: var(--bg-color);
+    padding: 60px 0px;
+  }
+
+  .form_container h3 {
+    font-size: 28px;
     margin-bottom: 20px;
     color: var(--text-color);
   }
