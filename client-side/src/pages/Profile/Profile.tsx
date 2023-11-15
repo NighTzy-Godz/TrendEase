@@ -11,9 +11,11 @@ import { getMyOrders, getMySoldOrders } from "../../store/slices/order";
 import { State } from "../../store/store";
 import { ProfileOptionData } from "../../data/profileOption";
 import { getMyProducts } from "../../store/slices/product";
+import Loader from "../../components/common/Loader";
 
 function Profile() {
   const dispatch = useDispatch();
+  const loading = useSelector((state: State) => state.entities.user.loading);
   const userInfo = useSelector((state: State) => state.entities.user.info);
   const mySoldOrders = useSelector(
     (state: State) => state.entities.order.mySoldOrders
@@ -40,6 +42,8 @@ function Profile() {
       </Link>
     );
   });
+
+  if (loading) return <Loader />;
 
   return (
     <div className="profile">

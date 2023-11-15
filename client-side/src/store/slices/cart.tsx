@@ -39,13 +39,15 @@ const slice = createSlice({
     },
 
     allUserCartAdded: (cart, action) => {
+      cart.loading = false;
       cart.cart = action.payload.data;
     },
 
     removeCart: (cart, action) => {
       cart.loading = false;
+      console.log(action.payload);
       const newCart = cart.cart.filter(
-        (cart) => cart._id !== action.payload._id
+        (cart) => cart._id !== action.payload.data._id
       );
       cart.cart = newCart;
     },

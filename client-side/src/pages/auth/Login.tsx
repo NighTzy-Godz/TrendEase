@@ -3,11 +3,12 @@ import InputContainer from "../../components/containers/InputContainer";
 // import FormInput from "../../components/common/FormInput";
 import Button, { ButtonSize } from "../../components/common/Button";
 import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, setStatusCode } from "../../store/slices/auth";
 import { useForm } from "react-hook-form";
 import PaddedPage from "../../components/containers/PaddedPage";
+import { toast } from "react-toastify";
 
 export interface LoginData {
   email: string;
@@ -20,6 +21,9 @@ function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = useSelector((state: State) => state.entities.auth.token);
+  const isLoggedIn = useSelector(
+    (state: State) => state.entities.auth.decodedUser
+  );
   const authError = useSelector((state: State) => state.entities.auth.error);
   const statusCode = useSelector(
     (state: State) => state.entities.auth.statusCode
@@ -43,6 +47,13 @@ function Login() {
   const handleFormSubmit = (data: LoginData) => {
     dispatch(loginUser(data));
   };
+
+  if (isLoggedIn) {
+    toast.error("You're already logged in, you cannot do that action", {
+      autoClose: 2500,
+    });
+    return <Navigate to="/profile" />;
+  }
 
   return (
     <PaddedPage className="auth_form">

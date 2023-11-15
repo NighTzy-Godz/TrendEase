@@ -3,11 +3,12 @@ import Button, { ButtonSize } from "../../components/common/Button";
 import "./Auth.css";
 import InputContainer from "../../components/containers/InputContainer";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { registerUser } from "../../store/slices/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import PaddedPage from "../../components/containers/PaddedPage";
+import { toast } from "react-toastify";
 
 export interface RegisterValuesData {
   first_name: string;
@@ -23,6 +24,9 @@ function Register() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector(
+    (state: State) => state.entities.auth.decodedUser
+  );
   const authError = useSelector((state: State) => state?.entities?.auth?.error);
 
   useEffect(() => {
@@ -42,6 +46,13 @@ function Register() {
     setSubmitted(true);
     dispatch(registerUser(data));
   };
+
+  if (isLoggedIn) {
+    toast.error("You're already authenticated, you cannot do that action.", {
+      autoClose: 2500,
+    });
+    return <Navigate to="/profile" />;
+  }
 
   return (
     <PaddedPage className="auth_form">

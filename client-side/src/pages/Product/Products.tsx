@@ -16,6 +16,7 @@ import paginate from "../../utils/paginate";
 import Paginate from "../../components/common/Paginate";
 import useScrollHeight from "../../hooks/useScrollHeight";
 import useDeviceWidth from "../../hooks/useDeviceWidth";
+import Loader from "../../components/common/Loader";
 
 function Products() {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ function Products() {
   const [currPage, setCurrPage] = useState(1);
   const [submitted, setSubmitted] = useState(false);
 
+  const loading = useSelector((state: State) => state.entities.product.loading);
   const products = useSelector(
     (state: State) => state?.entities?.product?.products
   );
@@ -46,6 +48,8 @@ function Products() {
   }, [currPage]);
 
   const renderAllProducts = () => {
+    if (loading) return <Loader />;
+
     if (paginatedProducts.length === 0) {
       return (
         <div className="no_products">

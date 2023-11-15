@@ -12,12 +12,16 @@ import ButtonLink from "../../components/common/ButtonLink";
 import { ButtonSize } from "../../components/common/Button";
 import CustomerOrderCard from "../../components/order/CustomerOrderCard";
 import Divider from "../../components/common/Divider";
+import Loader from "../../components/common/Loader";
 
 function CustomerOrders() {
   const [orderFilter, setOrderFilter] = useState<OrderStatusValue>(
     orderStatus[0]
   );
   const dispatch = useDispatch();
+
+  const loading = useSelector((state: State) => state.entities.order.loading);
+
   const mySoldOrders = useSelector(
     (state: State) => state.entities.order.mySoldOrders
   );
@@ -63,6 +67,8 @@ function CustomerOrders() {
   const handleOrderFilter = (filter: OrderStatusValue) => {
     setOrderFilter(filter);
   };
+
+  if (loading) return <Loader />;
 
   return (
     <PaddedPage className="orders">

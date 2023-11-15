@@ -10,12 +10,15 @@ import ButtonLink from "../../components/common/ButtonLink";
 import { ButtonSize } from "../../components/common/Button";
 import paginate from "../../utils/paginate";
 import Paginate from "../../components/common/Paginate";
+import Loader from "../../components/common/Loader";
 
 function MyProducts() {
   const PAGE_LOAD = 8;
   const dispatch = useDispatch();
 
   const [currPage, setCurrPage] = useState(1);
+
+  const loading = useSelector((state: State) => state.entities.product.loading);
 
   const myProducts = useSelector(
     (state: State) => state.entities.product.myProducts
@@ -40,6 +43,8 @@ function MyProducts() {
   const handlePaginateClick = (page: number) => {
     setCurrPage(page);
   };
+
+  if (loading) return <Loader />;
 
   return (
     <PaddedPage className="my_products">

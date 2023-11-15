@@ -12,6 +12,7 @@ import Divider from "../../components/common/Divider";
 import { OrderData } from "../../interfaces/order";
 import { getMyReviews } from "../../store/slices/review";
 import ReviewCard from "../../components/review/ReviewCard";
+import Loader from "../../components/common/Loader";
 
 function MyReviews() {
   const dispatch = useDispatch();
@@ -19,6 +20,8 @@ function MyReviews() {
   const [reviewPageFilter, setReviewPageFilter] = useState<ReviewFilterData>(
     reviewFilter[0]
   );
+
+  const loading = useSelector((state: State) => state.entities.review.loading);
 
   const recievedOrders = useSelector(
     (state: State) => state.entities.order.myRecievedOrders
@@ -32,8 +35,6 @@ function MyReviews() {
     dispatch(getMyRecievedOrders());
     dispatch(getMyReviews());
   }, []);
-
-  console.log(recievedOrders);
 
   let filteredReview = recievedOrders?.filter((item) => {
     return item.rated === reviewPageFilter.value;
@@ -94,6 +95,8 @@ function MyReviews() {
       </React.Fragment>
     );
   });
+
+  if (loading) return <Loader />;
 
   return (
     <React.Fragment>

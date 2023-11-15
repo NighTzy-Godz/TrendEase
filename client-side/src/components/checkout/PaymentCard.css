@@ -1,4 +1,4 @@
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 992px) {
   .payment_card {
     cursor: pointer;
     border-radius: 8px;
@@ -17,6 +17,58 @@
   .payment_card p {
     /* color: var; */
     font-size: 16px;
+  }
+
+  .payment_card.selectedPayment {
+    background: var(--main-color);
+  }
+}
+
+@media screen and (768px <= width <= 992px) {
+  .payment_card {
+    cursor: pointer;
+    border-radius: 8px;
+    margin-top: 10px;
+    width: 250px;
+    padding: 10px;
+    height: 100px;
+    background-color: var(--text-color);
+  }
+
+  .payment_card h4 {
+    color: var(--bg-color);
+    font-size: 20px;
+  }
+
+  .payment_card p {
+    /* color: var; */
+    font-size: 16px;
+  }
+
+  .payment_card.selectedPayment {
+    background: var(--main-color);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .payment_card {
+    cursor: pointer;
+    border-radius: 8px;
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+
+    background-color: var(--text-color);
+  }
+
+  .payment_card h4 {
+    color: var(--bg-color);
+    font-size: 18px;
+  }
+
+  .payment_card p {
+    /* color: var; */
+    font-size: 15px;
   }
 
   .payment_card.selectedPayment {

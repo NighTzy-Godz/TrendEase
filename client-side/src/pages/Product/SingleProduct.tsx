@@ -20,7 +20,7 @@ import ReviewCard from "../../components/review/ReviewCard";
 import Paginate from "../../components/common/Paginate";
 import paginate from "../../utils/paginate";
 import ImageSlider from "../../components/common/ImageSlider";
-import Stars from "../../components/common/Stars";
+import Loader from "../../components/common/Loader";
 
 function SingleProduct() {
   const PAGE_LOAD = 6;
@@ -29,6 +29,9 @@ function SingleProduct() {
   const { productId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const loading = useSelector((state: State) => state.entities.product.loading);
+
   const product = useSelector(
     (state: State) => state.entities.product.singleProduct
   );
@@ -142,6 +145,8 @@ function SingleProduct() {
     dispatch(getSingleProduct(productId as string));
     dispatch(getProductReviews(productId as string));
   }, [productId]);
+
+  if (loading) return <Loader />;
 
   return (
     <PaddedPage className="single_product">

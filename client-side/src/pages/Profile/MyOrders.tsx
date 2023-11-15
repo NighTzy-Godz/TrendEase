@@ -14,6 +14,7 @@ import OrderFilter from "../../components/order/OrderFilter";
 import CustomerOrderCard from "../../components/order/CustomerOrderCard";
 import paginate from "../../utils/paginate";
 import Paginate from "../../components/common/Paginate";
+import Loader from "../../components/common/Loader";
 
 function MyOrders() {
   const PAGE_LOAD = 10;
@@ -22,6 +23,8 @@ function MyOrders() {
     orderStatus[0]
   );
   const [currPage, setCurrPage] = useState(1);
+
+  const loading = useSelector((state: State) => state.entities.order.loading);
 
   const myOrders = useSelector((state: State) => state.entities.order.myOrders);
 
@@ -72,6 +75,8 @@ function MyOrders() {
   const handleOrderFilter = (filter: OrderStatusValue) => {
     setOrderFilter(filter);
   };
+
+  if (loading) return <Loader />;
 
   return (
     <PaddedPage className="orders">

@@ -12,8 +12,10 @@ import { State } from "../store/store";
 
 import { CartData } from "../interfaces/cart";
 import { getUserCart } from "../store/slices/cart";
+import Loader from "../components/common/Loader";
 
 function Cart() {
+  const loading = useSelector((state: State) => state.entities.cart.loading);
   const userCart = useSelector((state: State) => state.entities.cart.cart);
   const dispatch = useDispatch();
 
@@ -43,6 +45,8 @@ function Cart() {
       </React.Fragment>
     );
   });
+
+  if (loading) return <Loader />;
 
   if (userCart.length === 0) return <EmptyCart />;
 

@@ -11,11 +11,7 @@ import Divider from "../components/common/Divider";
 import PaymentDetails from "../components/checkout/PaymentDetails";
 import Button, { ButtonSize } from "../components/common/Button";
 import formatCurrency from "../utils/formatCurrency";
-import {
-  addOrder,
-  setStatusCode,
-  setSubmitted,
-} from "../store/slices/checkout";
+import { addOrder, setStatusCode } from "../store/slices/checkout";
 
 const SHIPPING_FEE = 40;
 const TAX = 0.012;
@@ -27,7 +23,6 @@ import { resetCart } from "../store/slices/cart";
 function Checkout() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [submitted, setSubmitted] = useState(false);
 
   const userAddress: string = useSelector(
     (state: State) => state?.entities?.auth?.decodedUser?.address as string

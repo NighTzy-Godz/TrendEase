@@ -1,5 +1,4 @@
 import "../../assets/css/common/Counter.css";
-import Button, { ButtonSize } from "./Button";
 
 interface CounterProps {
   handleIncrement: () => void;
