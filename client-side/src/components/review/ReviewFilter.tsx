@@ -1,5 +1,6 @@
 import React from "react";
-import { ReviewFilterData } from "../../data/reviewFilter";
+
+import { ReviewFilterData } from "../../interfaces/review";
 
 interface ReviewFilterProps {
   data: ReviewFilterData;
