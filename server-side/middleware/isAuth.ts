@@ -35,8 +35,7 @@ export default function isAuth(
       full_name: decoded.full_name as string,
       address: decoded.address as string,
       iat: decoded.iat as number,
-      // Add any other properties you expect here
-    };
+            };
 
     req.user = user;
 
