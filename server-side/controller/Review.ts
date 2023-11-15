@@ -38,8 +38,6 @@ export async function addReview(
     const currUser = req.user?._id;
     const { error } = addReviewValidator(req.body);
 
-    console.log(req.body);
-
     if (error) return res.status(400).send(error.details[0].message);
 
     const product = await Product.findOne({ _id: productId }).select("rating");

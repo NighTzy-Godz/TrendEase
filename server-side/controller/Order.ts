@@ -74,7 +74,7 @@ export const orderProcessed = async (
 ) => {
   try {
     const { orderId, status } = req.body;
-    console.log("Hello");
+
     const { error } = updateOrderStatusValidator(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
