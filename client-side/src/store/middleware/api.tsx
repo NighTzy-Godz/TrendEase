@@ -7,6 +7,8 @@ import {
 import { toast } from "react-toastify";
 import { Middleware } from "redux";
 
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 const api: Middleware =
   ({ dispatch }) =>
   (next) =>
@@ -29,7 +31,7 @@ const api: Middleware =
 
     const queryParams: AxiosRequestConfig["params"] = {};
     const config: AxiosRequestConfig = {
-      baseURL: "http://localhost:8080/api",
+      baseURL: BASE_URL,
       url,
       params: queryParams,
       method,

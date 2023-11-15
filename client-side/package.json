@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
+    "@types/dotenv": "^8.2.0",
     "@types/lodash": "^4.14.199",
     "@types/react-slick": "^0.23.11",
     "axios": "^1.4.0",

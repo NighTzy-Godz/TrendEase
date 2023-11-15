@@ -20,7 +20,7 @@ import { State } from "../../store/store";
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const token = useSelector((state: State) => state.entities.auth.token);
+
   const isLoggedIn = useSelector(
     (state: State) => state.entities.auth.decodedUser
   );
@@ -36,24 +36,20 @@ function Login() {
   } = useForm<LoginData>();
 
   useEffect(() => {
-    if (!token) return;
-
     if (statusCode === 200) {
       dispatch(setStatusCode(null));
       navigate("/profile");
+    } else if (isLoggedIn) {
+      toast.error("You're already logged in, you cannot do that action", {
+        autoClose: 2500,
+      });
+      navigate("/profile");
     }
-  }, [authError, statusCode]);
+  }, [statusCode, isLoggedIn, dispatch, navigate]);
 
   const handleFormSubmit = (data: LoginData) => {
     dispatch(loginUser(data));
   };
-
-  if (isLoggedIn) {
-    toast.error("You're already logged in, you cannot do that action", {
-      autoClose: 2500,
-    });
-    return <Navigate to="/profile" />;
-  }
 
   return (
     <PaddedPage className="auth_form">
