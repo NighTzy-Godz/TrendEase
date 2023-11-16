@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
-    "dev": "concurrently \"npx tsc -w \"  \"nodemon dist/index.js\""
+    "dev": "concurrently \"npx tsc -w \"  \"nodemon dist/index.js\"",
+    "start": "ts-node index.ts"
   },
   "keywords": [],
   "author": "",
