@@ -10,10 +10,8 @@ import reviewRoutes from "./routes/Review";
 
 import cors from "cors";
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 const app = express();
-
-
 
 app.use(json());
 app.use(urlencoded({ extended: true }));
