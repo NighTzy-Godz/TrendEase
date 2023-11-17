@@ -127,6 +127,10 @@ function Register() {
                     value: 11,
                     message: "Phone Number should be 11 character long",
                   },
+                  maxLength: {
+                    value: 11,
+                    message: "Phone Number should be 11 character long",
+                  },
                 })}
               />
               {errors.phone && (

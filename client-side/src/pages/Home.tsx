@@ -65,13 +65,23 @@ function Home() {
   );
 
   const renderSliderProducts = (products: ProductData[]) => {
-    return products.map((product) => {
+    if (products.length === 0)
       return (
-        <React.Fragment key={product._id}>
-          <ProductCard data={product} />
-        </React.Fragment>
+        <h1 style={{ fontSize: "25px", color: "var(--text-color)" }}>
+          No Current Products
+        </h1>
       );
-    });
+    return (
+      <Slider {...settings}>
+        {products.map((product) => {
+          return (
+            <React.Fragment key={product._id}>
+              <ProductCard data={product} />
+            </React.Fragment>
+          );
+        })}
+      </Slider>
+    );
   };
 
   useEffect(() => {
@@ -106,14 +116,14 @@ function Home() {
       <div className="home_categorized_products">
         <div className="container">
           <h1>Latest Products</h1>
-          <Slider {...settings}>{renderSliderProducts(latestProducts)}</Slider>
+          {renderSliderProducts(latestProducts)}
         </div>
       </div>
 
       <div className="home_categorized_products">
         <div className="container">
           <h1>Top Rated Products</h1>
-          <Slider {...settings}>{renderSliderProducts(topProducts)}</Slider>
+          {renderSliderProducts(topProducts)}
         </div>
       </div>
     </div>
