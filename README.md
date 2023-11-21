@@ -2,7 +2,7 @@
 <br>
 <img src="https://raw.githubusercontent.com/NighTzy-Godz/TrendEase/master/client-side/src/assets/img/github_banner.png">
 <br>
-  Harmony - Server Side
+  TrendEase Short Documentation
 <br>
 </h1>
 
