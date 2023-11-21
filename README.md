@@ -80,10 +80,10 @@ Cloudinary is one of the technologies used in this web application for processin
 
 - [x] Pagination
 - [x] 4 Filters for Products
-- [x] Popularity
-- [x] Most latest products
-- [x] Highest to Lowest Price
-- [x] Lowest to Highest Price
+  - Popularity
+  - Most latest products
+  - Highest to Lowest Price
+  - Lowest to Highest Price
 - [x] 404 Pages
 - [x] Loading Indicators
 - [x] Responsive Web Design
