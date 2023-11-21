@@ -6,7 +6,7 @@
 <br>
 </h1>
 
-<h4 align="center">An Online Store (Ecommerce) that is built on top of <a href="https://react.dev" target="_blank">React</a> and <a href="https://nodejs.org/en"> NodeJs </a> with <a href="https://expressjs.com">Express</a> and both are using <a href="https://www.typescriptlang.org">Typescript.</a></h4>
+<h4 align="center">An Online Store (Ecommerce) that is built on top of <a href="https://react.dev" target="_blank">React</a> and <a href="https://nodejs.org/en"> NodeJs </a> with <a href="https://expressjs.com">Express</a> with the power of <a href="https://www.typescriptlang.org">Typescript.</a></h4>
 
 # Quick Introduction
 
@@ -78,15 +78,15 @@ Cloudinary is one of the technologies used in this web application for processin
 
 ### Other Features
 
-- Pagination
-- 4 Filters for Products
-- Popularity
-- Most latest products
-- Highest to Lowest Price
-- Lowest to Highest Price
-- 404 Pages
-- Loading Indicators
-- Responsive Web Design
+- [x] Pagination
+- [x] 4 Filters for Products
+- [x] Popularity
+- [x] Most latest products
+- [x] Highest to Lowest Price
+- [x] Lowest to Highest Price
+- [x] 404 Pages
+- [x] Loading Indicators
+- [x] Responsive Web Design
 
 ## How to Use
 
