@@ -1,6 +1,6 @@
 <h1 align="center">
 <br>
-<img src="https://raw.githubusercontent.com/NighTzy-Godz/TrendEase/master/client-side/assets/img/trendease_home.png" width="70%">
+<img src="https://raw.githubusercontent.com/NighTzy-Godz/TrendEase/master/src/client-side/assets/img/trendease_home.png" width="70%">
 <br>
   Harmony - Server Side
 <br>
