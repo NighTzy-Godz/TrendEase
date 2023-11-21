@@ -122,7 +122,7 @@ After that, you can now follow these steps:
     npm install
 ```
 
-3. After that, create an .env file in the for both directories of the project and fill in the required environment variables based on the [ENV Section](#environment-variables)
+3. After that, create an `.env file` for both directories of the project and fill in the required environment variables based on the [ENV Section](#environment-variables)
 
    > **NOTE**
    > Make sure that you're using two VSCodes (One for Client Side and One for Server Side) or else this will not work.
@@ -140,11 +140,13 @@ After that, you can now follow these steps:
   ts-node index.js
 ```
 
-5. Enjoy and play around with the application :>
+5. Go to http://localhost:5173
+
+6. Enjoy and play around with the application :>
 
 ## Environment Variables
 
-Setup you Environment Variables for Safety. These Variables are required in order to run the whole web application.
+Setup your Environment Variables for the safety of the application. These Variables are also required in order to run the whole web application.
 
 ### For Front-End, these are the required variables
 
