@@ -12,6 +12,7 @@ interface ProductState {
   loading: boolean;
   statusCode: number | null;
 
+  productDeleted: boolean;
   products: Array<ProductData>;
   singleProduct: ProductData | null;
   myProducts: ProductData[] | null;
@@ -24,6 +25,7 @@ const initialState: ProductState = {
   statusCode: null,
   loading: false,
 
+  productDeleted: false,
   products: [],
   singleProduct: null,
   myProducts: null,
@@ -68,9 +70,20 @@ const slice = createSlice({
       product.error = "";
     },
 
+    singleProductDeleted: (product, action) => {
+      (product.loading = false),
+        (product.error = ""),
+        (product.productDeleted = true);
+      const filteredProducts = product.myProducts?.filter((product) => {
+        return product._id !== action.payload.data._id;
+      });
+      product.myProducts = filteredProducts as ProductData[];
+    },
+
     singleProductUpdated: (product, action) => {
       product.loading = false;
       product.singleProduct = action.payload.data;
+
       product.error = "";
       product.statusCode = action.payload.status;
     },
@@ -89,10 +102,14 @@ const slice = createSlice({
     setStatusCode: (product, action) => {
       product.statusCode = action.payload;
     },
+
+    setProductDeleted: (product, action) => {
+      product.productDeleted = action.payload;
+    },
   },
 });
 
-export const { setStatusCode } = slice.actions;
+export const { setProductDeleted, setStatusCode } = slice.actions;
 
 const {
   latestProductsRecieved,
@@ -103,6 +120,8 @@ const {
   myProductsRecieved,
   singleProductRecieved,
   singleProductUpdated,
+
+  singleProductDeleted,
   topProductsRecieved,
 } = slice.actions;
 
@@ -172,6 +191,16 @@ export const createProduct = (data: ProductCreateData) =>
     onSuccess: productCreated.type,
     onError: productRequestFailed.type,
     successMessage: "Successfully Created the Product",
+  });
+
+export const deleteProduct = (productId: string) =>
+  apiCallBegan({
+    url: `/product/deleteProduct/${productId}`,
+    method: "DELETE",
+    onStart: productRequested.type,
+    onSuccess: singleProductDeleted.type,
+    onError: productRequestFailed.type,
+    successMessage: "Successfully Deleted the Product",
   });
 
 export default slice.reducer;

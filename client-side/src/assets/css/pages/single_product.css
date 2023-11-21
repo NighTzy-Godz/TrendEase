@@ -115,6 +115,22 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
+
+  .single_product_delete h3 {
+    color: var(--main-color);
+    margin-bottom: 20px;
+  }
+
+  .single_product_delete_btn {
+    display: flex;
+    gap: 20px;
+  }
+
+  .single_product_delete_btn button {
+    width: 100%;
+    padding: 5px;
+    font-size: 15px;
+  }
 }
 
 @media screen and (992px <= width <= 1199px) {
