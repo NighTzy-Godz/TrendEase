@@ -5,6 +5,7 @@ import multer from "multer";
 const upload = multer({ storage });
 import {
   createProduct,
+  deleteProduct,
   getAllMyProducts,
   getAllProducts,
   getLatestProducts,
@@ -25,5 +26,6 @@ router.get("/latestProducts", getLatestProducts);
 
 router.post("/add-product", upload.array("img"), isAuth, createProduct);
 router.put("/edit-product/:productId", isAuth, updateProduct);
+router.delete("/deleteProduct/:productId", isAuth, deleteProduct);
 
 export default router;

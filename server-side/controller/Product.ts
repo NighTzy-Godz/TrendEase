@@ -222,3 +222,21 @@ export const updateProduct = async (
     next(error);
   }
 };
+
+export const deleteProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { productId } = req.params;
+
+    const deleteProduct = await Product.findByIdAndDelete(productId);
+
+    if (!deleteProduct) return res.status(404).send("Product did not found");
+
+    res.send(deleteProduct);
+  } catch (error) {
+    next(error);
+  }
+};
